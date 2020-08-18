@@ -23,7 +23,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(_signatureBuilder.GenerateSignature(ApiConstants.SessionRelativePath))
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp);
+                .Append(ApiConstants.TimeStamp());
 
             return sb.ToString();
         }
@@ -39,7 +39,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp);
+                .Append(ApiConstants.TimeStamp());
 
             return sb.ToString();
         }
@@ -54,7 +54,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName);
 
@@ -72,7 +72,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName);
 
@@ -90,7 +90,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName)
                 .Append(AsciiConstants.ForwardSlash)
@@ -109,7 +109,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName);
 
@@ -129,7 +129,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName);
 
@@ -147,7 +147,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName);
 
@@ -165,7 +165,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(playerName)
                 .Append(AsciiConstants.ForwardSlash)
@@ -185,7 +185,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(langaugeId);
 
@@ -203,7 +203,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(championId)
                 .Append(AsciiConstants.ForwardSlash)
@@ -223,7 +223,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(langaugeId);
 
@@ -241,7 +241,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(matchId);
 
@@ -259,7 +259,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(string.Join(AsciiConstants.Comma, matchIds));
 
@@ -277,7 +277,7 @@ namespace Paladins.Common.Builders
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(sessionId)
                 .Append(AsciiConstants.ForwardSlash)
-                .Append(ApiConstants.TimeStamp)
+                .Append(ApiConstants.TimeStamp())
                 .Append(AsciiConstants.ForwardSlash)
                 .Append(queue)
                 .Append(AsciiConstants.ForwardSlash)

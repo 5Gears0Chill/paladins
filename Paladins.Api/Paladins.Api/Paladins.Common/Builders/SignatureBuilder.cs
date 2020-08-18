@@ -29,7 +29,7 @@ namespace Paladins.Client.Session
             {
                 relativePath = relativePath[0..^5];
             }
-            var str = ApiConstants.DevKey + relativePath + ApiConstants.AuthKey + ApiConstants.TimeStamp;
+            var str = ApiConstants.DevKey + relativePath + ApiConstants.AuthKey + ApiConstants.TimeStamp();
             return str;
         }
 

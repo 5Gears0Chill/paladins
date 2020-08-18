@@ -16,8 +16,10 @@ namespace Paladins.Common.Constants
         /// <summary>
         /// Common Variables
         /// </summary>
-        public static string TimeStamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-
+        public static string TimeStamp()
+        {
+            return DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+        }
         /// <summary>
         /// Session Variables
         /// </summary>
