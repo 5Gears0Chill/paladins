@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Paladins.Client\Paladins.Client.csproj" />
     <ProjectReference Include="..\Paladins.Common\Paladins.Common.csproj" />
+    <ProjectReference Include="..\Paladins.Repository\Paladins.Repository.csproj" />
     <ProjectReference Include="..\Paladins.Service\Paladins.Service.csproj" />
   </ItemGroup>
 

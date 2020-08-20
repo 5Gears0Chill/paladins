@@ -6,6 +6,8 @@ using Paladins.Common.Builders;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Repository.PaladinsDbContext;
+using Paladins.Repository.PaladinsDbContext.Interfaces;
 using Paladins.Service.Services;
 using System;
 using System.Collections.Generic;
@@ -43,6 +45,12 @@ namespace Paladins.Api.StartupExtensions
         {
             services.AddScoped<IRequestUrlBuilder, RequestUrlBuilder>();
             services.AddScoped<ISignatureBuilder, SignatureBuilder>();
+        }
+
+        private static void RegisterRepository(IServiceCollection services)
+        {
+            services.AddScoped<IDbContext, PaladinsDbContext>();
+
         }
     }
 }
