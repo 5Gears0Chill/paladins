@@ -1,0 +1,100 @@
+{
+	"queues":[
+		{
+			"id": 424,
+			"name":"LIVE Siege"
+		},
+		{
+			"id": 425,
+			"name":"LIVE Practice Siege"
+		},
+		{
+			"id": 426,
+			"name":"LIVE Competitive"
+		},
+		{
+			"id": 445,
+			"name":"LIVE Test Maps"
+		},
+		{
+			"id": 452,
+			"name":"LIVE Onslaught"
+		},
+		{
+			"id": 453,
+			"name":"LIVE Onslaught Practice"
+		},
+		{
+			"id": 465,
+			"name":"Classic Siege"
+		},
+		{
+			"id": 469,
+			"name":"LIVE Team Deathmatch"
+		},
+		{
+			"id": 470,
+			"name":"LIVE Team Deathmatch Practice"
+		},
+		{
+			"id": 468,
+			"name":"Custom Team Deathmatch Trade District"
+		},
+		{
+			"id": 471,		
+			"name":"Custom Team Deathmatch Foreman's Rise"
+		},
+		{
+			"id": 472,
+			"name":"Custom Team Deathmatch Magistrate's Archives"
+		},
+		{
+			"id": 423,
+			"name":"Custom Siege Stone Keep"
+		},
+		{
+			"id": 430,
+			"name":"Custom Siege Timber Mill"
+		},
+				{
+			"id": 431,
+			"name":"Custom Siege Fish Market"
+		},
+		{
+			"id": 432,
+			"name":"Custom Siege Frozen Guard"
+		},
+		{
+			"id": 433,
+			"name":"Custom Siege Frog Isle"
+		},
+		{
+			"id": 438,
+			"name":"Custom Siege Jaguar Falls"
+		},
+		{
+			"id": 439,
+			"name":"Custom Siege Ice Mines"
+		},
+		{
+			"id": 440,
+			"name":"Custom Siege Serpent Beach"
+		},
+		{
+			"id": 458,
+			"name":"Custom Siege Brightmarsh"
+		},
+				{
+			"id": 459,
+			"name":"Custom Siege Splitstone Quarry"
+		},
+				{
+			"id": 454,
+			"name":"Custom Onslaught Snowfall Junction"
+		},
+		{
+			"id": 455,
+			"name":"Custom Onslaught Primal Court"
+		}
+	]
+}

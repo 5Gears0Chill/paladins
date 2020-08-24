@@ -10,5 +10,6 @@ namespace Paladins.Repository.SeedData.Data
     public interface DataRoot
     {
         string GetData();
+
     }
 }

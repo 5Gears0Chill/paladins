@@ -8,6 +8,7 @@ using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Repository.Mappers.Languages;
+using Paladins.Repository.Mappers.Queues;
 using Paladins.Repository.PaladinsDbContext;
 using Paladins.Repository.PaladinsDbContext.Interfaces;
 using Paladins.Repository.Repositories;
@@ -57,11 +58,13 @@ namespace Paladins.Api.StartupExtensions
         {
             services.AddScoped<IDbContext, PaladinsDbContext>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IQueueRepository, QueueRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
         {
             services.AddScoped<ILanguageMapper, LanguageMapper>();
+            services.AddScoped<IQueueMapper, QueueMapper>();
         }
     }
 }
