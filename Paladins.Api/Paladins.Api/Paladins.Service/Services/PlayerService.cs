@@ -23,7 +23,22 @@ namespace Paladins.Service.Services
         public async Task<Response<List<PlayerClientModel>>> GetPlayerAsync(PlayerBaseRequest request)
         {
             var response = await _playerClient.GetClientPlayerAsync(request);
-
+            //inject repository to do the following
+            /*
+             * Check to see if player id is in the db.
+             *      if no
+             *      Create a new entry
+             *      Fetch player friends 
+             *          -> insert into the db
+             *      Fetch player champion stats
+             *          -> insert into the db
+             *      Fetch player match history
+             *          -> insert into the db
+             *      if yes
+             *      Check to see insertion date
+             *          -> if older than x time last logon time
+             *              -> update player stats
+             */
             return new Response<List<PlayerClientModel>>() { Data = response};
         } 
 

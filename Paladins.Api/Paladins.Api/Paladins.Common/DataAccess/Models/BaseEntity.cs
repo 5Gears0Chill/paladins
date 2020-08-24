@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paladins.Repository.Entities
+namespace Paladins.Common.DataAccess.Models
 {
     public abstract partial class BaseEntity
     {

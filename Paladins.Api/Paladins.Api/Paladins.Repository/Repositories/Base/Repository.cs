@@ -1,25 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Paladins.Common.Constants;
-using Paladins.Repository.EFModels.DataAccess;
-using Paladins.Repository.Entities;
+using Paladins.Common.DataAccess.Models;
 using Paladins.Repository.PaladinsDbContext.Interfaces;
-using Paladins.Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Paladins.Repository.Repositories
+namespace Paladins.Repository.Repositories.Base
 {
-    public partial class EfRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public partial class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
 
         private DbSet<TEntity> _entities;
         private readonly IDbContext _context;
 
 
-        public EfRepository(IDbContext context)
+        public Repository(IDbContext context)
         {
             _context = context;
         }

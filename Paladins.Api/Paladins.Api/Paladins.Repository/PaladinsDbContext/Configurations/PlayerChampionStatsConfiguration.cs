@@ -13,7 +13,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.Property(e => e.PchampionId).HasColumnName("PChampionId");
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Pchampion)
                 .WithMany(p => p.PlayerChampionStats)

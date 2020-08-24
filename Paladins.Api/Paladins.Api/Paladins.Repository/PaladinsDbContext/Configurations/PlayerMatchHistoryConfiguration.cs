@@ -11,7 +11,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
     {
         public void Configure(EntityTypeBuilder<PlayerMatchHistory> entity)
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.MatchDetails)
                 .WithMany(p => p.PlayerMatchHistory)

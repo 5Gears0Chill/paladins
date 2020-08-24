@@ -11,7 +11,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
     {
         public void Configure(EntityTypeBuilder<LoadoutSelected> entity)
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.Property(e => e.LoadoutItemName)
                 .IsRequired()

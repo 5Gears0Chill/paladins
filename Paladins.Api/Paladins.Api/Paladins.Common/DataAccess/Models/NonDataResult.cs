@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Paladins.Repository.EFModels.DataAccess
+namespace Paladins.Common.DataAccess.Models
 {
     public class NonDataResult
     {
@@ -25,5 +25,4 @@ namespace Paladins.Repository.EFModels.DataAccess
             this.RowsAffected = rowsAffected;
         }
     }
-
 }

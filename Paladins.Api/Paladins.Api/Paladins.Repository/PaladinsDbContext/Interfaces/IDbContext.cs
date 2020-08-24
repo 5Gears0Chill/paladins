@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Paladins.Repository.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Paladins.Common.DataAccess.Models;
 using System.Threading.Tasks;
 
 namespace Paladins.Repository.PaladinsDbContext.Interfaces

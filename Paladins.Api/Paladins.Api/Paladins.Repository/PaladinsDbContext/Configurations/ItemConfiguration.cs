@@ -17,7 +17,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
                 .HasName("CHK_PItemId")
                 .IsUnique();
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.Property(e => e.Description)
                 .IsRequired()

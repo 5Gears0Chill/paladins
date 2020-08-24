@@ -12,7 +12,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
         public void Configure(EntityTypeBuilder<ChampionAbilities> entity)
         {
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Ability)
                 .WithMany(p => p.ChampionAbilities)

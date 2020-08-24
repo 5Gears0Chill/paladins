@@ -5,9 +5,12 @@ using Paladins.Client.Session;
 using Paladins.Common.Builders;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
+using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Repository.Mappers.Languages;
 using Paladins.Repository.PaladinsDbContext;
 using Paladins.Repository.PaladinsDbContext.Interfaces;
+using Paladins.Repository.Repositories;
 using Paladins.Service.Services;
 using System;
 using System.Collections.Generic;
@@ -23,6 +26,8 @@ namespace Paladins.Api.StartupExtensions
             RegisterCommon(services);
             RegisterClients(services);
             RegisterServices(services);
+            RegisterRepositories(services);
+            RegisterMappers(services);
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -31,6 +36,7 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<IMatchService, MatchService>();
+            services.AddScoped<ISeedService, SeedService>();
         }
 
         private static void RegisterClients(IServiceCollection services)
@@ -47,10 +53,15 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<ISignatureBuilder, SignatureBuilder>();
         }
 
-        private static void RegisterRepository(IServiceCollection services)
+        private static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<IDbContext, PaladinsDbContext>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+        }
 
+        private static void RegisterMappers(IServiceCollection services)
+        {
+            services.AddScoped<ILanguageMapper, LanguageMapper>();
         }
     }
 }

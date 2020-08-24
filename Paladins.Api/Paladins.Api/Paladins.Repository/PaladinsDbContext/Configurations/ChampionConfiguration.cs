@@ -16,7 +16,7 @@ namespace Paladins.Repository.PaladinsDbContext.Configurations
                 .HasName("CHK_PChampionId")
                 .IsUnique();
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.Property(e => e.IsLatestChampion)
                 .IsRequired()

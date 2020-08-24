@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Paladins.Common.DataAccess.Models;
 using Paladins.Repository.Entities;
 using Paladins.Repository.PaladinsDbContext.Configurations;
 using Paladins.Repository.PaladinsDbContext.Interfaces;
@@ -10,6 +13,9 @@ namespace Paladins.Repository.PaladinsDbContext
 {
     public partial class PaladinsDbContext : DbContext, IDbContext
     {
+        public static readonly ILoggerFactory loggerFactory 
+            = LoggerFactory.Create(builder => { builder.AddConsole(); });
+
         #region Ctor
         public PaladinsDbContext()
         {
@@ -48,10 +54,13 @@ namespace Paladins.Repository.PaladinsDbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Paladins_DB;User Id=sa;Password=Yesterday280396!;");
+            {            
+                optionsBuilder
+                    .UseLoggerFactory(loggerFactory)
+                    .EnableSensitiveDataLogging()
+                     .UseSqlServer("Server=.\\SQLEXPRESS;Database=Paladins_DB;User Id=sa;Password=Yesterday280396!;"); ;
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

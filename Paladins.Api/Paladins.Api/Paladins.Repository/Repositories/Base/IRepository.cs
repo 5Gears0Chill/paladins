@@ -1,11 +1,8 @@
-﻿using Paladins.Repository.EFModels.DataAccess;
-using Paladins.Repository.Entities;
-using System;
+﻿using Paladins.Common.DataAccess.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Paladins.Repository.Repositories.Interfaces
+namespace Paladins.Repository.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity: BaseEntity
     {
