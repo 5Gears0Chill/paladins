@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+using Paladins.Common.Configuration;
 using Paladins.Common.DataAccess.Models;
+using Paladins.Common.Interfaces.Configuration;
 using Paladins.Repository.Entities;
 using Paladins.Repository.PaladinsDbContext.Configurations;
 using Paladins.Repository.PaladinsDbContext.Interfaces;
+using System.Threading.Tasks;
 
 namespace Paladins.Repository.PaladinsDbContext
 {
@@ -16,15 +15,20 @@ namespace Paladins.Repository.PaladinsDbContext
         public static readonly ILoggerFactory loggerFactory 
             = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
+        private readonly IAppSettings _appSettings;
+
         #region Ctor
-        public PaladinsDbContext()
+        public PaladinsDbContext(IAppSettings appSettings)
         {
+            _appSettings = appSettings;
         }
 
-        public PaladinsDbContext(DbContextOptions<PaladinsDbContext> options)
+        public PaladinsDbContext(DbContextOptions<PaladinsDbContext> options, AppSettings appSettings)
             : base(options)
         {
+            _appSettings = appSettings;
         }
+
         #endregion
         #region DbSets
 
@@ -58,10 +62,11 @@ namespace Paladins.Repository.PaladinsDbContext
                 optionsBuilder
                     .UseLoggerFactory(loggerFactory)
                     .EnableSensitiveDataLogging()
-                     .UseSqlServer("Server=.\\SQLEXPRESS;Database=Paladins_DB;User Id=sa;Password=Yesterday280396!;"); ;
+                     .UseSqlServer(_appSettings.GetDataConnections().ConnectionString);
             }
 
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
