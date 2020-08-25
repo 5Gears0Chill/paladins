@@ -15,11 +15,6 @@ namespace Paladins.Common.DataAccess.Models
                 return RowsAffected > 0;
             }
         }
-
-        public NonDataResult()
-        {
-        }
-
         public NonDataResult(int rowsAffected)
         {
             this.RowsAffected = rowsAffected;

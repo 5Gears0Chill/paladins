@@ -1,23 +1,20 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Client.Clients;
 using Paladins.Client.Session;
 using Paladins.Common.Builders;
+using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
+using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Repository.DbContexts;
 using Paladins.Repository.Mappers.Languages;
 using Paladins.Repository.Mappers.Queues;
 using Paladins.Repository.Mappers.Tiers;
-using Paladins.Repository.PaladinsDbContext;
-using Paladins.Repository.PaladinsDbContext.Interfaces;
 using Paladins.Repository.Repositories;
 using Paladins.Service.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Paladins.Api.StartupExtensions
 {
@@ -30,6 +27,7 @@ namespace Paladins.Api.StartupExtensions
             RegisterServices(services);
             RegisterRepositories(services);
             RegisterMappers(services);
+           
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -57,7 +55,6 @@ namespace Paladins.Api.StartupExtensions
 
         private static void RegisterRepositories(IServiceCollection services)
         {
-            services.AddScoped<IDbContext, PaladinsDbContext>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IQueueRepository, QueueRepository>();
         }
@@ -67,6 +64,16 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<ILanguageMapper, LanguageMapper>();
             services.AddScoped<IQueueMapper, QueueMapper>();
             services.AddScoped<ITierMapper, TierMapper>();
+        }
+
+        public static void RegisterUnitOfWorkManagers(this IServiceCollection services, IServiceProvider serviceProvider)
+        {
+            var resolver = new RepositoryResolver(serviceProvider);
+            services.AddScoped<IRepositoryResolver>((_) => resolver);
+
+            var paladinsUnitOfWork = new UnitOfWork<PaladinsDbContext>(resolver);
+
+            services.AddScoped<IUnitOfWorkManager>((_) => new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
         }
     }
 }

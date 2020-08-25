@@ -40,6 +40,8 @@ namespace Paladins.Api
             RegisterDependencyInjection(services);
             services.ConfigureAppSettingsJson(_configuration);
             services.RegisterAppSettings();
+            var sp = services.BuildServiceProvider();
+            services.RegisterUnitOfWorkManagers(sp);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

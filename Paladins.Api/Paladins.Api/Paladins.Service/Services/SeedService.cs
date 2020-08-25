@@ -1,4 +1,5 @@
 ﻿using Paladins.Common.DataAccess.Models;
+using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
 using System.Collections.Generic;
@@ -18,20 +19,21 @@ namespace Paladins.Service.Services
     /// </summary>
     public class SeedService : ISeedService
     {
-        private readonly ILanguageRepository _languageRepository;
-        private readonly IQueueRepository _queueRepository;
-        public SeedService(ILanguageRepository languageRepository, IQueueRepository queueRepository)
+
+        private readonly IUnitOfWorkManager _languageUnitOfWorkManager;
+        private readonly IUnitOfWorkManager _queueUnitOfWorkManager;
+        public SeedService(IUnitOfWorkManager languageUnitOfWorkManager, IUnitOfWorkManager queueUnitOfWorkManager)
         {
-            _languageRepository = languageRepository;
-            _queueRepository = queueRepository;
+            _languageUnitOfWorkManager = languageUnitOfWorkManager;
+            _queueUnitOfWorkManager = queueUnitOfWorkManager;
         }
 
         public async Task<IEnumerable<NonDataResult>> SeedAsync()
         {
             //insert languages
-            var langaugeResult =  await _languageRepository.InsertBaseLanguageOptionsAsync();
+            var langaugeResult = await _languageUnitOfWorkManager.ExecuteSingleAsync<ILanguageRepository, NonDataResult>(u => u.InsertBaseLanguageOptionsAsync());
             //insert queues
-            var queueResult = await _queueRepository.InsertBaseQueuesAsync();
+            var queueResult = await _queueUnitOfWorkManager.ExecuteSingleAsync<IQueueRepository, NonDataResult>(u => u.InsertBaseQueuesAsync());
             return new List<NonDataResult>() { langaugeResult, queueResult };
             
         }

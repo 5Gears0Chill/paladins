@@ -1,21 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Paladins.Common.DataAccess.Models;
+using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Repositories;
-using Paladins.Repository.Entities;
+using Paladins.Repository.DbContexts;
 using Paladins.Repository.Mappers.Languages;
-using Paladins.Repository.PaladinsDbContext.Interfaces;
-using Paladins.Repository.Repositories.Base;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Paladins.Repository.Repositories
 {
-    public class LanguageRepository : Repository<Language>, ILanguageRepository
+    public class LanguageRepository : Repository<PaladinsDbContext>, ILanguageRepository
     {
         private readonly ILanguageMapper _mapper;
 
-        public LanguageRepository(IDbContext context, ILanguageMapper mapper)
-            :base(context)
+        public LanguageRepository(ILanguageMapper mapper)
         {
             _mapper = mapper;
         }
@@ -23,13 +21,16 @@ namespace Paladins.Repository.Repositories
         public async Task<NonDataResult> InsertBaseLanguageOptionsAsync()
         {
             var languages = _mapper.MapEnumerable();
-            return await InsertEnumerableAsync(languages);
+            return await InsertListAsync(languages);
         }
 
         public async Task<NonDataResult> ClearTableAsync()
         {
-            var languages = await Entities.Select(l => l).ToListAsync();
-            return await DeleteEnumerableAsync(languages);
+            var languages = await Context.Language
+                .AsNoTracking()
+                .Select(l => l)
+                .ToListAsync();
+            return await DeleteListAsync(languages);
         }
     }
 }
