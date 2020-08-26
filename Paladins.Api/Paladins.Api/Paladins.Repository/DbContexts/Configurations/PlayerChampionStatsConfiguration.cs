@@ -27,6 +27,18 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasForeignKey(d => d.PlayerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PlayerChampionStats_Player");
+
+            entity.Property(e => e.CreatedOn)
+              .IsRequired()
+              .IsUnicode(false)
+              .HasColumnType("datetime")
+              .HasDefaultValue(DateTime.UtcNow);
+
+            entity.Property(e => e.LastUpdatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

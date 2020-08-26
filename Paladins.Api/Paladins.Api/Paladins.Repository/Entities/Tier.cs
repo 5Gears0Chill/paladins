@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Tier : BaseEntity
+    public partial class Tier : AuditBaseEntity
     {
         public Tier()
         {

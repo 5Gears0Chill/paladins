@@ -67,6 +67,18 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasForeignKey(d => d.PqueueId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MatchDetails_Queue");
+
+            entity.Property(e => e.CreatedOn)
+              .IsRequired()
+              .IsUnicode(false)
+              .HasColumnType("datetime")
+              .HasDefaultValue(DateTime.UtcNow);
+
+            entity.Property(e => e.LastUpdatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

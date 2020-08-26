@@ -47,6 +47,18 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .IsUnicode(false);
 
             entity.Property(e => e.PplayerId).HasColumnName("PPlayerId");
+
+            entity.Property(e => e.CreatedOn)
+              .IsRequired()
+              .IsUnicode(false)
+              .HasColumnType("datetime")
+              .HasDefaultValue(DateTime.UtcNow);
+
+            entity.Property(e => e.LastUpdatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
         } 
     }
 }

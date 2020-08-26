@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Champion : BaseEntity
+    public partial class Champion : AuditBaseEntity
     {
         public Champion()
         {

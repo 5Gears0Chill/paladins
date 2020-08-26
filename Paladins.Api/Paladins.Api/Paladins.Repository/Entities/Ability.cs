@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Ability : BaseEntity
+    public partial class Ability : AuditBaseEntity
     {
         public Ability()
         {

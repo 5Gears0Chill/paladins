@@ -20,21 +20,21 @@ namespace Paladins.Service.Services
     public class SeedService : ISeedService
     {
 
-        private readonly IUnitOfWorkManager _languageUnitOfWorkManager;
-        private readonly IUnitOfWorkManager _queueUnitOfWorkManager;
-        public SeedService(IUnitOfWorkManager languageUnitOfWorkManager, IUnitOfWorkManager queueUnitOfWorkManager)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        public SeedService(IUnitOfWorkManager unitOfWorkManager)
         {
-            _languageUnitOfWorkManager = languageUnitOfWorkManager;
-            _queueUnitOfWorkManager = queueUnitOfWorkManager;
+            _unitOfWorkManager = unitOfWorkManager;   
         }
 
         public async Task<IEnumerable<NonDataResult>> SeedAsync()
         {
             //insert languages
-            var langaugeResult = await _languageUnitOfWorkManager.ExecuteSingleAsync<ILanguageRepository, NonDataResult>(u => u.InsertBaseLanguageOptionsAsync());
+            var langaugeResult = await _unitOfWorkManager.ExecuteSingleAsync<ILanguageRepository, NonDataResult>(u => u.InsertBaseLanguageOptionsAsync());
             //insert queues
-            var queueResult = await _queueUnitOfWorkManager.ExecuteSingleAsync<IQueueRepository, NonDataResult>(u => u.InsertBaseQueuesAsync());
-            return new List<NonDataResult>() { langaugeResult, queueResult };
+            var queueResult = await _unitOfWorkManager.ExecuteSingleAsync<IQueueRepository, NonDataResult>(u => u.InsertBaseQueuesAsync());
+            //insert tiers
+            var tierResult = await _unitOfWorkManager.ExecuteSingleAsync<ITierRepository, NonDataResult>(u => u.InsertBaseTiersAsync());
+            return new List<NonDataResult>() { langaugeResult, queueResult, tierResult };
             
         }
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Queue : BaseEntity
+    public partial class Queue : AuditBaseEntity
     {
         public Queue()
         {

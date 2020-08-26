@@ -1,4 +1,5 @@
-﻿using Paladins.Common.DataAccess.Models;
+﻿using Paladins.Common.Auditing;
+using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Repository.DbContexts;
@@ -12,7 +13,8 @@ namespace Paladins.Repository.Repositories
     {
         private readonly IQueueMapper _mapper;
 
-        public QueueRepository(IQueueMapper mapper)
+        public QueueRepository(IQueueMapper mapper, IAuditManager auditManager)
+            : base(auditManager)
         {
             _mapper = mapper;
         }

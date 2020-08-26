@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Repositories;
@@ -13,7 +14,8 @@ namespace Paladins.Repository.Repositories
     {
         private readonly ILanguageMapper _mapper;
 
-        public LanguageRepository(ILanguageMapper mapper)
+        public LanguageRepository(ILanguageMapper mapper, IAuditManager auditManager)
+            :base(auditManager)
         {
             _mapper = mapper;
         }

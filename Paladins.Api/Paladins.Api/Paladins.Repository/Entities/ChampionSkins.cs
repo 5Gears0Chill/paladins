@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class ChampionSkins : BaseEntity
+    public partial class ChampionSkins : AuditBaseEntity
     {
         public int SkinId { get; set; }
         public int ChampionId { get; set; }

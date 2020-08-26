@@ -1,8 +1,8 @@
-﻿using Paladins.Common.DataAccess.Models;
+﻿using Paladins.Common.Auditing;
+using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Repository.DbContexts;
-using Paladins.Repository.Entities;
 using Paladins.Repository.Mappers.Tiers;
 using System.Threading.Tasks;
 
@@ -11,7 +11,8 @@ namespace Paladins.Repository.Repositories
     public class TierRepository : Repository<PaladinsDbContext>, ITierRepository
     {
         private readonly ITierMapper _mapper;
-        public TierRepository(ITierMapper mapper)
+        public TierRepository(ITierMapper mapper, IAuditManager auditManager)
+            : base(auditManager)
         {
             _mapper = mapper;
         }

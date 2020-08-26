@@ -30,6 +30,18 @@ namespace Paladins.Repository.DbContexts.Configurations
             entity.Property(e => e.Url)
                 .IsRequired()
                 .IsUnicode(false);
+
+            entity.Property(e => e.CreatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
+
+            entity.Property(e => e.LastUpdatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Friends : BaseEntity
+    public partial class Friends : AuditBaseEntity
     {
         public Friends()
         {

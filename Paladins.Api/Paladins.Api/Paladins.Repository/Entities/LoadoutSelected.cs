@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class LoadoutSelected : BaseEntity
+    public partial class LoadoutSelected : AuditBaseEntity
     {
         public int MatchDetailsId { get; set; }
         public int PmatchId { get; set; }

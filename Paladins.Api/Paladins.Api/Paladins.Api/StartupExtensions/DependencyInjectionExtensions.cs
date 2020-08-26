@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Client.Clients;
 using Paladins.Client.Session;
+using Paladins.Common.Auditing;
 using Paladins.Common.Builders;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Builders;
@@ -25,6 +26,7 @@ namespace Paladins.Api.StartupExtensions
             RegisterCommon(services);
             RegisterClients(services);
             RegisterServices(services);
+            RegisterAuditing(services);
             RegisterRepositories(services);
             RegisterMappers(services);
            
@@ -57,6 +59,7 @@ namespace Paladins.Api.StartupExtensions
         {
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IQueueRepository, QueueRepository>();
+            services.AddScoped<ITierRepository, TierRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
@@ -64,6 +67,11 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<ILanguageMapper, LanguageMapper>();
             services.AddScoped<IQueueMapper, QueueMapper>();
             services.AddScoped<ITierMapper, TierMapper>();
+        }
+
+        private static void RegisterAuditing(IServiceCollection services)
+        {
+            services.AddScoped<IAuditManager, AuditManager>();
         }
 
         public static void RegisterUnitOfWorkManagers(this IServiceCollection services, IServiceProvider serviceProvider)

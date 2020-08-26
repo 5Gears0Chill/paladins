@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class PlayerMatchHistory : BaseEntity
+    public partial class PlayerMatchHistory : AuditBaseEntity
     {
         public int PlayerId { get; set; }
         public int MatchDetailsId { get; set; }

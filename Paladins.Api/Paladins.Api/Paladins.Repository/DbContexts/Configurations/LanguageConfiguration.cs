@@ -21,6 +21,18 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasMaxLength(200);
 
             entity.Property(e => e.PlanguageId).HasColumnName("PLanguageId");
+
+            entity.Property(e => e.CreatedOn)
+              .IsRequired()
+              .IsUnicode(false)
+              .HasColumnType("datetime")
+              .HasDefaultValue(DateTime.UtcNow);
+
+            entity.Property(e => e.LastUpdatedOn)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnType("datetime")
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

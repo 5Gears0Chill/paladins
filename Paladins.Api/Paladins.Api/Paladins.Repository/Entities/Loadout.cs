@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class Loadout : BaseEntity
+    public partial class Loadout : AuditBaseEntity
     {
         public Loadout()
         {

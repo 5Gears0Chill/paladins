@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class MatchDetails : BaseEntity
+    public partial class MatchDetails : AuditBaseEntity
     {
         public MatchDetails()
         {
