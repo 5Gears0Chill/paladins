@@ -66,7 +66,7 @@ namespace Paladins.Common.DataAccess.Patterns
         public async Task<TResult> ExecuteReadAsync<TResult>(Func<IUnitOfWork, Task<TResult>> runQuery)
         {
             TResult result;
-            result = await runQuery(this._unitOfWork);
+            result = await runQuery(_unitOfWork);
 
             return result;
         }

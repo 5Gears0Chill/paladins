@@ -17,10 +17,12 @@ namespace Paladins.Repository.Entities
 
         public int PchampionId { get; set; }
         public string Role { get; set; }
+        public string Name { get; set; }
         public string Title { get; set; }
         public string Lore { get; set; }
         public int Health { get; set; }
         public int Speed { get; set; }
+        public string Url { get; set; }
         public string IsLatestChampion { get; set; }
 
         public virtual ICollection<ChampionAbilities> ChampionAbilities { get; set; }

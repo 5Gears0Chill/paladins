@@ -3,13 +3,21 @@ using Paladins.Client.Clients;
 using Paladins.Client.Session;
 using Paladins.Common.Auditing;
 using Paladins.Common.Builders;
+using Paladins.Common.ClientModels.General;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.DataAccess;
+using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Mappers;
+using Paladins.Common.Models;
 using Paladins.Repository.DbContexts;
+using Paladins.Repository.Entities;
+using Paladins.Repository.Mappers.Abilities;
+using Paladins.Repository.Mappers.Champions;
+using Paladins.Repository.Mappers.Items;
 using Paladins.Repository.Mappers.Languages;
 using Paladins.Repository.Mappers.Queues;
 using Paladins.Repository.Mappers.Tiers;
@@ -60,6 +68,10 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IQueueRepository, QueueRepository>();
             services.AddScoped<ITierRepository, TierRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IAbilityRepository, AbilityRepository>();
+            services.AddScoped<IChampionRepository, ChampionRepository>();
+            services.AddScoped<IChampionAbilitiesRepository, ChampionAbilitiesRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
@@ -67,6 +79,11 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<ILanguageMapper, LanguageMapper>();
             services.AddScoped<IQueueMapper, QueueMapper>();
             services.AddScoped<ITierMapper, TierMapper>();
+            services.AddScoped<IMapper<ItemModel, Item>, ItemEFMapper>();
+            services.AddScoped<IMapper<GeneralItemsClientModel, ItemModel>, ItemMapper>();
+            services.AddScoped<IMapper<GeneralChampionsClientModel, ChampionModel>, ChampionMapper>();
+            services.AddScoped<IMapper<AbilityModel, Repository.Entities.Ability>,AbilityEFMapper>();
+            services.AddScoped<IMapper<ChampionModel, Repository.Entities.Champion>,ChampionEFMapper>();
         }
 
         private static void RegisterAuditing(IServiceCollection services)
@@ -81,7 +98,8 @@ namespace Paladins.Api.StartupExtensions
 
             var paladinsUnitOfWork = new UnitOfWork<PaladinsDbContext>(resolver);
 
-            services.AddScoped<IUnitOfWorkManager>((_) => new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
+            services.AddScoped<IUnitOfWorkManager>((_) => 
+            new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
         }
     }
 }

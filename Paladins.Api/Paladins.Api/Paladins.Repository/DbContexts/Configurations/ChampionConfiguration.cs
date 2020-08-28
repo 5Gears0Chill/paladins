@@ -27,6 +27,14 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .IsRequired()
                 .IsUnicode(false);
 
+            entity.Property(e => e.Url)
+                .IsRequired()
+                .IsUnicode(false);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .IsUnicode(false);
+
             entity.Property(e => e.PchampionId).HasColumnName("PChampionId");
 
             entity.Property(e => e.Role)
