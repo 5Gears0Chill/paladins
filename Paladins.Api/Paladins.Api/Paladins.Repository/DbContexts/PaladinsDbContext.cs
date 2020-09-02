@@ -44,6 +44,7 @@ namespace Paladins.Repository.DbContexts
         public virtual DbSet<PlayerChampionStats> PlayerChampionStats { get; set; }
         public virtual DbSet<PlayerFriends> PlayerFriends { get; set; }
         public virtual DbSet<PlayerMatchHistory> PlayerMatchHistory { get; set; }
+        public virtual DbSet<PlayerRankDetails> PlayerRankDetails { get; set; }
         public virtual DbSet<Queue> Queue { get; set; }
         public virtual DbSet<Skin> Skin { get; set; }
         public virtual DbSet<Tier> Tier { get; set; }
@@ -80,6 +81,7 @@ namespace Paladins.Repository.DbContexts
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerFriendsConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerMatchHistoryConfiguration());
+            modelBuilder.ApplyConfiguration(new PlayerRankDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new QueueConfiguration());
             modelBuilder.ApplyConfiguration(new SkinConfiguration());
             modelBuilder.ApplyConfiguration(new TierConfiguration());

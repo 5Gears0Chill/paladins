@@ -11,8 +11,6 @@ namespace Paladins.Repository.DbContexts.Configurations
     {
         public void Configure(EntityTypeBuilder<PlayerChampionStats> entity)
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Pchampion)

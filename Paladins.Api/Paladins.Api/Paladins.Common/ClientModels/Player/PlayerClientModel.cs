@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Paladins.Common.ClientModels.Player
+﻿namespace Paladins.Common.ClientModels.Player
 {
+    using Newtonsoft.Json;
+    using Paladins.Common.Converters;
     using System;
     using System.Collections.Generic;
-
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Paladins.Common.Converters;
 
     public partial class PlayerClientModel
     {

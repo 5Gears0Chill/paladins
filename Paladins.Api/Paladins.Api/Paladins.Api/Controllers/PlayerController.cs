@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
 
@@ -26,7 +27,7 @@ namespace Paladins.Api.Controllers
         [HttpPost]
         [ActionName(nameof(GetPlayer))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<PlayerClientModel>>), 200)]
+        [ProducesResponseType(typeof(Response<PlayerModel>), 200)]
         public async Task<IActionResult> GetPlayer([FromBody] PlayerBaseRequest request)
         {
             var response = await _playerService.GetPlayerAsync(request);

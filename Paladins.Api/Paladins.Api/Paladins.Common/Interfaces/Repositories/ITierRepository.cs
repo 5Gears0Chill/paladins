@@ -7,5 +7,6 @@ namespace Paladins.Common.Interfaces.Repositories
     public interface ITierRepository : IRepositoryCore
     {
         Task<NonDataResult> InsertBaseTiersAsync();
+        Task<NonDataResult> UpdateBaseTiersAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
+using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
 using System;
@@ -11,7 +12,7 @@ namespace Paladins.Common.Interfaces.Services
 {
     public interface IPlayerService
     {
-        Task<Response<List<PlayerClientModel>>> GetPlayerAsync(PlayerBaseRequest request);
+        Task<Response<PlayerModel>> GetPlayerAsync(PlayerBaseRequest request);
         Task<Response<List<PlayerFriendsClientModel>>> GetPlayerFriendsAsync(PlayerBaseRequest request);
         Task<Response<List<PlayerChampionRanksClientModel>>> GetPlayerChampionRanksAsync(PlayerBaseRequest request);
         Task<Response<List<MatchDetailsClientModel>>> GetPlayerMatchHistoryAsync(PlayerBaseRequest request);

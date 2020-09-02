@@ -9,6 +9,7 @@ namespace Paladins.Repository.Entities
         public Player()
         {
             PlayerChampionStats = new HashSet<PlayerChampionStats>();
+            PlayerRankDetails = new HashSet<PlayerRankDetails>();
             PlayerFriends = new HashSet<PlayerFriends>();
             PlayerMatchHistory = new HashSet<PlayerMatchHistory>();
         }
@@ -19,13 +20,21 @@ namespace Paladins.Repository.Entities
         public int AvatarId { get; set; }
         public int MinutesPlayed { get; set; }
         public int HoursPlayed { get; set; }
-        public string LastLoginTimeStamp { get; set; }
-        public int Leaves { get; set; }
+        public int TotalLeaves { get; set; }
+        public int ControllerTier { get; set; }
+        public int KbmTier { get; set; }
+        public int ConquestTier { get; set; }
+        public int TotalWorshippers { get; set; }
+        public int TotalXp{ get; set; }
+        public int TotalWins{ get; set; }
+        public DateTime LastLoginTimeStamp { get; set; }
+        public DateTime AccountCreatedOnTimeStamp { get; set; }
         public int AccountLevel { get; set; }
         public string LoadingFrame { get; set; }
-        public string MasteryLevel { get; set; }
+        public int MasteryLevel { get; set; }
         public string PersonalStatusMessage { get; set; }
 
+        public virtual ICollection<PlayerRankDetails> PlayerRankDetails { get; set; }
         public virtual ICollection<PlayerChampionStats> PlayerChampionStats { get; set; }
         public virtual ICollection<PlayerFriends> PlayerFriends { get; set; }
         public virtual ICollection<PlayerMatchHistory> PlayerMatchHistory { get; set; }

@@ -4,6 +4,7 @@ using Paladins.Client.Session;
 using Paladins.Common.Auditing;
 using Paladins.Common.Builders;
 using Paladins.Common.ClientModels.General;
+using Paladins.Common.ClientModels.Player;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
@@ -19,7 +20,9 @@ using Paladins.Repository.Mappers.Abilities;
 using Paladins.Repository.Mappers.Champions;
 using Paladins.Repository.Mappers.Items;
 using Paladins.Repository.Mappers.Languages;
+using Paladins.Repository.Mappers.Players;
 using Paladins.Repository.Mappers.Queues;
+using Paladins.Repository.Mappers.Skins;
 using Paladins.Repository.Mappers.Tiers;
 using Paladins.Repository.Repositories;
 using Paladins.Service.Services;
@@ -72,6 +75,8 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IAbilityRepository, AbilityRepository>();
             services.AddScoped<IChampionRepository, ChampionRepository>();
             services.AddScoped<IChampionAbilitiesRepository, ChampionAbilitiesRepository>();
+            services.AddScoped<ISkinRepository, SkinRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
@@ -83,7 +88,12 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IMapper<GeneralItemsClientModel, ItemModel>, ItemMapper>();
             services.AddScoped<IMapper<GeneralChampionsClientModel, ChampionModel>, ChampionMapper>();
             services.AddScoped<IMapper<AbilityModel, Repository.Entities.Ability>,AbilityEFMapper>();
-            services.AddScoped<IMapper<ChampionModel, Repository.Entities.Champion>,ChampionEFMapper>();
+            services.AddScoped<IMapper<ChampionModel, Champion>,ChampionEFMapper>();
+            services.AddScoped<IMapper<GeneralChampionsSkinsClientModel, SkinModel[]>, SkinMapper>();
+            services.AddScoped<IMapper<SkinModel, Skin>, SkinEFMapper>();
+            services.AddScoped<IMapper<PlayerClientModel, PlayerModel>, PlayerMapper>();
+            services.AddScoped<IMapper<PlayerModel, Player>, PlayerEFMapper>();
+            services.AddScoped<IMapper<Player, PlayerModel>, EFPlayerMapper>();
         }
 
         private static void RegisterAuditing(IServiceCollection services)
