@@ -2,6 +2,7 @@
 using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
+using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
@@ -41,7 +42,7 @@ namespace Paladins.Repository.Repositories
             var response = await Context.Player
                 .Where(x => x.PplayerId == paladinsPlayerId)
                 .FirstOrDefaultAsync();
-            if(response == null)
+            if(response.IsNull())
             {
                 //new entry
                 return null;
