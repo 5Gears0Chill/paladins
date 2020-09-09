@@ -7,19 +7,26 @@ using System.Text;
 
 namespace Paladins.Repository.DbContexts.Configurations
 {
-    public class FriendsConfiguration : IEntityTypeConfiguration<Friends>
+    public class FriendConfiguration : IEntityTypeConfiguration<Friend>
     {
-        public void Configure(EntityTypeBuilder<Friends> entity)
+        public void Configure(EntityTypeBuilder<Friend> entity)
         {
 
             entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
             entity.Property(e => e.Name)
                 .IsRequired()
-                .HasMaxLength(200)
+                .HasMaxLength(250)
                 .IsUnicode(false);
 
-            entity.Property(e => e.PplayerId).HasColumnName("PPlayerId");
+            entity.Property(e => e.PplayerId)
+                .HasColumnName("PPlayerId");
+
+            entity.HasOne(d => d.Player)
+              .WithMany(p => p.Friends)
+              .HasForeignKey(d => d.PlayerId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("FK_Friend_Player");
 
             entity.Property(e => e.CreatedOn)
               .IsRequired()

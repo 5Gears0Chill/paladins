@@ -44,18 +44,100 @@ namespace Paladins.Service.Services
             return new Response<PlayerModel>() { Data = player};
         } 
 
-        public async Task<Response<List<PlayerFriendsClientModel>>> GetPlayerFriendsAsync(PlayerBaseRequest request)
+        public async Task<Response<PlayerModel>> GetPlayerFriendsAsync(PlayerBaseRequest request)
         {
-            var response = await _playerClient.GetClientPlayerFriendsAsync(request);
+            var response = new Response<PlayerModel>();
+            var player = await _unitOfWorkManager
+                .ExecuteSingleAsync<IPlayerRepository, PlayerModel>(u => u.GetPlayerByPlayerName(request.PlayerName));
+            if (player.IsNull())
+            {
+                var storedResult = await GetPlayerAsync(request);
+                player = storedResult.Data;
+            }
+            response.Data = player;
+            var clientResponse = await _playerClient.GetClientPlayerFriendsAsync(request);
+            player.PopulateFriends(clientResponse);
 
-            return new Response<List<PlayerFriendsClientModel>>() { Data = response };
+            var friends = await _unitOfWorkManager.ExecuteSingleAsync<IFriendRepository, IEnumerable<FriendModel>>(u => u.GetFriendsAsync(player));
+            if (friends.Any())
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync<IFriendRepository, DataListResult<FriendModel>>(u => u.UpdateFriendsAsync(friends.ToList(), player));
+                if (storedResponse.IsSuccessful)
+                {
+
+                    response.Data.Friends = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Update friends");
+                }
+            }
+            else
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync<IFriendRepository, DataListResult<FriendModel>>(u => u.InsertFriendsAsync(player.Friends, player));
+                if (storedResponse.IsSuccessful)
+                {
+
+                    response.Data.Friends = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Insert friends");
+                }
+            }
+
+           
+         
+            
+            return response;
         }
 
-        public async Task<Response<List<PlayerChampionRanksClientModel>>> GetPlayerChampionRanksAsync(PlayerBaseRequest request)
+        public async Task<Response<PlayerModel>> GetPlayerChampionRanksAsync(PlayerBaseRequest request)
         {
-            var response = await _playerClient.GetClientChampionRanksAsync(request);
+            var response = new Response<PlayerModel>();
+            var player = await _unitOfWorkManager
+              .ExecuteSingleAsync<IPlayerRepository, PlayerModel>(u => u.GetPlayerByPlayerName(request.PlayerName));
+            if (player.IsNull())
+            {
+                var storedResult = await GetPlayerAsync(request);
+                player = storedResult.Data;
+            }
+            response.Data = player;
+            var clientResponse = await _playerClient.GetClientChampionRanksAsync(request);
+            player.PopulateChampionStats(clientResponse);
+            var championStats = await _unitOfWorkManager.ExecuteSingleAsync<IChampionRepository, IEnumerable<PlayerChampionStatsModel>>(u => u.GetPlayerChampionStatsAsync(player));
+            if (championStats.Any())
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                    <IChampionRepository, DataListResult<PlayerChampionStatsModel>>
+                    (u => u.UpdatePlayerChampionStatsAsync(championStats.ToList(), player));
+                if (storedResponse.IsSuccessful)
+                {
+                    response.Data.ChampionStats = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Update Champion Stats");
+                }
+            }
+            else
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                    <IChampionRepository, DataListResult<PlayerChampionStatsModel>>
+                    (u => u.InsertPlayerChampionStatsAsync(player.ChampionStats,player));
+                if (storedResponse.IsSuccessful)
+                {
 
-            return new Response<List<PlayerChampionRanksClientModel>>() { Data = response };
+                    response.Data.ChampionStats = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Insert Champion Stats");
+                }
+            }
+
+
+            return response;
         }
 
         public async Task<Response<List<MatchDetailsClientModel>>> GetPlayerMatchHistoryAsync(PlayerBaseRequest request)
@@ -65,11 +147,55 @@ namespace Paladins.Service.Services
             return new Response<List<MatchDetailsClientModel>>() { Data = response };
         }
 
-        public async Task<Response<List<PlayerLoadoutsClientModel>>> GetPlayerLoadoutsAsync(PlayerLoadoutsRequest request)
+        public async Task<Response<PlayerModel>> GetPlayerLoadoutsAsync(PlayerLoadoutsRequest request)
         {
-            var response = await _playerClient.GetClientPlayerLoadoutsAsync(request);
+            var response = new Response<PlayerModel>();
 
-            return new Response<List<PlayerLoadoutsClientModel>>() { Data = response };
+         
+
+            var player = await _unitOfWorkManager
+            .ExecuteSingleAsync<IPlayerRepository, PlayerModel>(u => u.GetPlayerByPlayerName(request.PlayerName));
+            if (player.IsNull())
+            {
+                var storedResult = await GetPlayerAsync(request);
+                player = storedResult.Data;
+            }
+            response.Data = player;
+            var clientResponse = await _playerClient.GetClientPlayerLoadoutsAsync(request);
+            player.PopulateLoadouts(clientResponse);
+            var loadouts = await _unitOfWorkManager.ExecuteSingleAsync
+                <ILoadoutRepository, IEnumerable<PlayerLoadoutModel>>
+                (u => u.GetPlayerLoadoutAsync(player));
+
+            if (loadouts.Any())
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                    <ILoadoutRepository, DataListResult<PlayerLoadoutModel>>
+                    (u => u.UpdatePlayerLoadoutAsync(loadouts.ToList()));
+                if (storedResponse.IsSuccessful)
+                {
+                    response.Data.Loadouts = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Update Loadouts");
+                }
+            }
+            else
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                    <ILoadoutRepository, DataListResult<PlayerLoadoutModel>>
+                    (u => u.InsertPlayerLoadoutAsync(player.Loadouts));
+                if (storedResponse.IsSuccessful)
+                {
+                    response.Data.Loadouts = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Insert Loadouts");
+                }
+            }
+            return response;
         }
 
         public async Task<Response<List<PlayerStatusClientModel>>> GetPlayerStatusAsync(PlayerBaseRequest request)

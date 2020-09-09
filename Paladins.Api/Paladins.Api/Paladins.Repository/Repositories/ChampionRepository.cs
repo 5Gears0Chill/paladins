@@ -1,4 +1,5 @@
-﻿using Paladins.Common.Auditing;
+﻿using Microsoft.EntityFrameworkCore;
+using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Extensions.LinqExtensions;
@@ -17,19 +18,86 @@ namespace Paladins.Repository.Repositories
 {
     public class ChampionRepository: Repository<PaladinsDbContext>, IChampionRepository
     {
-        private readonly IMapper<ChampionModel, Champion> _mapper;
-        public ChampionRepository(IAuditManager auditManager, IMapper<ChampionModel, Champion> mapper)
-            :base(auditManager)
+        private readonly IMapper<ChampionModel, Champion> _championEFMapper;
+        private readonly IMapper<PlayerChampionStatsModel, PlayerChampionStats> _championStatsMapper;
+        public ChampionRepository(IAuditManager auditManager, 
+            IMapper<ChampionModel, Champion> mapper, 
+            IMapper<PlayerChampionStatsModel, PlayerChampionStats> championStatsMapper)
+            : base(auditManager)
         {
-            _mapper = mapper;
+            _championEFMapper = mapper;
+            _championStatsMapper = championStatsMapper;
         }
 
         public async Task<NonDataResult> InsertChampionsAsync(IEnumerable<ChampionModel> champions)
         {
             var filtered = champions
                .DistinctBy(champion => champion.PaladinsChampionId)
-               .Select(x => _mapper.Map(x));
+               .Select(x => _championEFMapper.Map(x));
             return await InsertListAsync(filtered);
+        }
+
+        public async Task<DataListResult<PlayerChampionStatsModel>> InsertPlayerChampionStatsAsync(List<PlayerChampionStatsModel> model, PlayerModel player)
+        {
+            var stats = model.Select(c => new PlayerChampionStats
+            {
+                Assists = c.Assists,
+                CreatedOn = c.CreatedOn,
+                Deaths = c.Deaths,
+                Id = c.Id,
+                Kills = c.Kills,
+                LastUpdatedOn = c.LastUpdatedOn,
+                Losses = c.Losses,
+                PchampionId = c.PaladinsChampionId,
+                PlayerId = player.PlayerId,
+                Rank = c.Rank,
+                Wins = c.Wins
+            });
+            var response = await InsertListAsync(stats);
+            return new DataListResult<PlayerChampionStatsModel>(response.RowsAffected, model);
+        }
+
+        public async Task<DataListResult<PlayerChampionStatsModel>> UpdatePlayerChampionStatsAsync(List<PlayerChampionStatsModel> model, PlayerModel player)
+        {
+            var stats = model.Select(x => _championStatsMapper.Map(x))
+                 .Select(x => new PlayerChampionStats
+                 {
+                     Assists = x.Assists,
+                     Deaths = x.Deaths,
+                     Id = x.Id,
+                     IsActive = x.IsActive,
+                     CreatedOn = x.CreatedOn,
+                     Kills = x.Kills,
+                     LastUpdatedOn = x.LastUpdatedOn,
+                     Pchampion = x.Pchampion,
+                     PlayerId = player.PlayerId,
+                     Rank = x.Rank,
+                     Wins = x.Wins
+                 });
+            var response = await UpdateListAsync(stats);
+            return new DataListResult<PlayerChampionStatsModel>(response.RowsAffected, model);
+        }
+
+        public async Task<IEnumerable<PlayerChampionStatsModel>> GetPlayerChampionStatsAsync(PlayerModel player)
+        {
+            var response = await Context.PlayerChampionStats
+                .Where(x => x.PlayerId == player.PlayerId)
+                .Select(x => new PlayerChampionStatsModel
+                {
+                    Assists = x.Assists,
+                    CreatedOn = x.CreatedOn,
+                    Deaths = x.Deaths,
+                    Id = x.Id,
+                    Kills = x.Kills,
+                    LastUpdatedOn = x.LastUpdatedOn,
+                    Losses = x.Losses,
+                    PaladinsChampionId = x.PchampionId,
+                    PlayerId = x.PlayerId,
+                    Rank = x.Rank,
+                    Wins = x.Wins
+                }).ToListAsync();
+
+            return response;
         }
     }
 }

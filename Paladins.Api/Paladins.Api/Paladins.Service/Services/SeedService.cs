@@ -108,22 +108,5 @@ namespace Paladins.Service.Services
             }
             return response;      
         }
-
-        /// <summary>
-        /// Method for updating the following tables: 
-        ///     -> Language [Done]
-        ///     -> Queue [Done]
-        ///     -> Tier [Done]
-        ///     -> Item [Done]
-        ///     -> Champion [Done]
-        ///     -> Champion Abilities [Done]
-        ///     -> Ability [Done]
-        ///     -> Skins [Done]
-        /// </summary>
-        /// <returns>List of NonDataResult</returns>
-        public async Task<List<NonDataResult>> ReseedAsync()
-        {
-            return null;
-        }
     }
 }

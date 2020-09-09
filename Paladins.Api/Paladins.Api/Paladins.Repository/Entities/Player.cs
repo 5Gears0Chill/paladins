@@ -10,7 +10,7 @@ namespace Paladins.Repository.Entities
         {
             PlayerChampionStats = new HashSet<PlayerChampionStats>();
             PlayerRankDetails = new HashSet<PlayerRankDetails>();
-            PlayerFriends = new HashSet<PlayerFriends>();
+            Friends = new HashSet<Friend>();
             PlayerMatchHistory = new HashSet<PlayerMatchHistory>();
         }
 
@@ -36,7 +36,7 @@ namespace Paladins.Repository.Entities
 
         public virtual ICollection<PlayerRankDetails> PlayerRankDetails { get; set; }
         public virtual ICollection<PlayerChampionStats> PlayerChampionStats { get; set; }
-        public virtual ICollection<PlayerFriends> PlayerFriends { get; set; }
+        public virtual ICollection<Friend> Friends { get; set; }
         public virtual ICollection<PlayerMatchHistory> PlayerMatchHistory { get; set; }
     }
 }

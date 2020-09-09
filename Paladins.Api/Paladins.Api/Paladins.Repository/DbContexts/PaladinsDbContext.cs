@@ -31,7 +31,7 @@ namespace Paladins.Repository.DbContexts
         public virtual DbSet<Champion> Champion { get; set; }
         public virtual DbSet<ChampionAbilities> ChampionAbilities { get; set; }
         public virtual DbSet<ChampionSkins> ChampionSkins { get; set; }
-        public virtual DbSet<Friends> Friends { get; set; }
+        public virtual DbSet<Friend> Friend { get; set; }
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<ItemsBought> ItemsBought { get; set; }
         public virtual DbSet<Language> Language { get; set; }
@@ -42,7 +42,6 @@ namespace Paladins.Repository.DbContexts
         public virtual DbSet<MatchDetails> MatchDetails { get; set; }
         public virtual DbSet<Player> Player { get; set; }
         public virtual DbSet<PlayerChampionStats> PlayerChampionStats { get; set; }
-        public virtual DbSet<PlayerFriends> PlayerFriends { get; set; }
         public virtual DbSet<PlayerMatchHistory> PlayerMatchHistory { get; set; }
         public virtual DbSet<PlayerRankDetails> PlayerRankDetails { get; set; }
         public virtual DbSet<Queue> Queue { get; set; }
@@ -68,7 +67,7 @@ namespace Paladins.Repository.DbContexts
             modelBuilder.ApplyConfiguration(new ChampionAbilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new ChampionConfiguration());
             modelBuilder.ApplyConfiguration(new ChampionSkinsConfiguration());
-            modelBuilder.ApplyConfiguration(new FriendsConfiguration());
+            modelBuilder.ApplyConfiguration(new FriendConfiguration());
             modelBuilder.ApplyConfiguration(new ItemConfiguration());
             modelBuilder.ApplyConfiguration(new ItemsBoughtConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
@@ -79,7 +78,6 @@ namespace Paladins.Repository.DbContexts
             modelBuilder.ApplyConfiguration(new MatchDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerChampionStatsConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
-            modelBuilder.ApplyConfiguration(new PlayerFriendsConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerMatchHistoryConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerRankDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new QueueConfiguration());

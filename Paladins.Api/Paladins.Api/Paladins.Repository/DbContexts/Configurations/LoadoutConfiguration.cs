@@ -28,11 +28,11 @@ namespace Paladins.Repository.DbContexts.Configurations
 
             entity.Property(e => e.PplayerId).HasColumnName("PPlayerId");
 
-            entity.HasOne(d => d.PlayerChampionStats)
-                .WithMany(p => p.Loadout)
-                .HasForeignKey(d => d.PlayerChampionStatsId)
+            entity.HasOne(d => d.Champion)
+                .WithMany(p => p.Loadouts)
+                .HasForeignKey(d => d.PchampionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Loadout_PlayerChampionStats");
+                .HasConstraintName("FK_Loadout_PlayerChampion");
 
             entity.Property(e => e.CreatedOn)
               .IsRequired()

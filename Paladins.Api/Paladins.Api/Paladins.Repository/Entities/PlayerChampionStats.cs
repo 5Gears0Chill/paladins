@@ -8,7 +8,6 @@ namespace Paladins.Repository.Entities
     {
         public PlayerChampionStats()
         {
-            Loadout = new HashSet<Loadout>();
         }
 
         public int PlayerId { get; set; }
@@ -22,6 +21,5 @@ namespace Paladins.Repository.Entities
 
         public virtual Champion Pchampion { get; set; }
         public virtual Player Player { get; set; }
-        public virtual ICollection<Loadout> Loadout { get; set; }
     }
 }

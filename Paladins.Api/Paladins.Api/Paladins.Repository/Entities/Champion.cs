@@ -10,6 +10,7 @@ namespace Paladins.Repository.Entities
         {
             ChampionAbilities = new HashSet<ChampionAbilities>();
             ChampionSkins = new HashSet<ChampionSkins>();
+            Loadouts = new HashSet<Loadout>();
             MatchBans = new HashSet<MatchBans>();
             PlayerChampionStats = new HashSet<PlayerChampionStats>();
             Skin = new HashSet<Skin>();
@@ -29,6 +30,7 @@ namespace Paladins.Repository.Entities
         public virtual ICollection<ChampionSkins> ChampionSkins { get; set; }
         public virtual ICollection<MatchBans> MatchBans { get; set; }
         public virtual ICollection<PlayerChampionStats> PlayerChampionStats { get; set; }
+        public virtual ICollection<Loadout> Loadouts { get; set; }
         public virtual ICollection<Skin> Skin { get; set; }
     }
 }

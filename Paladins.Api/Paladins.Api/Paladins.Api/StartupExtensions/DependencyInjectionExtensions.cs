@@ -18,6 +18,7 @@ using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using Paladins.Repository.Mappers.Abilities;
 using Paladins.Repository.Mappers.Champions;
+using Paladins.Repository.Mappers.Friends;
 using Paladins.Repository.Mappers.Items;
 using Paladins.Repository.Mappers.Languages;
 using Paladins.Repository.Mappers.Players;
@@ -77,6 +78,8 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IChampionAbilitiesRepository, ChampionAbilitiesRepository>();
             services.AddScoped<ISkinRepository, SkinRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IFriendRepository, FriendRepository>();
+            services.AddScoped<ILoadoutRepository, LoadoutRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
@@ -94,6 +97,8 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IMapper<PlayerClientModel, PlayerModel>, PlayerMapper>();
             services.AddScoped<IMapper<PlayerModel, Player>, PlayerEFMapper>();
             services.AddScoped<IMapper<Player, PlayerModel>, EFPlayerMapper>();
+            services.AddScoped<IMapper<FriendModel, Friend>, FriendEFMapper>();
+            services.AddScoped<IMapper<PlayerChampionStatsModel, PlayerChampionStats>, ChampionStatsEFMapper>();
         }
 
         private static void RegisterAuditing(IServiceCollection services)

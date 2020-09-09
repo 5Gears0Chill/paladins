@@ -10,5 +10,6 @@ namespace Paladins.Common.Interfaces.Repositories
         Task<DataResult<PlayerModel>> InsertNewPlayerAsync(PlayerModel model);
         Task<DataResult<PlayerModel>> UpdatePlayerAsync(PlayerModel model);
         Task<PlayerModel> GetPlayerByPaladinsPlayerId(int paladinsPlayerId);
+        Task<PlayerModel> GetPlayerByPlayerName(string playerName);
     }
 }

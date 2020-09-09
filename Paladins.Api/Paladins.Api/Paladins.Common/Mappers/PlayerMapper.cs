@@ -1,4 +1,6 @@
 ﻿using Paladins.Common.ClientModels.Player;
+using Paladins.Common.Constants;
+using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Models;
 using System;
@@ -20,10 +22,10 @@ namespace Paladins.Common.Mappers
                 HoursPlayed = Convert.ToInt32(p.HoursPlayed),
                 LastLoginTimeStamp = DateTime.ParseExact(p.LastLoginDatetime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
                 AccountCreatedOnTimeStamp = DateTime.ParseExact(p.CreatedDatetime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
-                LoadingFrame = p.LoadingFrame,
+                LoadingFrame = !p.LoadingFrame.IsNull() ? p.LoadingFrame : DataConstants.NoLoadingFrame,
                 MasteryLevel = Convert.ToInt32(p.MasteryLevel),
                 MinutesPlayed = Convert.ToInt32(p.MasteryLevel),
-                Name = p.Name,
+                Name = p.HzPlayerName,
                 PaladinsPlayerId = Convert.ToInt32(p.Id),
                 PersonalStatusMessage = p.PersonalStatusMessage,
                 ConquestTier = Convert.ToInt32(p.TierConquest),

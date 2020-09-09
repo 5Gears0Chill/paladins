@@ -51,6 +51,20 @@ namespace Paladins.Repository.Repositories
             return _playerToModelMapper.Map(response); 
         }
 
+        public async Task<PlayerModel> GetPlayerByPlayerName(string playerName)
+        {
+            var response = await Context.Player
+                .Where(x => x.Name == playerName)
+                .FirstOrDefaultAsync();
+            if (response.IsNull())
+            {
+                //new entry
+                return null;
+            }
+            //exists
+            return _playerToModelMapper.Map(response);
+        }
+
         public async Task<DataResult<PlayerModel>> UpdatePlayerAsync(PlayerModel model)
         {
             var entity = _modelToPlayerMapper.Map(model);

@@ -37,7 +37,7 @@ namespace Paladins.Api.Controllers
         [HttpPost]
         [ActionName(nameof(GetFriends))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<PlayerFriendsClientModel>>), 200)]
+        [ProducesResponseType(typeof(Response<PlayerModel>), 200)]
         public async Task<IActionResult> GetFriends([FromBody] PlayerBaseRequest request)
         {
             var response = await _playerService.GetPlayerFriendsAsync(request);

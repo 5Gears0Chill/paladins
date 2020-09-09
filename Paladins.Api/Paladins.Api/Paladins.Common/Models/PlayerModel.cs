@@ -1,10 +1,18 @@
-﻿using System;
+﻿using Paladins.Common.ClientModels.Player;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Paladins.Common.Models
 {
     public class PlayerModel
     {
+        public PlayerModel()
+        {
+            Friends = new List<FriendModel>();
+            ChampionStats = new List<PlayerChampionStatsModel>();
+            Loadouts = new List<PlayerLoadoutModel>();
+        }
         public int PlayerId { get; set; }
         public int PaladinsPlayerId { get; set; }
         public string Name { get; set; }
@@ -29,5 +37,54 @@ namespace Paladins.Common.Models
         public DateTime LastUpdatedOn { get; set; }
         public bool IsActive { get; set; }
         public List<RankDetailsModel> RankDetailsModel { get; set; }
+        public List<FriendModel> Friends { get; set; }
+        public List<PlayerChampionStatsModel> ChampionStats { get; set; }
+        public List<PlayerLoadoutModel> Loadouts { get; set; }
+
+        public void PopulateFriends(IList<PlayerFriendsClientModel> friends)
+        {
+            Friends.AddRange(from f in friends
+                             select new FriendModel
+                             {
+                                 PaladinsPlayerId = Convert.ToInt32(f.PlayerId),
+                                 AccountId = Convert.ToInt32(f.AccountId),
+                                 Name = f.Name
+                             });
+        }
+
+        public void PopulateChampionStats(IList<PlayerChampionRanksClientModel> championStats)
+        {
+            ChampionStats.AddRange(from c in championStats
+                                   select new PlayerChampionStatsModel
+                                   {
+                                       Assists = Convert.ToInt32(c.Assists),
+                                       Deaths = Convert.ToInt32(c.Deaths),
+                                       Kills = Convert.ToInt32(c.Kills),
+                                       Losses = Convert.ToInt32(c.Losses),
+                                       PaladinsChampionId = Convert.ToInt32(c.ChampionId),
+                                       PlayerId = PlayerId,
+                                       Rank = Convert.ToInt32(c.Rank),
+                                       Wins = Convert.ToInt32(c.Wins),
+                                   });
+        }
+
+        public void PopulateLoadouts(IList<PlayerLoadoutsClientModel> loadouts)
+        {
+            Loadouts.AddRange(from l in loadouts
+                              select new PlayerLoadoutModel
+                              {
+                                  LoadoutName = l.DeckName,
+                                  PlayerName = l.PlayerName,
+                                  PaladinsPlayerId = Convert.ToInt32(l.PlayerId),
+                                  PaladinsChampionId = Convert.ToInt32(l.ChampionId),
+                                  LoadoutItems = (from li in l.LoadoutItems
+                                                  select new PlayerLoadoutItemModel
+                                                  {
+                                                      CardName = li.ItemName,
+                                                      PaladinsItemId = Convert.ToInt32(li.ItemId),
+                                                      PointsAssignedToItem = Convert.ToInt32(li.Points)
+                                                  }).ToList()
+                              });
+        }
     }
 }

@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {
-    public partial class PlayerFriends : AuditBaseEntity
+    public partial class Friend : AuditBaseEntity
     {
+        public Friend()
+        {
+          
+        }
         public int PlayerId { get; set; }
-        public int FriendId { get; set; }
+        public int PplayerId { get; set; }
+        public string Name { get; set; }
+        public int AccountId { get; set; }
 
-        public virtual Friends Friend { get; set; }
         public virtual Player Player { get; set; }
     }
 }

@@ -11,15 +11,13 @@ namespace Paladins.Repository.Entities
             LoadoutItem = new HashSet<LoadoutItem>();
         }
 
-        public int PlayerChampionStatsId { get; set; }
-        public int ChampionId { get; set; }
         public int PchampionId { get; set; }
         public string LoadoutName { get; set; }
         public int PloadoutId { get; set; }
         public int PplayerId { get; set; }
         public string PlayerName { get; set; }
 
-        public virtual PlayerChampionStats PlayerChampionStats { get; set; }
+        public virtual Champion Champion { get; set; }
         public virtual ICollection<LoadoutItem> LoadoutItem { get; set; }
     }
 }
