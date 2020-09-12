@@ -18,6 +18,8 @@ namespace Paladins.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         private IConfiguration _configuration;
+        private IServiceCollection _services;
+       
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -26,7 +28,7 @@ namespace Paladins.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore().AddApiExplorer();
-
+            _services = services;
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -37,15 +39,22 @@ namespace Paladins.Api
                 });
             });
 
-            RegisterDependencyInjection(services);
+            services.AddModulesToContainer();
             services.ConfigureAppSettingsJson(_configuration);
             services.RegisterAppSettings();
-            services.RegisterUnitOfWorkManagers(services.BuildServiceProvider());
+            services.RegisterUnitOfWorkManagers();
+            services.RegisterStrategyResolvers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+           
+            
+           
+
+            
+           
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,11 +75,6 @@ namespace Paladins.Api
                 options.RoutePrefix = string.Empty;
             });
         }
-        
-        //private methods
-        private void RegisterDependencyInjection(IServiceCollection services)
-        {
-            services.AddModulesToContainer();
-        }
+
     }
 }

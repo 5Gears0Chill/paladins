@@ -4,6 +4,7 @@ using Paladins.Client.Session;
 using Paladins.Common.Auditing;
 using Paladins.Common.Builders;
 using Paladins.Common.ClientModels.General;
+using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Builders;
@@ -11,9 +12,13 @@ using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
+using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Interfaces.Strategies;
 using Paladins.Common.Mappers;
 using Paladins.Common.Models;
+using Paladins.Common.Requests;
+using Paladins.Common.Resolvers;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using Paladins.Repository.Mappers.Abilities;
@@ -27,6 +32,7 @@ using Paladins.Repository.Mappers.Skins;
 using Paladins.Repository.Mappers.Tiers;
 using Paladins.Repository.Repositories;
 using Paladins.Service.Services;
+using Paladins.Service.Strategies;
 using System;
 
 namespace Paladins.Api.StartupExtensions
@@ -41,7 +47,7 @@ namespace Paladins.Api.StartupExtensions
             RegisterAuditing(services);
             RegisterRepositories(services);
             RegisterMappers(services);
-           
+            RegisterStrategies(services);
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -102,20 +108,44 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IMapper<PlayerChampionStatsModel, PlayerChampionStats>, ChampionStatsEFMapper>();
         }
 
+        private static void RegisterStrategies(IServiceCollection services)
+        {
+            services.AddScoped<IPlayerStrategy<PlayerBaseRequest, MatchDetailsClientModel, PlayerMatchHistoryModel>,
+                PlayerMatchHistoryStrategy>();         
+            services.AddScoped<IPlayerStrategy<PlayerLoadoutsRequest, PlayerLoadoutsClientModel, PlayerLoadoutModel>,
+                PlayerLoadoutStrategy>();  
+            services.AddScoped<IPlayerStrategy<PlayerBaseRequest, PlayerFriendsClientModel, FriendModel>,
+                PlayerFriendStrategy>();
+            services.AddScoped<IPlayerStrategy<PlayerBaseRequest, PlayerChampionRanksClientModel, PlayerChampionStatsModel>,
+                PlayerChampionStatsStrategy>();
+        }
+
+       
+
         private static void RegisterAuditing(IServiceCollection services)
         {
             services.AddScoped<IAuditManager, AuditManager>();
         }
 
-        public static void RegisterUnitOfWorkManagers(this IServiceCollection services, IServiceProvider serviceProvider)
+        public static void RegisterUnitOfWorkManagers(this IServiceCollection services)
         {
-            var resolver = new RepositoryResolver(serviceProvider);
-            services.AddScoped<IRepositoryResolver>((_) => resolver);
+            //var resolver = new RepositoryResolver(serviceProvider);
 
-            var paladinsUnitOfWork = new UnitOfWork<PaladinsDbContext>(resolver);
+            //services.AddScoped<IRepositoryResolver>((_) => resolver);
 
-            services.AddScoped<IUnitOfWorkManager>((_) => 
-            new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
+            //var paladinsUnitOfWork = new UnitOfWork<PaladinsDbContext>(resolver);
+
+            //services.AddScoped<IUnitOfWorkManager>((_) => 
+            //new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
+
+            services.AddScoped<IRepositoryResolver,RepositoryResolver>();
+            services.AddScoped<IUnitOfWork,UnitOfWork<PaladinsDbContext>>();
+            services.AddScoped<IUnitOfWorkManager, UnitOfWorkManager<PaladinsDbContext>>();
+        }
+
+        public static void RegisterStrategyResolvers(this IServiceCollection services)
+        {
+            services.AddScoped<IStrategyResolver, StrategyResolver>();
         }
     }
 }
