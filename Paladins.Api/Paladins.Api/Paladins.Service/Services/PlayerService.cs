@@ -38,9 +38,8 @@ namespace Paladins.Service.Services
 
         public async Task<Response<PlayerModel>> GetPlayerAsync(PlayerBaseRequest request)
         {
-            var response = await _playerClient.GetClientPlayerAsync(request);
-            var player = await StorePlayerDataAsync(response.FirstOrDefault());
-            return new Response<PlayerModel>() { Data = player};
+            var strategy = _strategyResolver.Resolve<IBasePlayerStrategy>();
+            return await strategy.GetPlayerAsync(request);
         } 
 
         public async Task<Response<PlayerModel>> GetPlayerFriendsAsync(PlayerBaseRequest request)

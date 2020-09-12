@@ -5,6 +5,7 @@ using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
+using Paladins.Common.Interfaces.Strategies;
 using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Paladins.Service.Strategies
 {
-    public class BasePlayerStrategy
+    public class BasePlayerStrategy : IBasePlayerStrategy
     {
         public IUnitOfWorkManager _unitOfWorkManager { get; private set; }
         public PlayerModel Player { get; set; }

@@ -110,6 +110,7 @@ namespace Paladins.Api.StartupExtensions
 
         private static void RegisterStrategies(IServiceCollection services)
         {
+            services.AddScoped<IBasePlayerStrategy,BasePlayerStrategy>();
             services.AddScoped<IPlayerStrategy<PlayerBaseRequest, MatchDetailsClientModel, PlayerMatchHistoryModel>,
                 PlayerMatchHistoryStrategy>();         
             services.AddScoped<IPlayerStrategy<PlayerLoadoutsRequest, PlayerLoadoutsClientModel, PlayerLoadoutModel>,
