@@ -6,10 +6,20 @@ namespace Paladins.Repository.Entities
 {
     public partial class PlayerMatchHistory : AuditBaseEntity
     {
-        public int PlayerId { get; set; }
-        public int MatchDetailsId { get; set; }
+        public PlayerMatchHistory()
+        {
+            MatchDetails = new HashSet<MatchDetails>();
+        }
 
-        public virtual MatchDetails MatchDetails { get; set; }
+        public int PlayerId { get; set; }
+        public int PplayerId { get; set; }
+        public int PchampionId { get; set; }
+        public int PmatchId { get; set; }
+        public string MatchResult { get; set; }
+        public int Kills { get; set; }
+        public int Deaths { get; set; }
+        public int Assists { get; set; }
+        public virtual ICollection<MatchDetails> MatchDetails { get; set; }
         public virtual Player Player { get; set; }
     }
 }

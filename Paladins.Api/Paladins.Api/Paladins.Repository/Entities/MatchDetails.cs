@@ -13,12 +13,12 @@ namespace Paladins.Repository.Entities
             LoadoutSelectedPmatch = new HashSet<LoadoutSelected>();
             MatchBansMatchDetails = new HashSet<MatchBans>();
             MatchBansPmatch = new HashSet<MatchBans>();
-            PlayerMatchHistory = new HashSet<PlayerMatchHistory>();
         }
 
         public int PmatchId { get; set; }
         public int PqueueId { get; set; }
         public int PplayerId { get; set; }
+        public int PlayerMatchHistoryId { get; set; }
         public string MapName { get; set; }
         public string PlayerName { get; set; }
         public int PlayerAccountLevel { get; set; }
@@ -54,11 +54,11 @@ namespace Paladins.Repository.Entities
 
         public virtual Tier LeagueTierNavigation { get; set; }
         public virtual Queue Pqueue { get; set; }
+        public virtual PlayerMatchHistory PlayerMatchHistory { get; set; }
         public virtual ICollection<ItemsBought> ItemsBought { get; set; }
         public virtual ICollection<LoadoutSelected> LoadoutSelectedMatchDetails { get; set; }
         public virtual ICollection<LoadoutSelected> LoadoutSelectedPmatch { get; set; }
         public virtual ICollection<MatchBans> MatchBansMatchDetails { get; set; }
         public virtual ICollection<MatchBans> MatchBansPmatch { get; set; }
-        public virtual ICollection<PlayerMatchHistory> PlayerMatchHistory { get; set; }
     }
 }

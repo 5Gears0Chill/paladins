@@ -140,11 +140,54 @@ namespace Paladins.Service.Services
             return response;
         }
 
-        public async Task<Response<List<MatchDetailsClientModel>>> GetPlayerMatchHistoryAsync(PlayerBaseRequest request)
+        public async Task<Response<PlayerModel>> GetPlayerMatchHistoryAsync(PlayerBaseRequest request)
         {
-            var response = await _playerClient.GetClientMatchHistoryAsync(request);
+            var response = new Response<PlayerModel>();
+            var player = await _unitOfWorkManager
+             .ExecuteSingleAsync<IPlayerRepository, PlayerModel>(u => u.GetPlayerByPlayerName(request.PlayerName));
+            if (player.IsNull())
+            {
+                var storedResult = await GetPlayerAsync(request);
+                player = storedResult.Data;
+            }
+            response.Data = player;
+            var clientResponse = await _playerClient.GetClientMatchHistoryAsync(request);
+            player.PopulateMatchHistory(clientResponse);
 
-            return new Response<List<MatchDetailsClientModel>>() { Data = response };
+            var matchHistories = await _unitOfWorkManager.ExecuteSingleAsync<IMatchHistoryRepository, IEnumerable<PlayerMatchHistoryModel>>
+                (u => u.GetPlayerMatchHistories(player));
+
+            if (matchHistories.Any())
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                   <IMatchHistoryRepository, DataListResult<PlayerMatchHistoryModel>>
+                   (u => u.UpdatePlayerMatchHistoryAsync(matchHistories.ToList(), player));
+                if (storedResponse.IsSuccessful)
+                {
+                    response.Data.MatchHistories = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Update Match Histories");
+                }
+            }
+            else
+            {
+                var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
+                   <IMatchHistoryRepository, DataListResult<PlayerMatchHistoryModel>>
+                   (u => u.InsertPlayerMatchHistoryAsync(player.MatchHistories, player));
+                if (storedResponse.IsSuccessful)
+                {
+
+                    response.Data.MatchHistories = storedResponse.Data.ToList();
+                }
+                else
+                {
+                    response.ValidatonResults.ErrorMessages.Add("failed to Insert Champion Stats");
+                }
+            }
+
+            return response;
         }
 
         public async Task<Response<PlayerModel>> GetPlayerLoadoutsAsync(PlayerLoadoutsRequest request)

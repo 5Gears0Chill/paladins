@@ -68,6 +68,13 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MatchDetails_Queue");
 
+            entity.HasOne(d => d.PlayerMatchHistory)
+              .WithMany(p => p.MatchDetails)
+              .HasPrincipalKey(p => p.Id)
+              .HasForeignKey(d => d.PlayerMatchHistoryId)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("FK_MatchDetails_PlayerMatchHistory");
+
             entity.Property(e => e.CreatedOn)
               .IsRequired()
               .IsUnicode(false)

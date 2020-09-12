@@ -214,7 +214,10 @@ namespace Paladins.Common.ClientModels.Match
         public long KillsPhoenix { get; set; }
 
         [JsonProperty("Kills_Player")]
+
         public long KillsPlayer { get; set; }
+        [JsonProperty("Kills")]
+        public long Kills { get; set; }
 
         [JsonProperty("Kills_Quadra")]
         public long KillsQuadra { get; set; }

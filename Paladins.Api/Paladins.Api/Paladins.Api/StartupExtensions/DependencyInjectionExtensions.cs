@@ -80,6 +80,7 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<ILoadoutRepository, LoadoutRepository>();
+            services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)

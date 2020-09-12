@@ -1,4 +1,5 @@
-﻿using Paladins.Common.ClientModels.Player;
+﻿using Paladins.Common.ClientModels.Match;
+using Paladins.Common.ClientModels.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Paladins.Common.Models
             Friends = new List<FriendModel>();
             ChampionStats = new List<PlayerChampionStatsModel>();
             Loadouts = new List<PlayerLoadoutModel>();
+            MatchHistories = new List<PlayerMatchHistoryModel>();
         }
         public int PlayerId { get; set; }
         public int PaladinsPlayerId { get; set; }
@@ -40,7 +42,7 @@ namespace Paladins.Common.Models
         public List<FriendModel> Friends { get; set; }
         public List<PlayerChampionStatsModel> ChampionStats { get; set; }
         public List<PlayerLoadoutModel> Loadouts { get; set; }
-
+        public List<PlayerMatchHistoryModel> MatchHistories { get; set; }
         public void PopulateFriends(IList<PlayerFriendsClientModel> friends)
         {
             Friends.AddRange(from f in friends
@@ -85,6 +87,21 @@ namespace Paladins.Common.Models
                                                       PointsAssignedToItem = Convert.ToInt32(li.Points)
                                                   }).ToList()
                               });
+        }
+
+        public void PopulateMatchHistory(IList<MatchDetailsClientModel> matchHistories)
+        {
+            MatchHistories.AddRange(from m in matchHistories
+                                    select new PlayerMatchHistoryModel
+                                    {
+                                        Assists = Convert.ToInt32(m.Assists),
+                                        Deaths = Convert.ToInt32(m.Deaths),
+                                        Kills = Convert.ToInt32(m.Kills),
+                                        MatchResult = m.WinStatus,
+                                        PaladinsChampionId = Convert.ToInt32(m.ChampionId),
+                                        PaladinsPlayerId = Convert.ToInt32(m.PlayerId),
+                                        PaladinsMatchId = Convert.ToInt32(m.Match),
+                                    });
         }
     }
 }
