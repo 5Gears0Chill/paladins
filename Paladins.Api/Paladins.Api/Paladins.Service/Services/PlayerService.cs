@@ -258,7 +258,7 @@ namespace Paladins.Service.Services
         /// <summary>
         /// Method to store if not exists else return current
         /// </summary>
-        /// <param name="playerData"></param>
+        /// <param name="playerData">Player client model</param>
         /// <returns></returns>
         private async Task<PlayerModel> StorePlayerDataAsync(PlayerClientModel playerData)
         {
