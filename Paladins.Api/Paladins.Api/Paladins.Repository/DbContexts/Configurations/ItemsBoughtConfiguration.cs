@@ -25,18 +25,6 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasForeignKey(d => d.MatchDetailsId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ItemsBought_MatchDetails");
-
-            entity.Property(e => e.CreatedOn)
-              .IsRequired()
-              .IsUnicode(false)
-              .HasColumnType("datetime")
-              .HasDefaultValue(DateTime.UtcNow);
-
-            entity.Property(e => e.LastUpdatedOn)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasColumnType("datetime")
-                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

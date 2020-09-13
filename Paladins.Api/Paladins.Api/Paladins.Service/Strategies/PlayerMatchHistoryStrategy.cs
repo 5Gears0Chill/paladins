@@ -61,7 +61,7 @@ namespace Paladins.Service.Strategies
                 var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
                    <IMatchHistoryRepository, DataListResult<PlayerMatchHistoryModel>>
                    (u => u.UpdatePlayerMatchHistoryAsync(matchHistories.ToList(), Player));
-                if (storedResponse.IsSuccessful)
+                if (storedResponse.Data.Any())
                 {
                     response.Data.MatchHistories = storedResponse.Data.ToList();
                 }

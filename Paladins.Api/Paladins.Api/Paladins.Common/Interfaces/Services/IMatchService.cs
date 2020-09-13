@@ -1,4 +1,5 @@
 ﻿using Paladins.Common.ClientModels.Match;
+using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
 using System;
@@ -10,7 +11,7 @@ namespace Paladins.Common.Interfaces.Services
 {
     public interface IMatchService
     {
-        Task<Response<List<MatchDetailsClientModel>>> GetMatchDetailsAsync(MatchBaseRequest request);
+        Task<Response<List<MatchDetailsModel>>> GetMatchDetailsAsync(MatchBaseRequest request);
         Task<Response<List<MatchDetailsClientModel>>> GetMatchDetailsBatchAsync(MatchBatchRequest request);
         Task<Response<List<MatchIdsClientModel>>> GetMatchIdsByQueueAsync(MatchIdsByQueueRequest request);
     }

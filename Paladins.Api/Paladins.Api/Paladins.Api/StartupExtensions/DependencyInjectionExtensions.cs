@@ -87,6 +87,7 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<ILoadoutRepository, LoadoutRepository>();
             services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
+            services.AddScoped<IMatchDetailsRepository, MatchDetailsRepository>();
         }
 
         private static void RegisterMappers(IServiceCollection services)
@@ -106,6 +107,7 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IMapper<Player, PlayerModel>, EFPlayerMapper>();
             services.AddScoped<IMapper<FriendModel, Friend>, FriendEFMapper>();
             services.AddScoped<IMapper<PlayerChampionStatsModel, PlayerChampionStats>, ChampionStatsEFMapper>();
+            services.AddScoped<IMapper<MatchDetailsClientModel, MatchDetailsModel>, MatchDetailsMapper>();
         }
 
         private static void RegisterStrategies(IServiceCollection services)

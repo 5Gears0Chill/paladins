@@ -62,7 +62,7 @@ namespace Paladins.Repository.Repositories
 
             var toBeAdded = latestMatches.Where(x => !currentMatches.Any(d => d.PmatchId == x.PmatchId));
             var response = await InsertListAsync(toBeAdded);
-            return new DataListResult<PlayerMatchHistoryModel>(response.RowsAffected, player.MatchHistories);
+            return new DataListResult<PlayerMatchHistoryModel>(response.RowsAffected, model);
         }
 
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Match;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
 
@@ -25,7 +26,7 @@ namespace Paladins.Api.Controllers
         [HttpPost]
         [ActionName(nameof(GetMatchDetails))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<MatchDetailsClientModel>>), 200)]
+        [ProducesResponseType(typeof(Response<List<MatchDetailsModel>>), 200)]
         public async Task<IActionResult> GetMatchDetails([FromBody] MatchBaseRequest request)
         {
             var response = await _matchService.GetMatchDetailsAsync(request);

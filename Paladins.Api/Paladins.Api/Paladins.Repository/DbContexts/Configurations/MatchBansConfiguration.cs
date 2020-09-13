@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Paladins.Repository.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Repository.DbContexts.Configurations
 {
@@ -18,7 +15,7 @@ namespace Paladins.Repository.DbContexts.Configurations
             entity.Property(e => e.PmatchId).HasColumnName("PMatchId");
 
             entity.HasOne(d => d.MatchDetails)
-                .WithMany(p => p.MatchBansMatchDetails)
+                .WithMany(p => p.MatchBans)
                 .HasForeignKey(d => d.MatchDetailsId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MatchBans_MatchDetails");
@@ -29,25 +26,6 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasForeignKey(d => d.PchampionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MatchBans_Champion");
-
-            entity.HasOne(d => d.Pmatch)
-                .WithMany(p => p.MatchBansPmatch)
-                .HasPrincipalKey(p => p.PmatchId)
-                .HasForeignKey(d => d.PmatchId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_MatchBans_MatchDetails1");
-
-            entity.Property(e => e.CreatedOn)
-              .IsRequired()
-              .IsUnicode(false)
-              .HasColumnType("datetime")
-              .HasDefaultValue(DateTime.UtcNow);
-
-            entity.Property(e => e.LastUpdatedOn)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasColumnType("datetime")
-                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

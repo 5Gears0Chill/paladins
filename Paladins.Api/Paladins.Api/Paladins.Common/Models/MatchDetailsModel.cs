@@ -1,22 +1,12 @@
-﻿using Paladins.Common.DataAccess.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Paladins.Repository.Entities
+namespace Paladins.Common.Models
 {
-    public partial class MatchDetails : AuditBaseEntity
+    public class MatchDetailsModel
     {
-        public MatchDetails()
-        {
-            ItemsBought = new HashSet<ItemsBought>();
-            LoadoutsSelected = new HashSet<LoadoutSelected>();
-            MatchBans = new HashSet<MatchBans>();
-        }
-
-        public int PmatchId { get; set; }
-        public int PqueueId { get; set; }
-        public int PplayerId { get; set; }
-        public int PlayerMatchHistoryId { get; set; }
+        public int PaladinsMatchId { get; set; }
+        public int PaladinsQueueId { get; set; }
+        public int PaladinsPlayerId { get; set; }
         public string MapName { get; set; }
         public string PlayerName { get; set; }
         public int PlayerAccountLevel { get; set; }
@@ -28,8 +18,8 @@ namespace Paladins.Repository.Entities
         public string Region { get; set; }
         public int TeamOneScore { get; set; }
         public int TeamTwoScore { get; set; }
-        public int PchampionId { get; set; }
-        public int PchampionSkinId { get; set; }
+        public int PaladinsChampionId { get; set; }
+        public int PaladinsChampionSkinId { get; set; }
         public int SelfHealing { get; set; }
         public int GoldEarnedPerMinute { get; set; }
         public int GoldEarnedTotal { get; set; }
@@ -49,12 +39,8 @@ namespace Paladins.Repository.Entities
         public int LeageWins { get; set; }
         public int LeagueTier { get; set; }
         public int LeaguePoints { get; set; }
-
-        public virtual Tier LeagueTierNavigation { get; set; }
-        public virtual Queue Pqueue { get; set; }
-        public virtual PlayerMatchHistory PlayerMatchHistory { get; set; }
-        public virtual ICollection<ItemsBought> ItemsBought { get; set; }
-        public virtual ICollection<LoadoutSelected> LoadoutsSelected { get; set; }
-        public virtual ICollection<MatchBans> MatchBans { get; set; }
+        public IEnumerable<MatchBansModel> MatchBans { get; set; }
+        public IEnumerable<ItemsBoughtModel> ItemsBought { get; set; }
+        public IEnumerable<LoadoutSelectedModel> LoadoutSelected { get; set; }
     }
 }

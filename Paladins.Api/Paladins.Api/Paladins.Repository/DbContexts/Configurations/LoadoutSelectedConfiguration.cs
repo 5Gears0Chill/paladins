@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Paladins.Repository.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Repository.DbContexts.Configurations
 {
@@ -24,29 +21,10 @@ namespace Paladins.Repository.DbContexts.Configurations
             entity.Property(e => e.PplayerId).HasColumnName("PPlayerId");
 
             entity.HasOne(d => d.MatchDetails)
-                .WithMany(p => p.LoadoutSelectedMatchDetails)
+                .WithMany(p => p.LoadoutsSelected)
                 .HasForeignKey(d => d.MatchDetailsId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LoadoutSelected_MatchDetails");
-
-            entity.HasOne(d => d.Pmatch)
-                .WithMany(p => p.LoadoutSelectedPmatch)
-                .HasPrincipalKey(p => p.PmatchId)
-                .HasForeignKey(d => d.PmatchId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LoadoutSelected_MatchDetails1");
-
-            entity.Property(e => e.CreatedOn)
-              .IsRequired()
-              .IsUnicode(false)
-              .HasColumnType("datetime")
-              .HasDefaultValue(DateTime.UtcNow);
-
-            entity.Property(e => e.LastUpdatedOn)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasColumnType("datetime")
-                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }
