@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
+using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Models;
 using Paladins.Common.Requests;
+using Paladins.Common.Requests.Controllers;
 using Paladins.Common.Responses;
 
 namespace Paladins.Api.Controllers
@@ -18,19 +20,22 @@ namespace Paladins.Api.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;
-
-        public PlayerController(IPlayerService playerService)
+        private readonly IControllerRequestResolver _resolver;
+        public PlayerController(IPlayerService playerService, 
+            IControllerRequestResolver resolver)
         {
             _playerService = playerService;
+            _resolver = resolver;
         }
 
         [HttpPost]
         [ActionName(nameof(GetPlayer))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<PlayerModel>), 200)]
-        public async Task<IActionResult> GetPlayer([FromBody] PlayerBaseRequest request)
+        public async Task<IActionResult> GetPlayer([FromBody] PlayerControllerRequest request)
         {
-            var response = await _playerService.GetPlayerAsync(request);
+            var response = await _playerService
+                .GetPlayerAsync(_resolver.CreateBasePlayerRequest(request));
             return Ok(response);
         }
 
@@ -38,9 +43,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetFriends))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<PlayerModel>), 200)]
-        public async Task<IActionResult> GetFriends([FromBody] PlayerBaseRequest request)
+        public async Task<IActionResult> GetFriends([FromBody] PlayerControllerRequest request)
         {
-            var response = await _playerService.GetPlayerFriendsAsync(request);
+            var response = await _playerService
+                .GetPlayerFriendsAsync(_resolver.CreateBasePlayerRequest(request));
             return Ok(response);
         }
 
@@ -48,9 +54,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetChampionRanks))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<PlayerChampionRanksClientModel>>), 200)]
-        public async Task<IActionResult> GetChampionRanks([FromBody] PlayerBaseRequest request)
+        public async Task<IActionResult> GetChampionRanks([FromBody] PlayerControllerRequest request)
         {
-            var response = await _playerService.GetPlayerChampionRanksAsync(request);
+            var response = await _playerService
+                .GetPlayerChampionRanksAsync(_resolver.CreateBasePlayerRequest(request));
             return Ok(response);
         }
 
@@ -58,9 +65,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetMatchHistory))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<MatchDetailsClientModel>>), 200)]
-        public async Task<IActionResult> GetMatchHistory([FromBody] PlayerBaseRequest request)
+        public async Task<IActionResult> GetMatchHistory([FromBody] PlayerControllerRequest request)
         {
-            var response = await _playerService.GetPlayerMatchHistoryAsync(request);
+            var response = await _playerService
+                .GetPlayerMatchHistoryAsync(_resolver.CreateBasePlayerRequest(request));
             return Ok(response);
         }
 
@@ -68,9 +76,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetPlayerLoadouts))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<PlayerLoadoutsClientModel>>), 200)]
-        public async Task<IActionResult> GetPlayerLoadouts([FromBody] PlayerLoadoutsRequest request)
+        public async Task<IActionResult> GetPlayerLoadouts([FromBody] PlayerControllerLoadoutRequest request)
         {
-            var response = await _playerService.GetPlayerLoadoutsAsync(request);
+            var response = await _playerService
+                .GetPlayerLoadoutsAsync(_resolver.CreatePlayerLoadoutsRequest(request));
             return Ok(response);
         }
 
@@ -78,9 +87,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetPlayerStatus))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<PlayerStatusClientModel>>), 200)]
-        public async Task<IActionResult> GetPlayerStatus([FromBody] PlayerBaseRequest request)
+        public async Task<IActionResult> GetPlayerStatus([FromBody] PlayerControllerRequest request)
         {
-            var response = await _playerService.GetPlayerStatusAsync(request);
+            var response = await _playerService
+                .GetPlayerStatusAsync(_resolver.CreateBasePlayerRequest(request));
             return Ok(response);
         }
 
@@ -88,9 +98,10 @@ namespace Paladins.Api.Controllers
         [ActionName(nameof(GetPlayerQueueStats))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<PlayerQueueStatsClientModel>>), 200)]
-        public async Task<IActionResult> GetPlayerQueueStats([FromBody] PlayerQueueStatsRequest request)
+        public async Task<IActionResult> GetPlayerQueueStats([FromBody] PlayerControllerQueueStatsRequest request)
         {
-            var response = await _playerService.GetPlayerQueueStatsAsync(request);
+            var response = await _playerService
+                .GetPlayerQueueStatsAsync(_resolver.CreatePlayerQueueStatsRequest(request));
             return Ok(response);
         }
     }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Paladins.Common.Requests
+namespace Paladins.Common.Requests.Controllers
 {
-    public class PlayerQueueStatsRequest: PlayerBaseRequest
+    public class PlayerControllerQueueStatsRequest
     {
         [Required]
         public string QueueId { get; set; }
-
+        [Required]
+        public string PlayerName { get; set; }
     }
 }

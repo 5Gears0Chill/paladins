@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace Paladins.Common.ErrorHandling.Models
+{
+    public class ErrorDetails
+    {
+        public string Title { get; set; }
+        public bool IsErrorKnown { get; set; }
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
+        public string Source { get; set; }
+        public string StackTrace { get; set; }
+
+    }
+}

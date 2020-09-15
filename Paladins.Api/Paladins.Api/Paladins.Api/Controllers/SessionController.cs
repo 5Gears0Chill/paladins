@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels;
-using Paladins.Common.Dto;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Paladins.Api.Controllers
 {
@@ -25,7 +21,7 @@ namespace Paladins.Api.Controllers
         [HttpGet]
         [ActionName(nameof(GetNewSession))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<SessionClientDTO>), 200)]
+        [ProducesResponseType(typeof(Response<SessionClientModel>), 200)]
         public async Task<IActionResult> GetNewSession()
         {
             var response = await _sessionService.GetClientSessionAsync();

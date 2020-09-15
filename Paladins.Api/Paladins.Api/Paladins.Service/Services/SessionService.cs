@@ -1,13 +1,9 @@
 ﻿using Paladins.Common.ClientModels;
-using Paladins.Common.Dto;
 using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
-using Paladins.Common.Validation;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Paladins.Service.Services
@@ -20,20 +16,10 @@ namespace Paladins.Service.Services
             _sessionClient = sessionClient;
         }
 
-        public async Task<Response<SessionClientDTO>> GetClientSessionAsync()
+        public async Task<Response<SessionClientModel>> GetClientSessionAsync()
         {
             var cr = await _sessionClient.GetClientSessionAsync();
-            var response = new Response<SessionClientDTO>
-            {
-                Data = new SessionClientDTO()
-                {
-                    State = cr.RetMsg,
-                    SessionId = cr.SessionId,
-                    TimeStamp = cr.Timestamp,
-                }
-            };
-
-            return response;
+            return new Response<SessionClientModel>() { Data = cr };
         }
 
         public async Task<Response<List<UsageStatisticsClientModel>>> GetUsageStatisticsAsync(BaseRequest request) 

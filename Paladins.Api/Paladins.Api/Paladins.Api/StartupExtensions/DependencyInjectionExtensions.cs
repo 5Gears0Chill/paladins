@@ -14,6 +14,7 @@ using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Interfaces.SessionManager;
 using Paladins.Common.Interfaces.Strategies;
 using Paladins.Common.Mappers;
 using Paladins.Common.Models;
@@ -31,6 +32,7 @@ using Paladins.Repository.Mappers.Queues;
 using Paladins.Repository.Mappers.Skins;
 using Paladins.Repository.Mappers.Tiers;
 using Paladins.Repository.Repositories;
+using Paladins.Service;
 using Paladins.Service.Services;
 using Paladins.Service.Strategies;
 using System;
@@ -45,9 +47,11 @@ namespace Paladins.Api.StartupExtensions
             RegisterClients(services);
             RegisterServices(services);
             RegisterAuditing(services);
+            RegisterSessionManager(services);
             RegisterRepositories(services);
             RegisterMappers(services);
             RegisterStrategies(services);
+            RegisterControllerResolver(services);
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -122,12 +126,19 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IPlayerStrategy<PlayerBaseRequest, PlayerChampionRanksClientModel, PlayerChampionStatsModel>,
                 PlayerChampionStatsStrategy>();
         }
-
-       
+        private static void RegisterControllerResolver(IServiceCollection services)
+        {
+            services.AddScoped<IControllerRequestResolver, ControllerRequestResolver>();
+        }
 
         private static void RegisterAuditing(IServiceCollection services)
         {
             services.AddScoped<IAuditManager, AuditManager>();
+        }
+
+        private static void RegisterSessionManager(IServiceCollection services)
+        {
+            services.AddScoped<ISessionManager, SessionManager>();
         }
 
         public static void RegisterUnitOfWorkManagers(this IServiceCollection services)
