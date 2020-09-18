@@ -28,35 +28,35 @@ namespace Paladins.Common.Mappers
                         {
                             PaladinsAbilityId = Convert.ToInt32(c.AbilityId1),
                             Description = c.AbilityDescription1,
-                            Summary = c.Ability1,
+                            Name = c.Ability1,
                             Url = c.ChampionAbility1Url,
                         },
                         new AbilityModel
                         {
                             PaladinsAbilityId = Convert.ToInt32(c.AbilityId2),
                             Description = c.AbilityDescription2,
-                            Summary = c.Ability2,
+                            Name = c.Ability2,
                             Url = c.ChampionAbility2Url,
                         },
                         new AbilityModel
                         {
                             PaladinsAbilityId = Convert.ToInt32(c.AbilityId3),
                             Description = c.AbilityDescription3,
-                            Summary = c.Ability3,
+                            Name = c.Ability3,
                             Url = c.ChampionAbility3Url,
                         },
                         new AbilityModel
                         {
                             PaladinsAbilityId = Convert.ToInt32(c.AbilityId4),
                             Description = c.AbilityDescription4,
-                            Summary = c.Ability4,
+                            Name = c.Ability4,
                             Url = c.ChampionAbility4Url,
                         },
                         new AbilityModel
                         {
                             PaladinsAbilityId = Convert.ToInt32(c.AbilityId5),
                             Description = c.AbilityDescription5,
-                            Summary = c.Ability5,
+                            Name = c.Ability5,
                             Url = c.ChampionAbility5Url,
                         }
                     }

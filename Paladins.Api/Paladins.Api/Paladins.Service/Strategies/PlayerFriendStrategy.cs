@@ -66,7 +66,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Update friends");
+                    response.ValidationResults.ErrorMessages.Add("failed to Update friends");
                 }
             }
             else
@@ -80,7 +80,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Insert friends");
+                    response.ValidationResults.ErrorMessages.Add("failed to Insert friends");
                 }
             }
             return response;

@@ -6,11 +6,11 @@ namespace Paladins.Common.Validation
 {
     public class ValidationResponse
     {
-        public ValidatorResult ValidatonResults{ get; set; }
+        public ValidatorResult ValidationResults{ get; set; }
 
         public ValidationResponse()
         {
-            ValidatonResults = new ValidatorResult();
+            ValidationResults = new ValidatorResult();
         }
     }
 }

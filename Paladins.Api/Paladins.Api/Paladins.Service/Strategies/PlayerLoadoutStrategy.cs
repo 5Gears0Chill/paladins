@@ -66,7 +66,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Update Loadouts");
+                    response.ValidationResults.ErrorMessages.Add("failed to Update Loadouts");
                 }
             }
             else
@@ -80,7 +80,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Insert Loadouts");
+                    response.ValidationResults.ErrorMessages.Add("failed to Insert Loadouts");
                 }
             }
             return response;

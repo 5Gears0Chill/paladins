@@ -68,7 +68,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Update Champion Stats");
+                    response.ValidationResults.ErrorMessages.Add("failed to Update Champion Stats");
                 }
             }
             else
@@ -83,7 +83,7 @@ namespace Paladins.Service.Strategies
                 }
                 else
                 {
-                    response.ValidatonResults.ErrorMessages.Add("failed to Insert Champion Stats");
+                    response.ValidationResults.ErrorMessages.Add("failed to Insert Champion Stats");
                 }
             }
             return response;

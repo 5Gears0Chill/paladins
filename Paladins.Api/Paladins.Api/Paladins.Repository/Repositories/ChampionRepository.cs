@@ -6,6 +6,8 @@ using Paladins.Common.Extensions.LinqExtensions;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
+using Paladins.Common.Requests.Controllers;
+using Paladins.Common.Responses;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using System;
@@ -72,7 +74,9 @@ namespace Paladins.Repository.Repositories
                      Pchampion = x.Pchampion,
                      PlayerId = player.PlayerId,
                      Rank = x.Rank,
-                     Wins = x.Wins
+                     Wins = x.Wins,
+                     PchampionId = x.PchampionId,
+                     Losses = x.Losses
                  });
             var response = await UpdateListAsync(stats);
             return new DataListResult<PlayerChampionStatsModel>(response.RowsAffected, model);
@@ -96,8 +100,37 @@ namespace Paladins.Repository.Repositories
                     Rank = x.Rank,
                     Wins = x.Wins
                 }).ToListAsync();
-
             return response;
+        }
+
+        public async Task<PagedResponse<ChampionModel>> GetChampionsAsync(PagedRequest request)
+        {
+            var query = await Context.ChampionAbilities
+                .Include(x => x.Champion)
+                .Include(x => x.Ability)
+                .Select(x => new ChampionModel
+                {
+                    ChampionIconUrl = new Uri(x.Champion.Url),
+                    Id = x.Champion.Id,
+                    Health = x.Champion.Health,
+                    LatestChampion = x.Champion.IsLatestChampion,
+                    Lore = x.Champion.Lore,
+                    Name = x.Champion.Name,
+                    PaladinsChampionId = x.Champion.PchampionId,
+                    Role = x.Champion.Role,
+                    Speed = x.Champion.Speed,
+                    Title = x.Champion.Title,
+                    Abilities = x.Champion.ChampionAbilities.Select(i => new AbilityModel
+                    {
+                        Description = i.Ability.Description,
+                        PaladinsAbilityId = i.Ability.PabilityId,
+                        Name = i.Ability.Name,
+                        Url = new Uri(i.Ability.Url)
+                    })
+                }).ToListAsync();
+
+            var filtered = query.AsEnumerable().DistinctBy(x => x.Id);
+            return new PagedResponse<ChampionModel>(filtered, request);
         }
     }
 }

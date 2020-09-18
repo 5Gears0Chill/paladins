@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Paladins.Common.Models
             Abilities = new List<AbilityModel>();
             ChampionLinkageModels = new List<ChampionLinkageModel>();
         }
-
+        public int Id { get; set; }
         public int PaladinsChampionId { get; set; }
         public string LatestChampion { get; set; }
         public string Role { get; set; }
@@ -23,6 +24,7 @@ namespace Paladins.Common.Models
         public Uri ChampionIconUrl { get; set; }
         public IEnumerable<AbilityModel> Abilities { get; set; }
 
+        [JsonIgnoreAttribute]
         public List<ChampionLinkageModel> ChampionLinkageModels { get; set; }
     }
 

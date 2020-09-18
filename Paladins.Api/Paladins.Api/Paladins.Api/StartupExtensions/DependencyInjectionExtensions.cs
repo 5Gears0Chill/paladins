@@ -61,6 +61,7 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<IMatchService, MatchService>();
             services.AddScoped<ISeedService, SeedService>();
+            services.AddScoped<IInitialService, InitialService>();
         }
 
         private static void RegisterClients(IServiceCollection services)
@@ -143,15 +144,6 @@ namespace Paladins.Api.StartupExtensions
 
         public static void RegisterUnitOfWorkManagers(this IServiceCollection services)
         {
-            //var resolver = new RepositoryResolver(serviceProvider);
-
-            //services.AddScoped<IRepositoryResolver>((_) => resolver);
-
-            //var paladinsUnitOfWork = new UnitOfWork<PaladinsDbContext>(resolver);
-
-            //services.AddScoped<IUnitOfWorkManager>((_) => 
-            //new UnitOfWorkManager<PaladinsDbContext>(serviceProvider, paladinsUnitOfWork));
-
             services.AddScoped<IRepositoryResolver,RepositoryResolver>();
             services.AddScoped<IUnitOfWork,UnitOfWork<PaladinsDbContext>>();
             services.AddScoped<IUnitOfWorkManager, UnitOfWorkManager<PaladinsDbContext>>();

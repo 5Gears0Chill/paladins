@@ -11,7 +11,7 @@ namespace Paladins.Repository.Mappers.Abilities
             return new Ability
             {
                 PabilityId = a.PaladinsAbilityId,
-                Name = a.Summary,
+                Name = a.Name,
                 Description = a.Description,
                 Url = a.Url.AbsoluteUri,
             };
