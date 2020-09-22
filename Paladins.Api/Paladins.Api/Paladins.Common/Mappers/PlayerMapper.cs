@@ -6,7 +6,6 @@ using Paladins.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace Paladins.Common.Mappers
 {

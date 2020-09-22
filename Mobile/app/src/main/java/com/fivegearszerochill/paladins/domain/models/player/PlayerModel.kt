@@ -45,7 +45,7 @@ data class PlayerModel(
     @SerializedName("totalWorshippers")
     val totalWorshippers: Long? = null,
     @Expose
-    @SerializedName("totalXP")
+    @SerializedName("totalXp")
     val totalXP: Long? = null,
     @Expose
     @SerializedName("totalWins")

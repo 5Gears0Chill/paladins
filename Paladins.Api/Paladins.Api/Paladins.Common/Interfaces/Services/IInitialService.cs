@@ -9,5 +9,6 @@ namespace Paladins.Common.Interfaces.Services
     public interface IInitialService
     {
         Task<PagedResponse<ChampionModel>> GetChampionsAsync(PagedRequest request);
+        Task<PagedResponse<ItemModel>> GetItemsAsync(ItemPagedRequest request);
     }
 }

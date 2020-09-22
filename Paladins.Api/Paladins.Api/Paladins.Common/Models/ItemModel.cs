@@ -6,6 +6,7 @@ namespace Paladins.Common.Models
 {
     public class ItemModel
     {
+        public int Id { get; set; }
         public int PaladinsItemId { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }

@@ -18,6 +18,11 @@ class PlayerViewModel: ViewModel() {
             PlayerRepository.getPlayerAsync(request)
         }
 
+    val friends: LiveData<ResponseModel<PlayerModel>> = Transformations
+        .switchMap(_playerBaseRequest){ request ->
+            PlayerRepository.getFriendsAsync(request)
+        }
+    
     fun setPlayerRequest(playerName: String){
         val update = PlayerFactory.createPlayerBaseRequest(playerName)
         when (_playerBaseRequest.value) {
@@ -26,7 +31,6 @@ class PlayerViewModel: ViewModel() {
             }
             else -> _playerBaseRequest.value = update
         }
-
     }
 
     fun cancelJobs(){

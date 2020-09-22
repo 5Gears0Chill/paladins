@@ -27,9 +27,11 @@ namespace Paladins.Service.Services
                 <IChampionRepository, PagedResponse<ChampionModel>>
                 (u => u.GetChampionsAsync(request));
         }
-        public async Task GetItemsAsync()
+        public async Task<PagedResponse<ItemModel>> GetItemsAsync(ItemPagedRequest request)
         {
-
+            return await _unitOfWorkManager.ExecuteSingleAsync
+                <IItemRepository, PagedResponse<ItemModel>>
+                (u => u.getItemsAsync(request));
         }
         public async Task GetQueuesAsync()
         {

@@ -39,10 +39,11 @@ namespace Paladins.Api.Controllers
         [HttpPost]
         [ActionName(nameof(GetItems))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(bool), 200)]
-        public async Task<IActionResult> GetItems()
+        [ProducesResponseType(typeof(PagedResponse<ItemModel>), 200)]
+        public async Task<IActionResult> GetItems([FromBody] ItemPagedRequest request)
         {
-            return Ok();
+            var response = await _initialService.GetItemsAsync(request);
+            return Ok(response);
         }
 
         [HttpPost]

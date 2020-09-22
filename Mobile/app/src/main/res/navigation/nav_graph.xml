@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentMain">
+
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.FragmentMain"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_fragmentMain_to_championFragment"
+            app:destination="@id/championFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_fragmentMain_to_itemFragment"
+            app:destination="@id/itemFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_fragmentMain_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/championFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.ChampionFragment"
+        android:label="fragment_champion"
+        tools:layout="@layout/fragment_champion" />
+
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" />
+
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" >
+
+        <argument android:name="playerName"
+            android:defaultValue="None"/>
+        <action
+            android:id="@+id/action_playerFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
+</navigation>
