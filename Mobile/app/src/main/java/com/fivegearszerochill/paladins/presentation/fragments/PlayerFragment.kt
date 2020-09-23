@@ -23,9 +23,9 @@ import com.fivegearszerochill.paladins.presentation.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.fragment_player.*
 
 
-class PlayerFragment : Fragment() ,View.OnClickListener{
-    lateinit var playerViewModel: PlayerViewModel
-    lateinit var navController: NavController
+class PlayerFragment : Fragment(), View.OnClickListener {
+    private lateinit var playerViewModel: PlayerViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,20 +107,35 @@ class PlayerFragment : Fragment() ,View.OnClickListener{
         total_xp.text = """${player?.data?.totalXP.toString()} XP"""
         account_level.text = """Account Level: ${player?.data?.accountLevel.toString()}"""
     }
-    private fun setOnClickListeners(){
+
+    private fun setOnClickListeners() {
         view_friends.setOnClickListener(this)
+        view_match_history.setOnClickListener(this)
     }
+
     companion object {
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
         private const val DEFAULT_QUERY = "muaazjoosuf"
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.view_friends ->{
-                if(name.text.isNotEmpty()){
+        when (v!!.id) {
+            R.id.view_friends -> {
+                if (name.text.isNotEmpty()) {
                     val bundle = bundleOf("playerName" to name.text.toString())
-                    navController.navigate(R.id.action_playerFragment_to_friendsFragment,bundle)
+                    navController.navigate(
+                        R.id.action_playerFragment_to_friendsFragment,
+                        bundle
+                    )
+                }
+            }
+            R.id.view_match_history -> {
+                if (name.text.isNotEmpty()) {
+                    val bundle = bundleOf("playerName" to name.text.toString())
+                    navController.navigate(
+                        R.id.action_playerFragment_to_matchHistoryFragment,
+                        bundle
+                    )
                 }
             }
         }

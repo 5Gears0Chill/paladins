@@ -60,10 +60,24 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_playerFragment_to_matchHistoryFragment"
+            app:destination="@id/matchHistoryFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
+
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.fivegearszerochill.paladins.presentation.fragments.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
+
+    <fragment
+        android:id="@+id/matchHistoryFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.MatchHistoryFragment"
+        android:label="fragment_match_history"
+        tools:layout="@layout/fragment_match_history" />
 </navigation>
