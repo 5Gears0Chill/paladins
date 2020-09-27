@@ -52,7 +52,7 @@ namespace Paladins.Repository.Repositories
                                         }).ToList()
 
                     })
-                    .OrderBy(x => x.PaladinsChampionId)
+                    .OrderBy(x => x.ChampionName)
                     .ToListAsync();
 
             return new PagedResponse<PlayerLoadoutModel>(loadouts, request);
