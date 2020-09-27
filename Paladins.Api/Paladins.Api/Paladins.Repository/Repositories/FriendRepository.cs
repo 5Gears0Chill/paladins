@@ -5,6 +5,8 @@ using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
+using Paladins.Common.Requests.Controllers;
+using Paladins.Common.Responses;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using System.Collections.Generic;
@@ -69,6 +71,24 @@ namespace Paladins.Repository.Repositories
 
             var response = await UpdateListAsync(friends);
             return new DataListResult<FriendModel>(response.RowsAffected, model);
+        }
+
+
+        public async Task<PagedResponse<FriendModel>> GetPagedFriendsAsync(PlayerPagedRequest request)
+        {
+           var friends = await Context.Friend
+                .Include(x => x.Player)
+                .Where(x => x.Player.Name.Contains(request.PlayerName))
+                .Select(x => new FriendModel 
+                { 
+                   Id = x.Id,
+                   PaladinsPlayerId = x.PplayerId,
+                   AccountId = x.AccountId,
+                   CreatedOn = x.CreatedOn,
+                   Name = x.Name,
+                   LastUpdatedOn = x.LastUpdatedOn
+                }).ToListAsync();
+            return new PagedResponse<FriendModel>(friends, request);
         }
     }
 }

@@ -18,16 +18,6 @@ class PlayerViewModel: ViewModel() {
             PlayerRepository.getPlayerAsync(request)
         }
 
-    val friends: LiveData<ResponseModel<PlayerModel>> = Transformations
-        .switchMap(_playerBaseRequest){ request ->
-            PlayerRepository.getFriendsAsync(request)
-        }
-
-    val matchHistory: LiveData<ResponseModel<PlayerModel>> = Transformations
-        .switchMap(_playerBaseRequest){ request ->
-            PlayerRepository.getMatchHistoryAsync(request)
-        }
-    
     fun setPlayerRequest(playerName: String){
         val update = PlayerFactory.createPlayerBaseRequest(playerName)
         when (_playerBaseRequest.value) {

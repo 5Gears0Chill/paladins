@@ -31,6 +31,7 @@ namespace Paladins.Repository.DbContexts.Configurations
             entity.HasOne(d => d.Champion)
                 .WithMany(p => p.Loadouts)
                 .HasForeignKey(d => d.PchampionId)
+                .HasPrincipalKey(d => d.PchampionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Loadout_PlayerChampion");
 

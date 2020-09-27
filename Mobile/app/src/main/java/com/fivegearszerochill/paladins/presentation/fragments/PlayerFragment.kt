@@ -111,6 +111,7 @@ class PlayerFragment : Fragment(), View.OnClickListener {
     private fun setOnClickListeners() {
         view_friends.setOnClickListener(this)
         view_match_history.setOnClickListener(this)
+        view_loadouts.setOnClickListener(this)
     }
 
     companion object {
@@ -134,6 +135,15 @@ class PlayerFragment : Fragment(), View.OnClickListener {
                     val bundle = bundleOf("playerName" to name.text.toString())
                     navController.navigate(
                         R.id.action_playerFragment_to_matchHistoryFragment,
+                        bundle
+                    )
+                }
+            }
+            R.id.view_loadouts -> {
+                if (name.text.isNotEmpty()) {
+                    val bundle = bundleOf("playerName" to name.text.toString())
+                    navController.navigate(
+                        R.id.action_playerFragment_to_loadoutFragment,
                         bundle
                     )
                 }

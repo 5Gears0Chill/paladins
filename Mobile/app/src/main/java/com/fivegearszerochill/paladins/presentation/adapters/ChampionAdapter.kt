@@ -1,7 +1,6 @@
 package com.fivegearszerochill.paladins.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -16,20 +15,16 @@ class ChampionAdapter(diffCallback: DiffUtil.ItemCallback<ChampionModel>) :
 
     override fun onBindViewHolder(holder: ChampionViewHolder, position: Int) {
         val item = getItem(position)
-        // Note that item may be null. ViewHolder must support binding a
-        // null item as a placeholder.
         holder.bind(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChampionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         return ChampionViewHolder(inflater,parent)
     }
 
     object ChampionModelComparator: DiffUtil.ItemCallback<ChampionModel>(){
         override fun areItemsTheSame(oldItem: ChampionModel, newItem: ChampionModel): Boolean {
-            // Id is unique.
             return oldItem.id == newItem.id
         }
 
@@ -38,7 +33,6 @@ class ChampionAdapter(diffCallback: DiffUtil.ItemCallback<ChampionModel>) :
         }
     }
 }
-
 
 class ChampionViewHolder(inflater: LayoutInflater, itemView: ViewGroup)
     : RecyclerView.ViewHolder( inflater.inflate(R.layout.champion_item_view, itemView,false)) {

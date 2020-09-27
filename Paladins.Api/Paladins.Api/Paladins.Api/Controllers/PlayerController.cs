@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Paladins.Common.ClientModels.Match;
+﻿using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Player;
 using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Models;
-using Paladins.Common.Requests;
 using Paladins.Common.Requests.Controllers;
 using Paladins.Common.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Paladins.Api.Controllers
 {
@@ -20,11 +15,15 @@ namespace Paladins.Api.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;
+        private readonly IPlayerMobileService _playerMobileService;
         private readonly IControllerRequestResolver _resolver;
+
         public PlayerController(IPlayerService playerService, 
+            IPlayerMobileService playerMobileService, 
             IControllerRequestResolver resolver)
         {
             _playerService = playerService;
+            _playerMobileService = playerMobileService;
             _resolver = resolver;
         }
 
@@ -40,46 +39,51 @@ namespace Paladins.Api.Controllers
         }
 
         [HttpPost]
-        [ActionName(nameof(GetFriends))]
-        [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<PlayerModel>), 200)]
-        public async Task<IActionResult> GetFriends([FromBody] PlayerControllerRequest request)
-        {
-            var response = await _playerService
-                .GetPlayerFriendsAsync(_resolver.CreateBasePlayerRequest(request));
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [ActionName(nameof(GetChampionRanks))]
-        [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<PlayerChampionRanksClientModel>>), 200)]
-        public async Task<IActionResult> GetChampionRanks([FromBody] PlayerControllerRequest request)
-        {
-            var response = await _playerService
-                .GetPlayerChampionRanksAsync(_resolver.CreateBasePlayerRequest(request));
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [ActionName(nameof(GetMatchHistory))]
-        [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<MatchDetailsClientModel>>), 200)]
-        public async Task<IActionResult> GetMatchHistory([FromBody] PlayerControllerRequest request)
-        {
-            var response = await _playerService
-                .GetPlayerMatchHistoryAsync(_resolver.CreateBasePlayerRequest(request));
-            return Ok(response);
-        }
-
-        [HttpPost]
         [ActionName(nameof(GetPlayerLoadouts))]
         [ProducesResponseType(500)]
-        [ProducesResponseType(typeof(Response<List<PlayerLoadoutsClientModel>>), 200)]
-        public async Task<IActionResult> GetPlayerLoadouts([FromBody] PlayerControllerLoadoutRequest request)
+        [ProducesResponseType(typeof(PagedResponse<PlayerLoadoutModel>), 200)]
+        public async Task<IActionResult> GetPlayerLoadouts([FromBody] PlayerPagedRequest request)
         {
-            var response = await _playerService
+            var model = await _playerService
                 .GetPlayerLoadoutsAsync(_resolver.CreatePlayerLoadoutsRequest(request));
+
+            var response = await _playerMobileService.GetPagedPlayerLoadoutsAsync(request, model.Data);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(GetPlayerFriends))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(PagedResponse<FriendModel>), 200)]
+        public async Task<IActionResult> GetPlayerFriends([FromBody] PlayerPagedRequest request)
+        {
+            await _playerService
+                .GetPlayerFriendsAsync(_resolver.CreateBasePlayerRequest(request));
+            var response = await _playerMobileService.GetPagedPlayerFriendsAsync(request);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(GetPlayerChampionStats))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(PagedResponse<PlayerChampionStatsModel>), 200)]
+        public async Task<IActionResult> GetPlayerChampionStats([FromBody] PlayerPagedRequest request)
+        {
+            var model = await _playerService
+                .GetPlayerChampionRanksAsync(_resolver.CreateBasePlayerRequest(request));
+            var response = await _playerMobileService.GetPagedPlayerChampionStatsAsync(request, model.Data);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(GetPlayerMatchHistory))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(PagedResponse<MatchHistoryModel>), 200)]
+        public async Task<IActionResult> GetPlayerMatchHistory([FromBody] PlayerPagedRequest request)
+        {
+            await _playerService
+                .GetPlayerMatchHistoryAsync(_resolver.CreateBasePlayerRequest(request));
+            var response = await _playerMobileService.GetPagedPlayerMatchHistoryAsync(request);
             return Ok(response);
         }
 

@@ -32,5 +32,6 @@ namespace Paladins.Repository.Entities
         public virtual ICollection<PlayerChampionStats> PlayerChampionStats { get; set; }
         public virtual ICollection<Loadout> Loadouts { get; set; }
         public virtual ICollection<Skin> Skin { get; set; }
+        public virtual ICollection<PlayerMatchHistory> PlayerMatchHistories { get; set; }
     }
 }

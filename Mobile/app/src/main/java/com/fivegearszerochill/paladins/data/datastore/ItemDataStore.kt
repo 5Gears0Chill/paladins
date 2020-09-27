@@ -4,13 +4,8 @@ import androidx.paging.PagingSource
 import com.fivegearszerochill.paladins.data.api.RetrofitBuilder
 import com.fivegearszerochill.paladins.domain.models.initial.ItemModel
 import com.fivegearszerochill.paladins.domain.requests.ItemPagedRequest
-import com.fivegearszerochill.paladins.domain.requests.PagedRequest
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
-import java.lang.Exception
 
 class ItemDataStore(
     private val championId: Int?) :
@@ -20,10 +15,10 @@ class ItemDataStore(
         try{
             val request = ItemPagedRequest(
                 championId = championId ?: -1,
-                page = 10,
+                size = 10,
                 number = params.key ?: 1
             )
-            val response = RetrofitBuilder.initialService.getItems(request)
+            val response = RetrofitBuilder.generalService.getItems(request)
             val totalPages = calculateTotalPages(response, request)
             return LoadResult.Page(
                 data = response.data,

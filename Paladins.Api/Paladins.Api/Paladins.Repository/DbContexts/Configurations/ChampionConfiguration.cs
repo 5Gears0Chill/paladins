@@ -53,6 +53,16 @@ namespace Paladins.Repository.DbContexts.Configurations
               .HasColumnType("datetime")
               .HasDefaultValue(DateTime.UtcNow);
 
+            entity.HasMany(c => c.PlayerMatchHistories)
+                .WithOne(d => d.Champion)
+                .HasForeignKey(c => c.PchampionId)
+                .HasPrincipalKey(c => c.PchampionId);
+
+            entity.HasMany(c => c.Loadouts)
+                .WithOne(c => c.Champion)
+                .HasPrincipalKey(c => c.PchampionId)
+                .HasForeignKey(c => c.PchampionId);
+
             entity.Property(e => e.LastUpdatedOn)
                 .IsRequired()
                 .IsUnicode(false)

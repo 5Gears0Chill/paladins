@@ -11,11 +11,11 @@ class ChampionDataStore: PagingSource<Int, ChampionModel>(), BaseDataStore{
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ChampionModel> {
         try {
-            var request = PagedRequest(
+            val request = PagedRequest(
                 pageSize = 6,
                 pageNumber = params.key ?: 1
             )
-            val response = RetrofitBuilder.initialService.getChampions(request)
+            val response = RetrofitBuilder.generalService.getChampions(request)
             val totalPages = calculateTotalPages(response, request)
 
             return LoadResult.Page(

@@ -13,7 +13,7 @@ namespace Paladins.Repository.DbContexts.Configurations
         {
             entity.Property(e => e.Id).UseIdentityColumn().ValueGeneratedOnAdd();
 
-            entity.HasOne(d => d.Pchampion)
+            entity.HasOne(d => d.Champion)
                 .WithMany(p => p.PlayerChampionStats)
                 .HasPrincipalKey(p => p.PchampionId)
                 .HasForeignKey(d => d.PchampionId)

@@ -1,4 +1,6 @@
-﻿namespace Paladins.Common.Models
+﻿using System;
+
+namespace Paladins.Common.Models
 {
     public class PlayerMatchHistoryModel
     {
@@ -10,6 +12,7 @@
         public int Kills { get; set; }
         public int Deaths { get; set; }
         public int Assists { get; set; }
+        public DateTime EntryDateTime { get; set; }
         public string MatchResult { get; set; }
     }
 }

@@ -8,17 +8,14 @@ data class MatchHistoryModel(
     @SerializedName("id")
     val id: Long? = null,
     @Expose
-    @SerializedName("playerId")
-    val playerID: Long? = null,
-    @Expose
-    @SerializedName("paladinsPlayerId")
-    val paladinsPlayerID: Long? = null,
-    @Expose
     @SerializedName("paladinsMatchId")
     val paladinsMatchID: Long? = null,
     @Expose
     @SerializedName("paladinsChampionId")
     val paladinsChampionID: Long? = null,
+    @Expose
+    @SerializedName("championName")
+    val championName: String? = null,
     @Expose
     @SerializedName("kills")
     val kills: Long? = null,
@@ -33,6 +30,6 @@ data class MatchHistoryModel(
     val matchResult: String? = null
 ){
     override fun toString(): String {
-        return "MatchHistoryModel(id=$id, playerID=$playerID, paladinsPlayerID=$paladinsPlayerID, paladinsMatchID=$paladinsMatchID, paladinsChampionID=$paladinsChampionID, kills=$kills, deaths=$deaths, assists=$assists, matchResult=$matchResult)"
+        return "MatchHistoryModel(id=$id, paladinsMatchID=$paladinsMatchID, paladinsChampionID=$paladinsChampionID, championName=$championName, kills=$kills, deaths=$deaths, assists=$assists, matchResult=$matchResult)"
     }
 }

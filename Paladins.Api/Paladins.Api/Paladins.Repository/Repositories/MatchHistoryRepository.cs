@@ -4,6 +4,8 @@ using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
+using Paladins.Common.Requests.Controllers;
+using Paladins.Common.Responses;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using System;
@@ -65,6 +67,31 @@ namespace Paladins.Repository.Repositories
             return new DataListResult<PlayerMatchHistoryModel>(response.RowsAffected, model);
         }
 
+        /// <summary>
+        /// Db response of paged response for match histories
+        /// </summary>
+        /// <param name="request">Based Paged request with playername</param>
+        /// <returns>a paged history</returns>
+        public async Task<PagedResponse<MatchHistoryModel>> GetPagedMatchHistoriesAsync(PlayerPagedRequest request)
+        {
+            var matchhistories = await Context.PlayerMatchHistory
+                .Include(x => x.Player)
+                .Include(x => x.Champion)
+                .Where(x => x.Player.Name.Contains(request.PlayerName))
+                .Select(x => new MatchHistoryModel
+                {
+                    Id = x.Id,
+                    Assists = x.Assists,
+                    Deaths = x.Deaths,
+                    MatchResult = x.MatchResult,
+                    ChampionName = x.Champion.Name,
+                    Kills = x.Kills,
+                    PaladinsChampionId = x.PchampionId,
+                    PaladinsMatchId = x.PmatchId
+                }).ToListAsync();
+
+            return new PagedResponse<MatchHistoryModel>(matchhistories, request);
+        }
 
         private PlayerMatchHistory ToPlayerMatchHistoryEntity(PlayerMatchHistoryModel x, PlayerModel player = null)
         {

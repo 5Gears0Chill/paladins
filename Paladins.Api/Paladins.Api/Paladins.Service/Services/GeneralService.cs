@@ -1,11 +1,13 @@
 ﻿using Paladins.Common.ClientModels.General;
 using Paladins.Common.Interfaces.Clients;
+using Paladins.Common.Interfaces.DataAccess;
+using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Models;
 using Paladins.Common.Requests;
+using Paladins.Common.Requests.Controllers;
 using Paladins.Common.Responses;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Paladins.Service.Services
@@ -13,16 +15,12 @@ namespace Paladins.Service.Services
     public class GeneralService: IGeneralService
     {
         private readonly IGeneralClient _generalClient;
-        public GeneralService(IGeneralClient generalClient)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+
+        public GeneralService(IGeneralClient generalClient, IUnitOfWorkManager unitOfWorkManager)
         {
             _generalClient = generalClient;
-        }
-
-        public async Task<Response<List<GeneralChampionsClientModel>>> GetChampionsAsync(GeneralBaseRequest request)
-        {
-            var response = await _generalClient.GetClientChampionsAsync(request);
-
-            return new Response<List<GeneralChampionsClientModel>>() { Data = response };
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public async Task<Response<List<GeneralChampionsSkinsClientModel>>> GetChampionSkinsAsync(ChampionSkinsRequest request)
@@ -32,11 +30,17 @@ namespace Paladins.Service.Services
             return new Response<List<GeneralChampionsSkinsClientModel>>() { Data = response };
         }
 
-        public async Task<Response<List<GeneralItemsClientModel>>> GetItemsAsync(GeneralBaseRequest request)
+        public async Task<PagedResponse<ChampionModel>> GetChampionsAsync(PagedRequest request)
         {
-            var response = await _generalClient.GetClientItemsAsync(request);
-
-            return new Response<List<GeneralItemsClientModel>>() { Data = response };
+            return await _unitOfWorkManager.ExecuteSingleAsync
+                <IChampionRepository, PagedResponse<ChampionModel>>
+                (u => u.GetChampionsAsync(request));
+        }
+        public async Task<PagedResponse<ItemModel>> GetItemsAsync(ItemPagedRequest request)
+        {
+            return await _unitOfWorkManager.ExecuteSingleAsync
+                <IItemRepository, PagedResponse<ItemModel>>
+                (u => u.getItemsAsync(request));
         }
     }
 }

@@ -26,9 +26,10 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 class ItemFragment : Fragment() {
 
-    lateinit var viewModel: ItemViewModel
+    private lateinit var viewModel: ItemViewModel
     private var searchJob: Job? = null
     private val adapter = ItemAdapter(ItemAdapter.ItemModelComparator)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

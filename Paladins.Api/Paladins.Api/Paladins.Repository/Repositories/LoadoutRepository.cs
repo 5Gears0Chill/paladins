@@ -2,8 +2,11 @@
 using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
+using Paladins.Common.Extensions.LinqExtensions;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
+using Paladins.Common.Requests.Controllers;
+using Paladins.Common.Responses;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
 using System.Collections.Generic;
@@ -19,6 +22,41 @@ namespace Paladins.Repository.Repositories
         {
         }
 
+        public async Task<PagedResponse<PlayerLoadoutModel>> GetPagedLoadoutsAsync(PlayerPagedRequest request, PlayerModel model)
+        {
+            var loadouts = await Context.Loadout
+                 .Include(x => x.LoadoutItem)
+                 .Include(x => x.Champion)
+                 .Where(x => x.PlayerName.Contains(request.PlayerName))
+                    .Select(x => new PlayerLoadoutModel
+                    {
+                        Id = x.Id,
+                        PaladinsPlayerId = x.PplayerId,
+                        LoadoutName = x.LoadoutName,
+                        PaladinsLoadoutId = x.PloadoutId,
+                        PlayerName = x.PlayerName,
+                        PaladinsChampionId = x.PchampionId,
+                        ChampionName = x.Champion.Name,
+                        ChampionUrl = x.Champion.Url,
+                        CreatedOn = x.CreatedOn,
+                        LastUpdatedOn = x.LastUpdatedOn,
+                        LoadoutItems = (from loadoutItem in x.LoadoutItem
+                                        select new PlayerLoadoutItemModel
+                                        {
+                                            CardName = loadoutItem.Name,
+                                            PaladinsItemId = loadoutItem.PitemId,
+                                            ItemName = loadoutItem.Item.DeviceName,
+                                            ItemUrl = loadoutItem.Item.ItemIconUrl,
+                                            Description = loadoutItem.Item.Description,
+                                            PointsAssignedToItem = loadoutItem.Points
+                                        }).ToList()
+
+                    })
+                    .OrderBy(x => x.PaladinsChampionId)
+                    .ToListAsync();
+
+            return new PagedResponse<PlayerLoadoutModel>(loadouts, request);
+        }
 
         public async Task<IEnumerable<PlayerLoadoutModel>> GetPlayerLoadoutAsync(PlayerModel model)
         {
@@ -38,6 +76,7 @@ namespace Paladins.Repository.Repositories
                         LoadoutItems = (from item in x.LoadoutItem
                                         select new PlayerLoadoutItemModel
                                         {
+                                            Id = item.Id,
                                             CardName = item.Name,
                                             PaladinsItemId = item.PitemId,
                                             PointsAssignedToItem = item.Points
@@ -58,7 +97,6 @@ namespace Paladins.Repository.Repositories
                 PloadoutId = x.PaladinsLoadoutId,
                 PplayerId = x.PaladinsPlayerId,
                 PlayerName = x.PlayerName,
- 
                 LoadoutItem = (from item in x.LoadoutItems
                                select new LoadoutItem
                                {

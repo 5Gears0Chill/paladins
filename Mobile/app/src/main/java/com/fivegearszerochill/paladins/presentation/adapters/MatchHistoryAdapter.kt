@@ -3,39 +3,34 @@ package com.fivegearszerochill.paladins.presentation.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fivegearszerochill.paladins.R
-import com.fivegearszerochill.paladins.domain.models.player.FriendModel
 import com.fivegearszerochill.paladins.domain.models.player.MatchHistoryModel
-import com.fivegearszerochill.paladins.domain.util.empty
 import kotlinx.android.synthetic.main.match_history_item_view.view.*
 
-class MatchHistoryAdapter: RecyclerView.Adapter<MatchHistoryViewHolder>() {
+class MatchHistoryAdapter(diffCallback: DiffUtil.ItemCallback<MatchHistoryModel>):
+    PagingDataAdapter<MatchHistoryModel, MatchHistoryViewHolder>(diffCallback) {
 
-    private val dataSource = ArrayList<MatchHistoryModel>()
+    override fun onBindViewHolder(holder: MatchHistoryViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchHistoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         return MatchHistoryViewHolder(inflater,parent)
     }
 
-    override fun onBindViewHolder(holder: MatchHistoryViewHolder, position: Int) {
-        holder.bind(dataSource[position])
-    }
-
-    override fun getItemCount(): Int {
-        return dataSource.size
-    }
-
-    fun addAll(match: List<MatchHistoryModel>){
-        for (f in match){
-            add(f)
+    object MatchHistoryModelComparator: DiffUtil.ItemCallback<MatchHistoryModel>(){
+        override fun areItemsTheSame(oldItem: MatchHistoryModel, newItem: MatchHistoryModel): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
 
-    private fun add(match: MatchHistoryModel){
-        dataSource.add(match)
+        override fun areContentsTheSame(oldItem: MatchHistoryModel, newItem: MatchHistoryModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }
 

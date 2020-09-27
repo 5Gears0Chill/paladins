@@ -15,5 +15,6 @@ namespace Paladins.Common.Interfaces.Repositories
         Task<DataListResult<PlayerChampionStatsModel>> UpdatePlayerChampionStatsAsync(List<PlayerChampionStatsModel> model, PlayerModel player);
         Task<IEnumerable<PlayerChampionStatsModel>> GetPlayerChampionStatsAsync(PlayerModel player);
         Task<PagedResponse<ChampionModel>> GetChampionsAsync(PagedRequest request);
+        Task<PagedResponse<PlayerChampionStatsModel>> GetPagedPlayerChampionStats(PlayerPagedRequest request, PlayerModel model);
     }
 }

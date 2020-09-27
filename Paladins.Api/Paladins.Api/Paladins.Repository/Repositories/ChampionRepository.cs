@@ -13,7 +13,6 @@ using Paladins.Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Paladins.Repository.Repositories
@@ -71,7 +70,7 @@ namespace Paladins.Repository.Repositories
                      CreatedOn = x.CreatedOn,
                      Kills = x.Kills,
                      LastUpdatedOn = x.LastUpdatedOn,
-                     Pchampion = x.Pchampion,
+                     Champion = x.Champion,
                      PlayerId = player.PlayerId,
                      Rank = x.Rank,
                      Wins = x.Wins,
@@ -131,6 +130,31 @@ namespace Paladins.Repository.Repositories
 
             var filtered = query.AsEnumerable().DistinctBy(x => x.Id);
             return new PagedResponse<ChampionModel>(filtered, request);
+        }
+
+        public async Task<PagedResponse<PlayerChampionStatsModel>> GetPagedPlayerChampionStats(PlayerPagedRequest request, PlayerModel model)
+        {
+            var response = await Context.PlayerChampionStats
+                    .Include(x => x.Champion)
+                    .Where(x => x.PlayerId == model.PlayerId)
+                    .Select(x => new PlayerChampionStatsModel
+                    {
+                        Assists = x.Assists,
+                        CreatedOn = x.CreatedOn,
+                        Deaths = x.Deaths,
+                        Id = x.Id,
+                        Kills = x.Kills,
+                        LastUpdatedOn = x.LastUpdatedOn,
+                        Losses = x.Losses,
+                        PaladinsChampionId = x.PchampionId,
+                        ChampionName = x.Champion.Name,
+                        ChampionUrl = x.Champion.Url,
+                        PlayerId = x.PlayerId,
+                        Rank = x.Rank,
+                        Wins = x.Wins
+                    }).ToListAsync();
+
+            return new PagedResponse<PlayerChampionStatsModel>(response, request);
         }
     }
 }

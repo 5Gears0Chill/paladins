@@ -1,4 +1,5 @@
-﻿using Paladins.Common.Interfaces.Resolvers;
+﻿using Paladins.Common.Constants;
+using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Requests;
 using Paladins.Common.Requests.Controllers;
 
@@ -15,12 +16,29 @@ namespace Paladins.Common.Resolvers
             };
         }
 
+        public PlayerBaseRequest CreateBasePlayerRequest(PlayerPagedRequest request)
+        {
+            return new PlayerBaseRequest
+            {
+                PlayerName = request.PlayerName
+            };
+        }
+
         public PlayerLoadoutsRequest CreatePlayerLoadoutsRequest(PlayerControllerLoadoutRequest request)
         {
             return new PlayerLoadoutsRequest
             {
                 PlayerName = request.PlayerName,
                 LanguageId = request.LanguageId,
+            };
+        }
+
+        public PlayerLoadoutsRequest CreatePlayerLoadoutsRequest(PlayerPagedRequest request)
+        {
+            return new PlayerLoadoutsRequest
+            {
+                PlayerName = request.PlayerName,
+                LanguageId = (int)LanguageEnum.English,
             };
         }
 

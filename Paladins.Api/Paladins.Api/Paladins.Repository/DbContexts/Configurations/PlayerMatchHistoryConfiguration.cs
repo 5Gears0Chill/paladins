@@ -20,6 +20,10 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PlayerMatchHistory_Player");
 
+            entity.HasOne(d => d.Champion)
+                .WithMany(c => c.PlayerMatchHistories)
+                .HasForeignKey(d => d.PchampionId);
+              
             entity.Property(e => e.CreatedOn)
               .IsRequired()
               .IsUnicode(false)

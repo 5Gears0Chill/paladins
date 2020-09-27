@@ -9,6 +9,6 @@ namespace Paladins.Repository.Entities
         public int Points { get; set; }
         public string Name { get; set; }
         public virtual Loadout Loadout { get; set; }
-        public virtual Item Pitem { get; set; }
+        public virtual Item Item { get; set; }
     }
 }

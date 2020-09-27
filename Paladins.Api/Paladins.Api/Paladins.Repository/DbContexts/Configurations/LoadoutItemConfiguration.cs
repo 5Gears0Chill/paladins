@@ -23,7 +23,7 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LoadoutItem_Loadout");
 
-            entity.HasOne(d => d.Pitem)
+            entity.HasOne(d => d.Item)
                 .WithMany(p => p.LoadoutItem)
                 .HasPrincipalKey(p => p.PitemId)
                 .HasForeignKey(d => d.PitemId)

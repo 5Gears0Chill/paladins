@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
 
 namespace Paladins.Common.Requests
 {
     public class BaseRequest
     {
-        [Required]
+        [JsonIgnore]
         public string SessionId { get; set; }
     }
 }

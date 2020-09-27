@@ -21,5 +21,6 @@ namespace Paladins.Repository.Entities
         public int Assists { get; set; }
         public virtual ICollection<MatchDetails> MatchDetails { get; set; }
         public virtual Player Player { get; set; }
+        public virtual Champion Champion { get; set; }
     }
 }

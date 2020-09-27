@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Common.Models
 {
@@ -9,6 +7,8 @@ namespace Paladins.Common.Models
         public int Id { get; set; }
         public int PlayerId { get; set; }
         public int PaladinsChampionId { get; set; }
+        public string ChampionName { get; set; }
+        public string ChampionUrl { get; set; }
         public int Assists { get; set; }
         public int Deaths { get; set; }
         public int Kills { get; set; }

@@ -2,38 +2,35 @@ package com.fivegearszerochill.paladins.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.models.player.FriendModel
 import com.fivegearszerochill.paladins.domain.util.empty
 import kotlinx.android.synthetic.main.friend_item_view.view.*
 
-class FriendsAdapter: RecyclerView.Adapter<FriendViewHolder>() {
+class FriendsAdapter(diffCallback: DiffUtil.ItemCallback<FriendModel>)
+    :PagingDataAdapter<FriendModel, FriendViewHolder>(diffCallback){
 
-    private val dataSource = ArrayList<FriendModel>()
+    override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         return FriendViewHolder(inflater,parent)
     }
 
-    override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
-        holder.bind(dataSource[position])
-    }
-
-    override fun getItemCount(): Int {
-        return dataSource.size
-    }
-
-    fun addAll(friends: List<FriendModel>){
-        for (f in friends){
-            add(f)
+    object FriendModelComparator: DiffUtil.ItemCallback<FriendModel>(){
+        override fun areItemsTheSame(oldItem: FriendModel, newItem: FriendModel): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
 
-    private fun add(friend: FriendModel){
-        dataSource.add(friend)
+        override fun areContentsTheSame(oldItem: FriendModel, newItem: FriendModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }
 

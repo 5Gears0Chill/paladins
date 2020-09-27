@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class ChampionStatModel(
+data class ChampionStatsModel(
     @Expose
     @SerializedName("id")
     val id: Long? = null,
@@ -14,6 +14,12 @@ data class ChampionStatModel(
     @Expose
     @SerializedName("paladinsChampionId")
     val paladinsChampionID: Long? = null,
+    @Expose
+    @SerializedName("championName")
+    val championName: String? = null,
+    @Expose
+    @SerializedName("championUrl")
+    val championUrl: String? = null,
     @Expose
     @SerializedName("assists")
     val assists: Long? = null,

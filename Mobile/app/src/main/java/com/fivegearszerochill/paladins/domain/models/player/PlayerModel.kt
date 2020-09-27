@@ -80,21 +80,9 @@ data class PlayerModel(
     @Expose
     @SerializedName("rankDetailsModel")
     val rankDetailsModel: List<RankDetailsModel>? = null,
-    @Expose
-    @SerializedName("friends")
-    val friends: List<FriendModel>? = null,
-    @Expose
-    @SerializedName("championStats")
-    val championStats: List<ChampionStatModel>? = null,
-    @Expose
-    @SerializedName("loadouts")
-    val loadouts: List<LoadoutModel>? = null,
-    @Expose
-    @SerializedName("matchHistories")
-    val matchHistories: List<MatchHistoryModel>? = null
 ){
     override fun toString(): String {
-        return "PlayerModel(playerID=$playerID, paladinsPlayerID=$paladinsPlayerID, name=$name, avatarURL=$avatarURL, avatarID=$avatarID, minutesPlayed=$minutesPlayed, hoursPlayed=$hoursPlayed, totalLeaves=$totalLeaves, controllerTier=$controllerTier, kbmTier=$kbmTier, conquestTier=$conquestTier, totalWorshippers=$totalWorshippers, totalXP=$totalXP, totalWINS=$totalWINS, lastLoginTimeStamp=$lastLoginTimeStamp, accountCreatedOnTimeStamp=$accountCreatedOnTimeStamp, accountLevel=$accountLevel, loadingFrame=$loadingFrame, masteryLevel=$masteryLevel, personalStatusMessage=$personalStatusMessage, createdOn=$createdOn, lastUpdatedOn=$lastUpdatedOn, isActive=$isActive, rankDetailsModel=$rankDetailsModel, friends=$friends, championStats=$championStats, loadouts=$loadouts, matchHistories=$matchHistories)"
+        return "PlayerModel(playerID=$playerID, paladinsPlayerID=$paladinsPlayerID, name=$name, avatarURL=$avatarURL, avatarID=$avatarID, minutesPlayed=$minutesPlayed, hoursPlayed=$hoursPlayed, totalLeaves=$totalLeaves, controllerTier=$controllerTier, kbmTier=$kbmTier, conquestTier=$conquestTier, totalWorshippers=$totalWorshippers, totalXP=$totalXP, totalWINS=$totalWINS, lastLoginTimeStamp=$lastLoginTimeStamp, accountCreatedOnTimeStamp=$accountCreatedOnTimeStamp, accountLevel=$accountLevel, loadingFrame=$loadingFrame, masteryLevel=$masteryLevel, personalStatusMessage=$personalStatusMessage, createdOn=$createdOn, lastUpdatedOn=$lastUpdatedOn, isActive=$isActive)"
     }
 }
 

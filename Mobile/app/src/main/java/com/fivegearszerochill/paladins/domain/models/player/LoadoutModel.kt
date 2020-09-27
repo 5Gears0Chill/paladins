@@ -12,6 +12,12 @@ data class LoadoutModel (
     @SerializedName("paladinsChampionId")
     val paladinsChampionID: Long? = null,
     @Expose
+    @SerializedName("championName")
+    val championName: String? = null,
+    @Expose
+    @SerializedName("championUrl")
+    val championUrl: String? = null,
+    @Expose
     @SerializedName("loadoutName")
     val loadoutName: String? = null,
     @Expose

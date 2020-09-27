@@ -8,10 +8,10 @@ import com.fivegearszerochill.paladins.domain.requests.PagedRequest
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface InitialService {
-    @POST("/api/Initial/GetChampions")
+interface GeneralService {
+    @POST("/api/General/GetChampions")
     suspend fun getChampions(@Body request: PagedRequest): PagedResponseModel<ChampionModel>
 
-    @POST("/api/Initial/GetItems")
+    @POST("/api/General/GetItems")
     suspend fun getItems(@Body request: ItemPagedRequest): PagedResponseModel<ItemModel>
 }

@@ -34,8 +34,8 @@ using Paladins.Repository.Mappers.Tiers;
 using Paladins.Repository.Repositories;
 using Paladins.Service;
 using Paladins.Service.Services;
+using Paladins.Service.Services.Mobile;
 using Paladins.Service.Strategies;
-using System;
 
 namespace Paladins.Api.StartupExtensions
 {
@@ -61,7 +61,8 @@ namespace Paladins.Api.StartupExtensions
             services.AddScoped<IGeneralService, GeneralService>();
             services.AddScoped<IMatchService, MatchService>();
             services.AddScoped<ISeedService, SeedService>();
-            services.AddScoped<IInitialService, InitialService>();
+            services.AddScoped<IPlayerMobileService, PlayerMobileService>();
+
         }
 
         private static void RegisterClients(IServiceCollection services)

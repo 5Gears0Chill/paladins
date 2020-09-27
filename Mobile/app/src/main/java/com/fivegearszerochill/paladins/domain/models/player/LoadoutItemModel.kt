@@ -11,6 +11,15 @@ data class LoadoutItemModel (
     @SerializedName("paladinsItemId")
     val paladinsItemID: Long? = null,
     @Expose
+    @SerializedName("itemName")
+    val itemName: String? = null,
+    @Expose
+    @SerializedName("itemUrl")
+    val itemUrl: String? = null,
+    @Expose
+    @SerializedName("description")
+    val description: String? = null,
+    @Expose
     @SerializedName("pointsAssignedToItem")
     val pointsAssignedToItem: Long? = null,
     @Expose

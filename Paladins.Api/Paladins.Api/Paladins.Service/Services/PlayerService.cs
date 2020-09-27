@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Paladins.Service.Services
 {
+   
     public class PlayerService: IPlayerService
     {
         private readonly IPlayerClient _playerClient;
@@ -33,7 +34,7 @@ namespace Paladins.Service.Services
             request.SessionId = await _sessionManager.GetKey();
             var strategy = _strategyResolver.Resolve<IBasePlayerStrategy>();
             return await strategy.GetPlayerAsync(request);
-        } 
+        }
 
         public async Task<Response<PlayerModel>> GetPlayerFriendsAsync(PlayerBaseRequest request)
         {
