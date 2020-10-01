@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Common.ClientModels.General
 {
-    public partial class GeneralItemsClientModel
+    public partial class GeneralItemsClientModel : BaseClientModel
     {
         [JsonProperty("Description")]
         public string Description { get; set; }
@@ -33,9 +31,6 @@ namespace Paladins.Common.ClientModels.General
 
         [JsonProperty("item_type")]
         public string ItemType { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
 
         [JsonProperty("talent_reward_level")]
         public long TalentRewardLevel { get; set; }

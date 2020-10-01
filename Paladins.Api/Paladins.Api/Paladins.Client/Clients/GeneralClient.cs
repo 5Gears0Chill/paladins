@@ -1,6 +1,7 @@
 ﻿using Paladins.Common.ClientModels.General;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
+using Paladins.Common.Interfaces.Handlers;
 using Paladins.Common.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace Paladins.Client.Clients
     public class GeneralClient : BaseClient, IGeneralClient
     {
         private readonly IRequestUrlBuilder _requestUrlBuilder;
-        public GeneralClient(IRequestUrlBuilder requestUrlBuilder)
+        public GeneralClient(IRequestUrlBuilder requestUrlBuilder, IClientRetMessageHandler clientRetMessageHandler)
+            : base(clientRetMessageHandler)
         {
             _requestUrlBuilder = requestUrlBuilder;
         }

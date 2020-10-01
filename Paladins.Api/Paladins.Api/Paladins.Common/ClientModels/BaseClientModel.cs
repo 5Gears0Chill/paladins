@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Paladins.Common.ClientModels
 {
     public class BaseClientModel
     {
-        public int StatusCode { get; set; }
+        [JsonProperty("ret_msg")]
+        public string RetMsg { get; set; }
+
+        [JsonIgnore]
+        public bool IsFailedRequest { get; set; }
     }
 }

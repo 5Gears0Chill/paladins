@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Paladins.Common.Converters;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Common.ClientModels.Match
 {
 
-    public partial class MatchDetailsClientModel
+    public partial class MatchDetailsClientModel : BaseClientModel
     {
         [JsonProperty("Account_Level")]
         public long AccountLevel { get; set; }
@@ -260,6 +257,9 @@ namespace Paladins.Common.ClientModels.Match
 
         [JsonProperty("Multi_kill_Max")]
         public long MultiKillMax { get; set; }
+        
+        [JsonProperty("Match_Time")]
+        public string MatchTime { get; set; }
 
         [JsonProperty("Objective_Assists")]
         public long ObjectiveAssists { get; set; }
@@ -333,8 +333,5 @@ namespace Paladins.Common.ClientModels.Match
 
         [JsonProperty("playerName")]
         public string PlayerName { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
     }
 }

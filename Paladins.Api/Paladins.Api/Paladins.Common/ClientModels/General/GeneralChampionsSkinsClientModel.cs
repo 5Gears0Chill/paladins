@@ -2,7 +2,7 @@
 
 namespace Paladins.Common.ClientModels.General
 {
-    public partial class GeneralChampionsSkinsClientModel
+    public partial class GeneralChampionsSkinsClientModel : BaseClientModel
     {
         [JsonProperty("champion_id")]
         public long ChampionId { get; set; }
@@ -12,9 +12,6 @@ namespace Paladins.Common.ClientModels.General
 
         [JsonProperty("rarity")]
         public string Rarity { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
 
         [JsonProperty("skin_id1")]
         public long SkinId1 { get; set; }

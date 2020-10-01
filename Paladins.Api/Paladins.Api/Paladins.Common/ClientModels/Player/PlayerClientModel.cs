@@ -1,11 +1,11 @@
-﻿namespace Paladins.Common.ClientModels.Player
-{
-    using Newtonsoft.Json;
-    using Paladins.Common.Converters;
-    using System;
-    using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Paladins.Common.Converters;
+using System;
+using System.Collections.Generic;
 
-    public partial class PlayerClientModel
+namespace Paladins.Common.ClientModels.Player
+{
+    public partial class PlayerClientModel : BaseClientModel
     {
         [JsonProperty("ActivePlayerId")]
         public long ActivePlayerId { get; set; }
@@ -105,9 +105,6 @@
 
         [JsonProperty("hz_player_name")]
         public string HzPlayerName { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
     }
 
     public partial class MergedPlayer

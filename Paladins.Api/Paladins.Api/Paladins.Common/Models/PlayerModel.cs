@@ -99,7 +99,7 @@ namespace Paladins.Common.Models
                                         Deaths = Convert.ToInt32(m.Deaths),
                                         Kills = Convert.ToInt32(m.Kills),
                                         MatchResult = m.WinStatus,
-                                        //EntryDateTime = DateTime.ParseExact(m.EntryDatetime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                                        EntryDateTime = DateTime.ParseExact(m.MatchTime, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
                                         PaladinsChampionId = Convert.ToInt32(m.ChampionId),
                                         PaladinsPlayerId = Convert.ToInt32(m.PlayerId),
                                         PaladinsMatchId = Convert.ToInt32(m.Match),

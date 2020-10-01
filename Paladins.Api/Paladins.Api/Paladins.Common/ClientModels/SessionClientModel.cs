@@ -7,8 +7,7 @@ namespace Paladins.Common.ClientModels
 {
     public class SessionClientModel : BaseClientModel
     {
-        [JsonProperty("ret_msg")]
-        public string RetMsg { get; set; }
+        public int StatusCode { get; set; }
 
         [JsonProperty("session_id")]
         public string SessionId { get; set; }

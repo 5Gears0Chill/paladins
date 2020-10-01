@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Paladins.Common.ClientModels.General
 {
-    public partial class GeneralChampionsClientModel
+    public partial class GeneralChampionsClientModel : BaseClientModel
     {
         [JsonProperty("Ability1")]
         public string Ability1 { get; set; }
@@ -126,9 +126,6 @@ namespace Paladins.Common.ClientModels.General
 
         [JsonProperty("latestChampion")]
         public string LatestChampion { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
     }
 
     public partial class Ability

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Paladins.Common.ErrorHandling.Exceptions;
 using Paladins.Common.ErrorHandling.Models;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace Paladins.Common.ErrorHandling.Handlers
         private void BuildDictionary()
         {
             //add custom errors here
+            dictionary.Add<PlayerPrivacyException>(new DictionaryObject { ResultCode = 1, Title = "Player has turned on privacy", StatusCode = 404 });
+            dictionary.Add<UnResolvedException>(new DictionaryObject { ResultCode = 2, Title = "Failed to handle Ret message", StatusCode = 500 });
 
         }
 

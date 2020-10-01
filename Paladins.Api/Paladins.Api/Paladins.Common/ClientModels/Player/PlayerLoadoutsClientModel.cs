@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Common.ClientModels.Player
 {
-    public partial class PlayerLoadoutsClientModel
+    public partial class PlayerLoadoutsClientModel : BaseClientModel
     {
         [JsonProperty("ChampionId")]
         public long ChampionId { get; set; }
@@ -27,9 +25,6 @@ namespace Paladins.Common.ClientModels.Player
 
         [JsonProperty("playerName")]
         public string PlayerName { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
     }
 
     public partial class LoadoutItem

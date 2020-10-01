@@ -1,15 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Client.Clients;
+using Paladins.Client.Handlers;
+using Paladins.Client.Resolvers;
 using Paladins.Client.Session;
+using Paladins.Client.Strategies;
 using Paladins.Common.Auditing;
 using Paladins.Common.Builders;
 using Paladins.Common.ClientModels.General;
 using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
 using Paladins.Common.DataAccess.Patterns;
+using Paladins.Common.ErrorHandling.Resolvers;
 using Paladins.Common.Interfaces.Builders;
 using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.DataAccess;
+using Paladins.Common.Interfaces.Handlers;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Resolvers;
@@ -52,6 +57,7 @@ namespace Paladins.Api.StartupExtensions
             RegisterMappers(services);
             RegisterStrategies(services);
             RegisterControllerResolver(services);
+            RegisterHandlers(services);
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -118,6 +124,7 @@ namespace Paladins.Api.StartupExtensions
 
         private static void RegisterStrategies(IServiceCollection services)
         {
+            //player service strategies
             services.AddScoped<IBasePlayerStrategy,BasePlayerStrategy>();
             services.AddScoped<IPlayerStrategy<PlayerBaseRequest, MatchDetailsClientModel, PlayerMatchHistoryModel>,
                 PlayerMatchHistoryStrategy>();         
@@ -127,6 +134,12 @@ namespace Paladins.Api.StartupExtensions
                 PlayerFriendStrategy>();
             services.AddScoped<IPlayerStrategy<PlayerBaseRequest, PlayerChampionRanksClientModel, PlayerChampionStatsModel>,
                 PlayerChampionStatsStrategy>();
+
+            //client ret messages
+            services.AddScoped<IRetMessageStrategy, ApprovedRetMessageStrategy>();
+            services.AddScoped<IRetMessageStrategy, DefaultRetMessageStrategy>();
+            services.AddScoped<IRetMessageStrategy, PrivacyFlagRetMessageStrategy>();
+
         }
         private static void RegisterControllerResolver(IServiceCollection services)
         {
@@ -153,6 +166,14 @@ namespace Paladins.Api.StartupExtensions
         public static void RegisterStrategyResolvers(this IServiceCollection services)
         {
             services.AddScoped<IStrategyResolver, StrategyResolver>();
+            services.AddScoped<IErrorCodeResolver, ErrorCodeResolver>();
+            services.AddScoped<IRetMessageResolver, RetMessageResolver>();
+        }
+
+
+        public static void RegisterHandlers(IServiceCollection services)
+        {
+            services.AddScoped<IClientRetMessageHandler, ClientRetMessageHandler>();
         }
     }
 }
