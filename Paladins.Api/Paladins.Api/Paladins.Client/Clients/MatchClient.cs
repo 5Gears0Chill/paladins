@@ -1,5 +1,6 @@
 ﻿using Paladins.Common.ClientModels.Match;
 using Paladins.Common.Interfaces.Builders;
+using Paladins.Common.Interfaces.Handlers;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Requests;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ namespace Paladins.Client.Clients
     public class MatchClient : BaseClient, IMatchClient
     {
         private readonly IRequestUrlBuilder _requestUrlBuilder;
-        public MatchClient(IRequestUrlBuilder requestUrlBuilder)
+        public MatchClient(IRequestUrlBuilder requestUrlBuilder, IClientRetMessageHandler clientRetMessageHandler)
+            : base(clientRetMessageHandler)
         {
             _requestUrlBuilder = requestUrlBuilder;
         }

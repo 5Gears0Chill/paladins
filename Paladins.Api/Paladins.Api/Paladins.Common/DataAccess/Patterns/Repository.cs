@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Paladins.Common.Auditing;
+﻿using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Repositories.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Paladins.Common.DataAccess.Patterns

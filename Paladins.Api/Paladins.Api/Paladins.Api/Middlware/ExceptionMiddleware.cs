@@ -38,6 +38,7 @@ namespace Paladins.Api.Middlware
                 ErrorType errorType = GenerateErrorHandler(ex);
                 if (errorType.IsError())
                 {
+                    context.Response.StatusCode = errorType.Get().StatusCode;
                     return errorType.GenericResponse(context,
                         ErrorDetailResponseFactory.CreateKnownErrorDetails(ex.Message, errorType.Get().ResultCode, errorType.Get().Title));
                 }

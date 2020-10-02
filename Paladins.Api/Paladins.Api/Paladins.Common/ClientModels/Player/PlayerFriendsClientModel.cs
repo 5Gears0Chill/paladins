@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Paladins.Common.ClientModels.Player
 {
-    public class PlayerFriendsClientModel
+    public class PlayerFriendsClientModel : BaseClientModel
     {
         [JsonProperty("account_id")]
         [JsonConverter(typeof(ParseStringConverter))]
@@ -18,8 +18,5 @@ namespace Paladins.Common.ClientModels.Player
         [JsonProperty("player_id")]
         [JsonConverter(typeof(ParseStringConverter))]
         public long PlayerId { get; set; }
-
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Paladins.Common.Converters;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Common.ClientModels.Player
 {
-    public partial class PlayerQueueStatsClientModel
+    public partial class PlayerQueueStatsClientModel: BaseClientModel
     {
         [JsonProperty("Assists")]
         public long Assists { get; set; }
@@ -48,8 +45,7 @@ namespace Paladins.Common.ClientModels.Player
         [JsonConverter(typeof(ParseStringConverter))]
         public long PlayerId { get; set; }
 
-        [JsonProperty("ret_msg")]
-        public object RetMsg { get; set; }
+      
     }
 
 }

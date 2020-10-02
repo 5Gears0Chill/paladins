@@ -12,7 +12,7 @@ namespace Paladins.Common.Factories
             return new ErrorDetails
             {
                 Message = message,
-                StatusCode = statusCode,
+                ResultCode = statusCode,
                 IsErrorKnown = false,
                 Title = "An Unknown Error Occured",
                 Source = ex.Source,
@@ -25,7 +25,7 @@ namespace Paladins.Common.Factories
             return new ErrorDetails
             {
                 Message = message,
-                StatusCode = statusCode,
+                ResultCode = statusCode,
                 Title = title,
                 IsErrorKnown = true,
                 Source = null,
