@@ -2,26 +2,24 @@
 using Paladins.Common.Constants;
 using Paladins.Common.Interfaces.Strategies;
 using Paladins.Common.Models;
+using System;
 
 namespace Paladins.Client.Strategies
 {
-    public class PrivacyFlagRetMessageStrategy : IRetMessageStrategy
+    public class UnAuthorizedRetMessageStrategy : IRetMessageStrategy
     {
         public bool IsApplicable(string message)
         {
-            return message
-                .ToLower()
-                .Trim()
-                .Contains(RetMessageConstants.Privacy);
+            return message.Contains(RetMessageConstants.UnAuthorized, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public ErrorResponseModel PropogateModel<TClientResponse>(TClientResponse model) where TClientResponse : BaseClientModel
         {
             return new ErrorResponseModel
             {
-                Message = "The requested player has set their privacy status to active. The requested information is private",
+                ErrorCode = ErrorCodes.UnAuthorized,
                 IsFailedRequest = true,
-                ErrorCode = ErrorCodes.Privacy
+                Message = "The developer account is restricted from the Paladins API"
             };
         }
     }
