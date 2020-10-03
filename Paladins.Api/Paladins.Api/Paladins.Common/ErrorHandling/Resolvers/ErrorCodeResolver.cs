@@ -1,4 +1,5 @@
 ﻿using Paladins.Common.Builders;
+using Paladins.Common.Constants;
 using Paladins.Common.ErrorHandling.Exceptions;
 using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Resolvers;
@@ -26,7 +27,12 @@ namespace Paladins.Common.ErrorHandling.Resolvers
 
         private void BuildDictionary()
         {
-            dict.Add(1000, typeof(PlayerPrivacyException));
+            dict.Add(ErrorCodes.Privacy, typeof(PlayerPrivacyException));
+            dict.Add(ErrorCodes.LimitExceeded, typeof(DailyLimitException));
+            dict.Add(ErrorCodes.Timestamp, typeof(TimestampException));
+            dict.Add(ErrorCodes.ActiveSessions, typeof(ActiveSessionsException));
+            dict.Add(ErrorCodes.NoMatchDetails, typeof(MatchDetailsException));
+            dict.Add(ErrorCodes.UnAuthorized, typeof(UnauthorizedAccessException));
         }
     }
 }

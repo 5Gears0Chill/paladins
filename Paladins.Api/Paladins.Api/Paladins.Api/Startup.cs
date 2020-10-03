@@ -31,11 +31,10 @@ namespace Paladins.Api
                 });
             });
 
-            services.AddModulesToContainer();
+            services.RegisterAllDependencies();
             services.ConfigureAppSettingsJson(_configuration);
             services.RegisterAppSettings();
-            services.RegisterUnitOfWorkManagers();
-            services.RegisterStrategyResolvers();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
