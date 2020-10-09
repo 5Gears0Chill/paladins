@@ -18,8 +18,10 @@ namespace Paladins.Client.Clients
         }
 
         public async Task<List<MatchDetailsClientModel>> GetClientMatchDetailsAsync(MatchBaseRequest request)
-            => await SendRequestAsync<List<MatchDetailsClientModel>>(_requestUrlBuilder.BuildMatchDetailsUrl(request.SessionId, request.MatchId));
-
+        { 
+            var response = await SendRequestAsync<List<MatchDetailsClientModel>>(_requestUrlBuilder.BuildMatchDetailsUrl(request.SessionId, request.MatchId));
+            return HandleRetMessageReponse(response);
+        }
         public async Task<List<MatchDetailsClientModel>> GetClientMatchDetailsBatchAsync(MatchBatchRequest request)
             => await SendRequestAsync<List<MatchDetailsClientModel>>(_requestUrlBuilder.BuildMatchDetailsBatchUrl(request.SessionId, request.MatchIds));
 

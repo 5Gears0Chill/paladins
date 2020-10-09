@@ -1,4 +1,5 @@
-﻿using Paladins.Common.Interfaces.Mappers;
+﻿using Paladins.Common.Extensions.UtilityExtensions;
+using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Models;
 using Paladins.Repository.Entities;
 using System;
@@ -16,7 +17,7 @@ namespace Paladins.Repository.Mappers.Players
                 AccountCreatedOnTimeStamp = p.AccountCreatedOnTimeStamp,
                 AccountLevel = p.AccountLevel,
                 AvatarId = p.AvatarId,
-                AvatarUrl = new Uri(p.AvatarUrl),
+                AvatarUrl = p.AvatarUrl.IsNullOrWhiteSpace() ? null : new Uri(p.AvatarUrl),
                 ConquestTier = p.ConquestTier,
                 ControllerTier = p.ControllerTier,
                 HoursPlayed = p.HoursPlayed,

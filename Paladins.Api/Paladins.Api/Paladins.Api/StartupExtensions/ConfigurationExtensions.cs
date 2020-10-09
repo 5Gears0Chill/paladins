@@ -2,10 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Paladins.Common.Configuration;
 using Paladins.Common.Interfaces.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Paladins.Api.StartupExtensions
 {

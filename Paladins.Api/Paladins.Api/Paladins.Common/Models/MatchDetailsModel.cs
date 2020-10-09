@@ -4,6 +4,7 @@ namespace Paladins.Common.Models
 {
     public class MatchDetailsModel
     {
+        public int Id { get; set; }
         public int PaladinsMatchId { get; set; }
         public int PaladinsQueueId { get; set; }
         public int PaladinsPlayerId { get; set; }
@@ -19,6 +20,8 @@ namespace Paladins.Common.Models
         public int TeamOneScore { get; set; }
         public int TeamTwoScore { get; set; }
         public int PaladinsChampionId { get; set; }
+        public string ChampionName { get; set; }
+        public string ChampionIconUrl { get; set; }
         public int PaladinsChampionSkinId { get; set; }
         public int SelfHealing { get; set; }
         public int GoldEarnedPerMinute { get; set; }
@@ -29,6 +32,8 @@ namespace Paladins.Common.Models
         public int DamageMitigated { get; set; }
         public int Deaths { get; set; }
         public int Kills { get; set; }
+        public int Assists { get; set; }
+        public int ObjectiveAssists { get; set; }
         public int KillingSpree { get; set; }
         public int KillsDouble { get; set; }
         public int KillsTriple { get; set; }
@@ -36,7 +41,7 @@ namespace Paladins.Common.Models
         public int KillsPenta { get; set; }
         public int MultiKillMax { get; set; }
         public int LeagueLosses { get; set; }
-        public int LeageWins { get; set; }
+        public int LeagueWins { get; set; }
         public int LeagueTier { get; set; }
         public int LeaguePoints { get; set; }
         public IEnumerable<MatchBansModel> MatchBans { get; set; }

@@ -37,6 +37,8 @@ namespace Paladins.Repository.Entities
         public int DamageDoneInHand { get; set; }
         public int DamageTaken { get; set; }
         public int DamageMitigated { get; set; }
+        public int Assists { get; set; }
+        public int ObjectiveAssists { get; set; }
         public int Deaths { get; set; }
         public int Kills { get; set; }
         public int KillingSpree { get; set; }
@@ -52,6 +54,7 @@ namespace Paladins.Repository.Entities
 
         public virtual Tier LeagueTierNavigation { get; set; }
         public virtual Queue Pqueue { get; set; }
+        public virtual Champion Champion { get; set; }
         public virtual PlayerMatchHistory PlayerMatchHistory { get; set; }
         public virtual ICollection<ItemsBought> ItemsBought { get; set; }
         public virtual ICollection<LoadoutSelected> LoadoutsSelected { get; set; }

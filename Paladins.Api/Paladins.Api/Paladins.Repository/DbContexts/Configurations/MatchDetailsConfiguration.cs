@@ -54,6 +54,10 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasMaxLength(200)
                 .IsUnicode(false);
 
+            entity.HasMany(d => d.MatchBans)
+                .WithOne(d => d.MatchDetails)
+                .HasForeignKey(d => d.MatchDetailsId);
+
             entity.HasOne(d => d.LeagueTierNavigation)
                 .WithMany(p => p.MatchDetails)
                 .HasPrincipalKey(p => p.PtierId)
@@ -74,6 +78,12 @@ namespace Paladins.Repository.DbContexts.Configurations
               .HasForeignKey(d => d.PlayerMatchHistoryId)
               .OnDelete(DeleteBehavior.ClientSetNull)
               .HasConstraintName("FK_MatchDetails_PlayerMatchHistory");
+
+            entity.HasOne(d => d.Champion)
+                .WithMany(c => c.MatchDetails)
+                .HasForeignKey(d => d.PchampionId)
+                .HasPrincipalKey(c => c.PchampionId)
+                .HasConstraintName("FK_MatchDetails_Champion");
 
             entity.Property(e => e.CreatedOn)
               .IsRequired()

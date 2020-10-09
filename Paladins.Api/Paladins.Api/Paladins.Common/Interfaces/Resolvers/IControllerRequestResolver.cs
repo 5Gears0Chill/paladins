@@ -13,5 +13,6 @@ namespace Paladins.Common.Interfaces.Resolvers
         PlayerLoadoutsRequest CreatePlayerLoadoutsRequest(PlayerControllerLoadoutRequest request);
         PlayerLoadoutsRequest CreatePlayerLoadoutsRequest(PlayerPagedRequest request);
         PlayerQueueStatsRequest CreatePlayerQueueStatsRequest(PlayerControllerQueueStatsRequest request);
+        MatchBaseRequest CreateBaseMatchRequest(MatchControllerRequest request);
     }
 }

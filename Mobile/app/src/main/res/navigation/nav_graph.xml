@@ -86,10 +86,25 @@
         android:id="@+id/matchHistoryFragment"
         android:name="com.fivegearszerochill.paladins.presentation.fragments.MatchHistoryFragment"
         android:label="fragment_match_history"
-        tools:layout="@layout/fragment_match_history" />
+        tools:layout="@layout/fragment_match_history" >
+        <argument android:name="matchId"
+            android:defaultValue="None"/>
+        <argument android:name="playerMatchHistoryId"
+            android:defaultValue="None"/>
+        <argument android:name="playerName"
+            android:defaultValue="None"/>
+        <action
+            android:id="@+id/action_matchHistoryFragment_to_matchDetailsFragment"
+            app:destination="@id/matchDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loadoutFragment"
         android:name="com.fivegearszerochill.paladins.presentation.fragments.LoadoutFragment"
         android:label="fragment_loadout"
         tools:layout="@layout/fragment_loadout" />
+    <fragment
+        android:id="@+id/matchDetailsFragment"
+        android:name="com.fivegearszerochill.paladins.presentation.fragments.MatchDetailsFragment"
+        android:label="fragment_match_details"
+        tools:layout="@layout/fragment_match_details" />
 </navigation>

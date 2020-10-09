@@ -1,6 +1,4 @@
 ﻿using Paladins.Common.DataAccess.Models;
-using System;
-using System.Collections.Generic;
 
 namespace Paladins.Repository.Entities
 {

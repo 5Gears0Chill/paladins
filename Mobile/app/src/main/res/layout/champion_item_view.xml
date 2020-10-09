@@ -68,8 +68,8 @@
                     android:id="@+id/view_abilities"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:text="View Abilities"
+                    android:layout_marginEnd="8dp"
                     style="?attr/borderlessButtonStyle"
                     />
             </LinearLayout>

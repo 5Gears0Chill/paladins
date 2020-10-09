@@ -7,6 +7,14 @@ namespace Paladins.Common.Resolvers
 {
     public class ControllerRequestResolver : IControllerRequestResolver
     {
+        public MatchBaseRequest CreateBaseMatchRequest(MatchControllerRequest request)
+        {
+            return new MatchBaseRequest
+            {
+                MatchId = request.MatchId,
+                PlayerMatchHistoryId = request.PlayerMatchHistoryId
+            };
+        }
 
         public PlayerBaseRequest CreateBasePlayerRequest(PlayerControllerRequest request)
         {

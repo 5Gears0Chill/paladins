@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Match;
+using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Models;
 using Paladins.Common.Requests;
+using Paladins.Common.Requests.Controllers;
 using Paladins.Common.Responses;
 
 namespace Paladins.Api.Controllers
@@ -17,19 +19,21 @@ namespace Paladins.Api.Controllers
     public class MatchController : ControllerBase
     {
         private readonly IMatchService _matchService;
+        private readonly IControllerRequestResolver _resolver;
 
-        public MatchController(IMatchService matchService)
+        public MatchController(IMatchService matchService, IControllerRequestResolver resolver)
         {
             _matchService = matchService;
+            _resolver = resolver;
         }
 
         [HttpPost]
         [ActionName(nameof(GetMatchDetails))]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Response<List<MatchDetailsModel>>), 200)]
-        public async Task<IActionResult> GetMatchDetails([FromBody] MatchBaseRequest request)
+        public async Task<IActionResult> GetMatchDetails([FromBody] MatchControllerRequest request)
         {
-            var response = await _matchService.GetMatchDetailsAsync(request);
+            var response = await _matchService.GetMatchDetailsAsync(_resolver.CreateBaseMatchRequest(request));
             return Ok(response);
         }
 

@@ -14,6 +14,7 @@ namespace Paladins.Repository.Entities
             MatchBans = new HashSet<MatchBans>();
             PlayerChampionStats = new HashSet<PlayerChampionStats>();
             Skin = new HashSet<Skin>();
+            MatchDetails = new HashSet<MatchDetails>();
         }
 
         public int PchampionId { get; set; }
@@ -33,5 +34,6 @@ namespace Paladins.Repository.Entities
         public virtual ICollection<Loadout> Loadouts { get; set; }
         public virtual ICollection<Skin> Skin { get; set; }
         public virtual ICollection<PlayerMatchHistory> PlayerMatchHistories { get; set; }
+        public virtual ICollection<MatchDetails> MatchDetails { get; set; }
     }
 }

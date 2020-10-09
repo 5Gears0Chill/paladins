@@ -35,7 +35,7 @@ namespace Paladins.Api.StartupExtensions.Dependencies
             return services;
         }
 
-        public static IServiceCollection RegisterUnitOfWorkManagers(this IServiceCollection services)
+        private static IServiceCollection RegisterUnitOfWorkManagers(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryResolver, RepositoryResolver>();
             services.AddScoped<IUnitOfWork, UnitOfWork<PaladinsDbContext>>();

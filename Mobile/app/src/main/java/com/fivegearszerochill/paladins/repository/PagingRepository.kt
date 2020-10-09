@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.Flow
 
 object PagingRepository {
 
-    private const val NETWORK_PAGE_SIZE = 20
-    private const val NETWORK_PREFETCH_SIZE = 10
+    private const val NETWORK_PAGE_SIZE = 30
+    private const val NETWORK_PREFETCH_SIZE = 15
 
     fun getItemSearchResultStream(championId: Int): Flow<PagingData<ItemModel>> {
         return Pager(
