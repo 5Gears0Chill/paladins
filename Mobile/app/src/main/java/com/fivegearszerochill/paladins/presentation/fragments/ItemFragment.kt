@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.presentation.adapters.ItemAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.ItemViewModel
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,18 +37,13 @@ class ItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initAdapter()
         viewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        item_fragment_recyclerview.addItemDecoration(decoration)
-        item_fragment_recyclerview.layoutManager = GridLayoutManager(activity,2)
-        item_fragment_recyclerview.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         search(query.toInt())
         initSearch(query)
@@ -59,6 +57,39 @@ class ItemFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         searchJob?.cancel()
+    }
+
+    private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        item_fragment_recyclerview.addItemDecoration(decoration)
+        item_fragment_recyclerview.layoutManager = GridLayoutManager(activity,2)
+
+        item_fragment_recyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
+        adapter.addLoadStateListener { loadState ->
+            // Only show the list if refresh succeeds.
+            item_fragment_recyclerview.isVisible = loadState.source.refresh is LoadState.NotLoading
+            // Show loading spinner during initial load or refresh.
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            // Show the retry state if initial load or refresh fails.
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+
+            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun search(championId: Int) {

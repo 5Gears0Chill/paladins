@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.LoadoutAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.LoadoutViewModel
 import kotlinx.android.synthetic.main.fragment_loadout.*
 
@@ -44,11 +47,8 @@ class LoadoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
         viewModel = ViewModelProvider(this).get(LoadoutViewModel::class.java)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        fragment_loadout_recycler_view.addItemDecoration(decoration)
-        fragment_loadout_recycler_view.layoutManager = LinearLayoutManager(activity)
-        fragment_loadout_recycler_view.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: playerName
         search(query)
         initSearch(query)
@@ -62,6 +62,34 @@ class LoadoutFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         searchJob?.cancel()
+    }
+
+    private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        fragment_loadout_recycler_view.addItemDecoration(decoration)
+        fragment_loadout_recycler_view.layoutManager = LinearLayoutManager(activity)
+        fragment_loadout_recycler_view.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
+        adapter.addLoadStateListener { loadState ->
+            fragment_loadout_recycler_view.isVisible =
+                loadState.source.refresh is LoadState.NotLoading
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun search(playerName: String) {
