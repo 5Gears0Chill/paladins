@@ -16,6 +16,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.presentation.adapters.ChampionAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.ChampionViewModel
 import kotlinx.android.synthetic.main.fragment_champion.*
 import kotlinx.coroutines.Job
@@ -39,13 +40,19 @@ class ChampionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initAdapter()
         viewModel = ViewModelProvider(this).get(ChampionViewModel::class.java)
-        champion_fragment_recyclerview.layoutManager = LinearLayoutManager(activity)
-        champion_fragment_recyclerview.adapter = adapter
+
         search()
     }
 
+    private fun initAdapter(){
+        champion_fragment_recyclerview.layoutManager = LinearLayoutManager(activity)
+        champion_fragment_recyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
+    }
     private fun search() {
         // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()

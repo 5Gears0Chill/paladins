@@ -24,7 +24,9 @@ import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.interfaces.listeners.OnMatchHistoryClickedListener
 import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.MatchHistoryAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.MatchHistoryViewModel
+import kotlinx.android.synthetic.main.fragment_loadout.*
 import kotlinx.android.synthetic.main.fragment_match_history.*
 import kotlinx.android.synthetic.main.fragment_player.*
 
@@ -51,13 +53,9 @@ class MatchHistoryFragment : Fragment(), OnMatchHistoryClickedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
         viewModel = ViewModelProvider(this).get(MatchHistoryViewModel::class.java)
         navController = Navigation.findNavController(view)
-
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        fragment_match_history_recycler_view.addItemDecoration(decoration)
-        fragment_match_history_recycler_view.layoutManager = LinearLayoutManager(activity)
-        fragment_match_history_recycler_view.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: playerName
         search(query)
         initSearch(query)
@@ -72,6 +70,15 @@ class MatchHistoryFragment : Fragment(), OnMatchHistoryClickedListener {
         navController.navigate(
             R.id.action_matchHistoryFragment_to_matchDetailsFragment,
             bundle
+        )
+    }
+    private fun initAdapter(){
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        fragment_match_history_recycler_view.addItemDecoration(decoration)
+        fragment_match_history_recycler_view.layoutManager = LinearLayoutManager(activity)
+        fragment_match_history_recycler_view.adapter =  adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
         )
     }
 

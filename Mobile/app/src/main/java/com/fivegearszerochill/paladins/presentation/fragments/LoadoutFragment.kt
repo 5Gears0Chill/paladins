@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.LoadoutAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.LoadoutViewModel
 import kotlinx.android.synthetic.main.fragment_loadout.*
 
@@ -44,11 +45,8 @@ class LoadoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
         viewModel = ViewModelProvider(this).get(LoadoutViewModel::class.java)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        fragment_loadout_recycler_view.addItemDecoration(decoration)
-        fragment_loadout_recycler_view.layoutManager = LinearLayoutManager(activity)
-        fragment_loadout_recycler_view.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: playerName
         search(query)
         initSearch(query)
@@ -62,6 +60,16 @@ class LoadoutFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         searchJob?.cancel()
+    }
+
+    private fun initAdapter(){
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        fragment_loadout_recycler_view.addItemDecoration(decoration)
+        fragment_loadout_recycler_view.layoutManager = LinearLayoutManager(activity)
+        fragment_loadout_recycler_view.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
     }
 
     private fun search(playerName: String) {

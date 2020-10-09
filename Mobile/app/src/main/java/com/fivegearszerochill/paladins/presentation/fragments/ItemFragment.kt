@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.presentation.adapters.ItemAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.ItemViewModel
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,18 +35,13 @@ class ItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initAdapter()
         viewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        item_fragment_recyclerview.addItemDecoration(decoration)
-        item_fragment_recyclerview.layoutManager = GridLayoutManager(activity,2)
-        item_fragment_recyclerview.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         search(query.toInt())
         initSearch(query)
@@ -61,6 +57,16 @@ class ItemFragment : Fragment() {
         searchJob?.cancel()
     }
 
+    private fun initAdapter(){
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        item_fragment_recyclerview.addItemDecoration(decoration)
+        item_fragment_recyclerview.layoutManager = GridLayoutManager(activity,2)
+
+        item_fragment_recyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
+    }
     private fun search(championId: Int) {
         // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()

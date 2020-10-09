@@ -11,12 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.FriendsAdapter
+import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.FriendViewModel
 import kotlinx.android.synthetic.main.fragment_friends.*
+import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -44,11 +47,8 @@ class FriendsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
         viewModel = ViewModelProvider(this).get(FriendViewModel::class.java)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        fragment_friend_recycler_view.addItemDecoration(decoration)
-        fragment_friend_recycler_view.layoutManager = LinearLayoutManager(activity)
-        fragment_friend_recycler_view.adapter = adapter
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: playerName
         search(query)
         initSearch(query)
@@ -62,6 +62,16 @@ class FriendsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         searchJob?.cancel()
+    }
+
+    private fun initAdapter(){
+        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        fragment_friend_recycler_view.addItemDecoration(decoration)
+        fragment_friend_recycler_view.layoutManager = LinearLayoutManager(activity)
+        fragment_friend_recycler_view.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { adapter.retry() },
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
     }
 
     private fun search(playerName: String) {
