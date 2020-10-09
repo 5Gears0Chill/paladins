@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,8 +28,11 @@ import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.MatchHistoryAdapter
 import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.MatchHistoryViewModel
+import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_loadout.*
 import kotlinx.android.synthetic.main.fragment_match_history.*
+import kotlinx.android.synthetic.main.fragment_match_history.progress_bar
+import kotlinx.android.synthetic.main.fragment_match_history.retry_button
 import kotlinx.android.synthetic.main.fragment_player.*
 
 
@@ -73,6 +78,7 @@ class MatchHistoryFragment : Fragment(), OnMatchHistoryClickedListener {
         )
     }
     private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         fragment_match_history_recycler_view.addItemDecoration(decoration)
         fragment_match_history_recycler_view.layoutManager = LinearLayoutManager(activity)
@@ -80,6 +86,22 @@ class MatchHistoryFragment : Fragment(), OnMatchHistoryClickedListener {
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
+        adapter.addLoadStateListener { loadState ->
+            fragment_match_history_recycler_view.isVisible = loadState.source.refresh is LoadState.NotLoading
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun search(playerName: String) {

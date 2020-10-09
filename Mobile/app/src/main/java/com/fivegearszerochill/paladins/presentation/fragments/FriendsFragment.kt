@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.domain.util.empty
@@ -19,7 +20,6 @@ import com.fivegearszerochill.paladins.presentation.adapters.FriendsAdapter
 import com.fivegearszerochill.paladins.presentation.adapters.ReposLoadStateAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.FriendViewModel
 import kotlinx.android.synthetic.main.fragment_friends.*
-import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -65,6 +65,7 @@ class FriendsFragment : Fragment() {
     }
 
     private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         fragment_friend_recycler_view.addItemDecoration(decoration)
         fragment_friend_recycler_view.layoutManager = LinearLayoutManager(activity)
@@ -72,6 +73,23 @@ class FriendsFragment : Fragment() {
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
+        adapter.addLoadStateListener { loadState ->
+            fragment_friend_recycler_view.isVisible =
+                loadState.source.refresh is LoadState.NotLoading
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun search(playerName: String) {

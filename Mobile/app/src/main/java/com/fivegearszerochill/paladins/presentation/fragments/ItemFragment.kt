@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +60,7 @@ class ItemFragment : Fragment() {
     }
 
     private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         item_fragment_recyclerview.addItemDecoration(decoration)
         item_fragment_recyclerview.layoutManager = GridLayoutManager(activity,2)
@@ -66,7 +69,29 @@ class ItemFragment : Fragment() {
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
+        adapter.addLoadStateListener { loadState ->
+            // Only show the list if refresh succeeds.
+            item_fragment_recyclerview.isVisible = loadState.source.refresh is LoadState.NotLoading
+            // Show loading spinner during initial load or refresh.
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            // Show the retry state if initial load or refresh fails.
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+
+            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
+
     private fun search(championId: Int) {
         // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()

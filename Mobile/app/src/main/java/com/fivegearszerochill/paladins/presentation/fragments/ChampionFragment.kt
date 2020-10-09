@@ -1,18 +1,15 @@
 package com.fivegearszerochill.paladins.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
 import com.fivegearszerochill.paladins.presentation.adapters.ChampionAdapter
@@ -21,9 +18,7 @@ import com.fivegearszerochill.paladins.presentation.viewmodels.ChampionViewModel
 import kotlinx.android.synthetic.main.fragment_champion.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.time.Duration
 
 class ChampionFragment : Fragment() {
 
@@ -47,12 +42,32 @@ class ChampionFragment : Fragment() {
     }
 
     private fun initAdapter(){
+        retry_button.setOnClickListener { adapter.retry() }
         champion_fragment_recyclerview.layoutManager = LinearLayoutManager(activity)
         champion_fragment_recyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
             header = ReposLoadStateAdapter { adapter.retry() },
             footer = ReposLoadStateAdapter { adapter.retry() }
         )
+        adapter.addLoadStateListener { loadState ->
+
+            champion_fragment_recyclerview.isVisible =
+                loadState.source.refresh is LoadState.NotLoading
+            progress_bar.isVisible = loadState.source.refresh is LoadState.Loading
+            retry_button.isVisible = loadState.source.refresh is LoadState.Error
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
+
     private fun search() {
         // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()
