@@ -11,24 +11,32 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import android.view.inputmethod.EditorInfo
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivegearszerochill.paladins.R
+import com.fivegearszerochill.paladins.domain.interfaces.listeners.OnMatchHistoryClickedListener
 import com.fivegearszerochill.paladins.domain.util.empty
 import com.fivegearszerochill.paladins.presentation.adapters.MatchHistoryAdapter
 import com.fivegearszerochill.paladins.presentation.viewmodels.MatchHistoryViewModel
 import kotlinx.android.synthetic.main.fragment_match_history.*
+import kotlinx.android.synthetic.main.fragment_player.*
 
 
-class MatchHistoryFragment : Fragment() {
-    private lateinit var viewModel: MatchHistoryViewModel
+class MatchHistoryFragment : Fragment(), OnMatchHistoryClickedListener {
     private var searchJob: Job? = null
-    private val adapter = MatchHistoryAdapter(MatchHistoryAdapter.MatchHistoryModelComparator)
+    private val adapter = MatchHistoryAdapter(this, MatchHistoryAdapter.MatchHistoryModelComparator)
+
+    private lateinit var viewModel: MatchHistoryViewModel
+    private lateinit var navController: NavController
     private lateinit var playerName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         playerName = requireArguments().getString("playerName") ?: String.empty()
@@ -44,6 +52,8 @@ class MatchHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MatchHistoryViewModel::class.java)
+        navController = Navigation.findNavController(view)
+
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         fragment_match_history_recycler_view.addItemDecoration(decoration)
         fragment_match_history_recycler_view.layoutManager = LinearLayoutManager(activity)
@@ -51,6 +61,18 @@ class MatchHistoryFragment : Fragment() {
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: playerName
         search(query)
         initSearch(query)
+    }
+
+    override fun onViewMatchDetailsClicked(matchId: String, id: Int) {
+        val bundle = bundleOf(
+            "matchId" to matchId,
+            "playerMatchHistoryId" to id,
+            "playerName" to playerName
+        )
+        navController.navigate(
+            R.id.action_matchHistoryFragment_to_matchDetailsFragment,
+            bundle
+        )
     }
 
     private fun search(playerName: String) {
@@ -105,4 +127,5 @@ class MatchHistoryFragment : Fragment() {
     companion object {
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
     }
+
 }

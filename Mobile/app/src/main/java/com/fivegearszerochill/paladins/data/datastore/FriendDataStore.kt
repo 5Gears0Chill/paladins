@@ -11,7 +11,7 @@ class FriendDataStore( private val playerName: String?) : PagingSource<Int, Frie
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FriendModel> {
         try {
-            var request = PlayerPagedRequest(
+            val request = PlayerPagedRequest(
                 playerName = playerName,
                 size = 10,
                 number = params.key ?: 1

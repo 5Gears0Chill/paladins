@@ -11,5 +11,9 @@ namespace Paladins.Common.Extensions.UtilityExtensions
         {
             return containsKeywords.Any(keyword => input.IndexOf(keyword, comparisonType) >= 0);
         }
+        public static bool IsNullOrWhiteSpace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s);
+        }
     }
 }

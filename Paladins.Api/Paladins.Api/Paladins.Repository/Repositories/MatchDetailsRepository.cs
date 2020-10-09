@@ -30,6 +30,9 @@ namespace Paladins.Repository.Repositories
                 .Where(x => x.PmatchId == Convert.ToInt32(request.MatchId))
                 .Select(x => new MatchDetailsModel
                 {
+                    Id = x.Id,
+                    Assists = x.Assists,
+                    ObjectiveAssists = x.ObjectiveAssists,
                     DamageDoneInHand = x.DamageDoneInHand,
                     DamageMitigated = x.DamageMitigated,
                     DamageTaken = x.DamageTaken,
@@ -51,7 +54,7 @@ namespace Paladins.Repository.Repositories
                     KillsPenta = x.KillsPenta,
                     KillsQuadra = x.KillsQuadra,
                     KillsTriple = x.KillsTriple,
-                    LeageWins = x.LeageWins,
+                    LeagueWins = x.LeageWins,
                     LeagueLosses = x.LeagueLosses,
                     LeaguePoints = x.LeaguePoints,
                     LeagueTier = x.LeagueTier,
@@ -66,6 +69,8 @@ namespace Paladins.Repository.Repositories
                         PaladinsPlayerId = i.PplayerId,
                     }),
                     PaladinsChampionId = x.PchampionId,
+                    ChampionName = x.Champion.Name,
+                    ChampionIconUrl = x.Champion.Url,
                     PaladinsPlayerId = x.PplayerId,
                     PaladinsMatchId = x.PmatchId,
                     MapGameType = x.MapGameType,
@@ -73,7 +78,8 @@ namespace Paladins.Repository.Repositories
                     MatchBans = x.MatchBans.Select(i => new MatchBansModel 
                     {
                         BanPosition = i.BanPosition,
-                        ChampionName = i.ChampionName,
+                        ChampionName = i.ChampionName,  
+                        ChampionIconUrl = i.Pchampion.Url,
                         PaladinsChampionId = i.PchampionId,
                         PaladinsMatchId = i.PmatchId,
                     }),
@@ -105,12 +111,14 @@ namespace Paladins.Repository.Repositories
                 HasReplay = x.HasReplay,
                 HealingDone = x.HealingDone,
                 KillingSpree = x.KillingSpree,
+                Assists = x.Assists,
+                ObjectiveAssists = x.ObjectiveAssists,
                 Kills = x.Kills,
                 KillsDouble = x.KillsDouble,
                 KillsPenta = x.KillsPenta,
                 KillsQuadra = x.KillsQuadra,
                 KillsTriple = x.KillsTriple,
-                LeageWins = x.LeageWins,
+                LeageWins = x.LeagueWins,
                 LeagueLosses = x.LeagueLosses,
                 LeaguePoints = x.LeaguePoints,
                 LeagueTier = x.LeagueTier,

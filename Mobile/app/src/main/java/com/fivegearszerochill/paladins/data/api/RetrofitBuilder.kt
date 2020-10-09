@@ -35,4 +35,10 @@ object RetrofitBuilder {
             .build()
             .create(GeneralService::class.java)
     }
+
+    val matchService : MatchService by lazy {
+        retrofitBuilder
+            .build()
+            .create(MatchService::class.java)
+    }
 }

@@ -4,6 +4,7 @@ using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
+using Paladins.Common.Interfaces.SessionManager;
 using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
@@ -18,17 +19,19 @@ namespace Paladins.Service.Services
         private readonly IMatchClient _matchClient;
         private readonly IMapper<MatchDetailsClientModel, MatchDetailsModel> _matchDetailsMapper;
         private IUnitOfWorkManager _unitOfWorkManager;
-
+        private readonly ISessionManager _sessionManager;
         public MatchService(IMatchClient matchClient, IUnitOfWorkManager unitOfWorkManager,
-            IMapper<MatchDetailsClientModel, MatchDetailsModel> matchDetailsMapper)
+            IMapper<MatchDetailsClientModel, MatchDetailsModel> matchDetailsMapper, ISessionManager sessionManager)
         {
             _matchClient = matchClient;
             _matchDetailsMapper = matchDetailsMapper;
             _unitOfWorkManager = unitOfWorkManager;
+            _sessionManager = sessionManager;
         }
 
         public async Task<Response<List<MatchDetailsModel>>> GetMatchDetailsAsync(MatchBaseRequest request)
         {
+            request.SessionId = await _sessionManager.GetKey();
             var response = new Response<List<MatchDetailsModel>>();
             var matchDetails = await _unitOfWorkManager.ExecuteSingleAsync
                 <IMatchDetailsRepository, IEnumerable<MatchDetailsModel>>
@@ -44,9 +47,11 @@ namespace Paladins.Service.Services
                 var storedResponse = await _unitOfWorkManager.ExecuteSingleAsync
                     <IMatchDetailsRepository, DataListResult<MatchDetailsModel>>
                         (u => u.InsertMatchDetailsEntry(mapped, request));
-                response.Data = storedResponse.Data.ToList();
+                var detailedMatch = await _unitOfWorkManager.ExecuteSingleAsync
+                  <IMatchDetailsRepository, IEnumerable<MatchDetailsModel>>
+                  (u => u.GetMatchDetails(request));
+                response.Data = detailedMatch.ToList();
             }
-
             return response;
         }
         

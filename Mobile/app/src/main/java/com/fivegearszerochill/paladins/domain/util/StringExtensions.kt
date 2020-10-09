@@ -11,3 +11,7 @@ fun String.toMinutes():String {
 fun String.toHours():String {
     return "$this hours"
 }
+
+fun String.appendUnit(unit: String):String {
+    return "$this $unit"
+}

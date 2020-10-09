@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Paladins.Repository.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Paladins.Repository.DbContexts.Configurations
 {
@@ -58,10 +56,21 @@ namespace Paladins.Repository.DbContexts.Configurations
                 .HasForeignKey(c => c.PchampionId)
                 .HasPrincipalKey(c => c.PchampionId);
 
+            entity.HasMany(c => c.MatchBans)
+                .WithOne(c => c.Pchampion)
+                .HasForeignKey(c => c.PchampionId)
+                .HasPrincipalKey(c => c.PchampionId);
+
             entity.HasMany(c => c.Loadouts)
                 .WithOne(c => c.Champion)
                 .HasPrincipalKey(c => c.PchampionId)
                 .HasForeignKey(c => c.PchampionId);
+
+            entity.HasMany(c => c.MatchDetails)
+                .WithOne(d => d.Champion)
+                .HasForeignKey(d => d.PchampionId)
+                .HasPrincipalKey(c => c.PchampionId)
+                .HasConstraintName("FK_MatchDetails_Champion");
 
             entity.Property(e => e.LastUpdatedOn)
                 .IsRequired()

@@ -17,7 +17,7 @@ namespace Paladins.Repository.Mappers.Players
                 AccountCreatedOnTimeStamp = p.AccountCreatedOnTimeStamp,
                 AccountLevel = p.AccountLevel,
                 AvatarId = p.AvatarId,
-                AvatarUrl = p.AvatarUrl.AbsoluteUri,
+                AvatarUrl = p.AvatarUrl.IsNotNull() ? p.AvatarUrl.AbsoluteUri : string.Empty,
                 ConquestTier = p.ConquestTier,
                 ControllerTier = p.ControllerTier,
                 HoursPlayed = p.HoursPlayed,

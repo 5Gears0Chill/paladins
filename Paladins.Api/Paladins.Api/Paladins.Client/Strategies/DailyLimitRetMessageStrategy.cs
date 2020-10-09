@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Paladins.Client.Strategies
 {
-    class DailyLimitRetMessageStrategy : IRetMessageStrategy
+    public class DailyLimitRetMessageStrategy : IRetMessageStrategy
     {
         public bool IsApplicable(string message)
         {
