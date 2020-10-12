@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 using Paladins.Common.Configuration;
 using Paladins.Common.Interfaces.Configuration;
 using Paladins.Repository.DbContexts.Configurations;
+using Paladins.Repository.DbContexts.Configurations.Admin;
 using Paladins.Repository.Entities;
+using Paladins.Repository.Entities.Admin;
 
 namespace Paladins.Repository.DbContexts
 {
@@ -25,8 +27,6 @@ namespace Paladins.Repository.DbContexts
             _appSettings = appSettings;
         }
 
-       
-
         public virtual DbSet<Ability> Ability { get; set; }
         public virtual DbSet<Champion> Champion { get; set; }
         public virtual DbSet<ChampionAbilities> ChampionAbilities { get; set; }
@@ -46,8 +46,9 @@ namespace Paladins.Repository.DbContexts
         public virtual DbSet<PlayerRankDetails> PlayerRankDetails { get; set; }
         public virtual DbSet<Queue> Queue { get; set; }
         public virtual DbSet<Skin> Skin { get; set; }
-        public virtual DbSet<Tier> Tier { get; set; }
-
+        public virtual DbSet<Tier> Tier { get; set; }        
+        public virtual DbSet<ActionEndPoint> ActionEndPoint { get; set; }        
+        public virtual DbSet<ApiUsageFrequency> ApiUsageFrequency { get; set; }        
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -83,6 +84,8 @@ namespace Paladins.Repository.DbContexts
             modelBuilder.ApplyConfiguration(new QueueConfiguration());
             modelBuilder.ApplyConfiguration(new SkinConfiguration());
             modelBuilder.ApplyConfiguration(new TierConfiguration());
+            modelBuilder.ApplyConfiguration(new ApiUsageFrequencyConfiguration());
+            modelBuilder.ApplyConfiguration(new ActionEndPointConfiguration());
         }  
     }
 }
