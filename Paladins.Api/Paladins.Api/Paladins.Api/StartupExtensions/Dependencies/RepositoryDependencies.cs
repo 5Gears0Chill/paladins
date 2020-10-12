@@ -2,8 +2,10 @@
 using Paladins.Common.DataAccess.Patterns;
 using Paladins.Common.Interfaces.DataAccess;
 using Paladins.Common.Interfaces.Repositories;
+using Paladins.Common.Interfaces.Repositories.Admin;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Repositories;
+using Paladins.Repository.Repositories.Admin;
 
 namespace Paladins.Api.StartupExtensions.Dependencies
 {
@@ -32,6 +34,7 @@ namespace Paladins.Api.StartupExtensions.Dependencies
             services.AddScoped<ILoadoutRepository, LoadoutRepository>();
             services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
             services.AddScoped<IMatchDetailsRepository, MatchDetailsRepository>();
+            services.AddScoped<IApiUsageFrequencyRepository, ApiUsageFrequencyRepository>();
             return services;
         }
 

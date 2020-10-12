@@ -27,6 +27,7 @@ namespace PaladinsAdmin
                 .AddRazorOptions(opt => {
                     opt.ViewLocationFormats.Add("/Views/{1}/Partials/{0}.cshtml");
                     opt.ViewLocationFormats.Add("/Views/Shared/Partials/{0}.cshtml");
+                    opt.ViewLocationFormats.Add("/Views/Shared/Components/{1}/{0}.cshtml");
                 });
             services.AddControllersWithViews();
         }
