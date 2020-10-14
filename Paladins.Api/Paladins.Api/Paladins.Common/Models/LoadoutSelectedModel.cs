@@ -1,6 +1,8 @@
-﻿namespace Paladins.Common.Models
+﻿using Paladins.Common.Interfaces.Definitions;
+
+namespace Paladins.Common.Models
 {
-    public class LoadoutSelectedModel
+    public class LoadoutSelectedModel : IModel
     {
         public int PaladinsMatchId { get; set; }
         public int PaladinsPlayerId { get; set; }

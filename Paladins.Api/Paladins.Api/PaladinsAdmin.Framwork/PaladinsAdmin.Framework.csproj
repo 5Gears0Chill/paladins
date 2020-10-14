@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Factories\" />
+    <ProjectReference Include="..\Paladins.Common\Paladins.Common.csproj" />
   </ItemGroup>
 
 </Project>

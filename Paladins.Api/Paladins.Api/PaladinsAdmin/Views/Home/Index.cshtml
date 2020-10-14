@@ -1,6 +1,84 @@
-﻿@model PageTitleViewModel
+﻿@model PlayerAdminSearchModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@await Html.PartialAsync("_PageTitle",Model)
+@await Html.PartialAsync("_PageTitle", Model.PageTitleViewModel)
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @{ var gridModel = new DataTablesModel
+            {
+                Name = "customers-grid",
+                UrlRead = new DataUrl(
+             HomeController.PlayerActionName,
+             HomeController.ControllerName,
+             null),
+                SearchButtonId = "search-customers",
+                Length = Model.PageSize,
+                LengthMenu = Model.AvailablePageSizes,
+                Filters = new List<FilterParameter>{
+                new FilterParameter(nameof(Model.PlayerName))
+              },
+            };
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.PaladinsPlayerId))
+            {
+                Title = "Player Id",
+                Width = "150",
+                ClassName = ColumnClassDefaults.CenterAll,
+            });
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.Name))
+            {
+                Title = "Player Name",
+                Width = "200"
+            });
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.LastLoginTimeStamp))
+            {
+                Title = "Last Online",
+                Width = "200",
+                Render = new RenderDate()
+            });
+
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.AccountCreatedOnTimeStamp))
+            {
+                Title = "Account Created",
+                Width = "200",
+                Render = new RenderDate()
+            });
+
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.HoursPlayed))
+            {
+                Title = "Hours Played",
+                Width = "200"
+            });
+
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.TotalWins))
+            {
+                Title = "Total Wins",
+                Width = "200",
+
+            });
+
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.TotalLeaves))
+            {
+                Title = "Total Leaves",
+                Width = "200",
+            });
+
+
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.TotalLeaves))
+            {
+                Title = "Total Leaves",
+                Width = "200",
+            });
+            
+            gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListModel.AccountLevel))
+            {
+                Title = "Account Level",
+                Width = "200",
+            });
+            }
+        @await Html.PartialAsync("Table", gridModel)
+    </div>
+</div>
+

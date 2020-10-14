@@ -1,5 +1,6 @@
 ﻿using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
+using Paladins.Common.Interfaces.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace Paladins.Common.Models
 {
-    public class PlayerModel
+    public class PlayerModel : IModel
     {
         public PlayerModel()
         {

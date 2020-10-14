@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Paladins.Common.Interfaces.Definitions;
+using System;
 
 namespace Paladins.Common.Models
 {
-    public class PlayerChampionStatsModel
+    public class PlayerChampionStatsModel : IModel
     {
         public int Id { get; set; }
         public int PlayerId { get; set; }

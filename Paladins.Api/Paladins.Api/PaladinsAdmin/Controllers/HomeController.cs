@@ -5,22 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Paladins.Common.Requests.Admin;
+using PaladinsAdmin.Factories.Interfaces;
 using PaladinsAdmin.Models;
 
 namespace PaladinsAdmin.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public const string ControllerName = "Home";
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> _logger;
+        private readonly IPlayerModelFactory _playerModelFactory;
+        public HomeController(ILogger<HomeController> logger, IPlayerModelFactory playerModelFactory)
         {
             _logger = logger;
+            _playerModelFactory = playerModelFactory;
         }
 
         public IActionResult Index()
         {
-            return View(new PageTitleViewModel {Heading ="Admin Dashboard", ActiveBreadCrumb="Dashboard" });
+            return View(new PlayerAdminSearchModel{ PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Dashboard" } });
         }
 
         public IActionResult Privacy()
@@ -32,6 +37,14 @@ namespace PaladinsAdmin.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public const string PlayerActionName = "Players";
+        [HttpGet]
+        public async Task<JsonResult> Players(PlayerAdminSearchModel searchModel)
+        {
+            var model = await _playerModelFactory.MakeListModel(searchModel);
+            return Json(model);
         }
     }
 }

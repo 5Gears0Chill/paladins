@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaladinsAdmin.StartupExtensions;
 
 namespace PaladinsAdmin
 {
@@ -30,6 +31,7 @@ namespace PaladinsAdmin
                     opt.ViewLocationFormats.Add("/Views/Shared/Components/{1}/{0}.cshtml");
                 });
             services.AddControllersWithViews();
+            services.RegisterAllDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

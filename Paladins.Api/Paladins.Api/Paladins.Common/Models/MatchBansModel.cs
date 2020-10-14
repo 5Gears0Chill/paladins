@@ -1,6 +1,8 @@
-﻿namespace Paladins.Common.Models
+﻿using Paladins.Common.Interfaces.Definitions;
+
+namespace Paladins.Common.Models
 {
-    public class MatchBansModel
+    public class MatchBansModel : IModel
     {
         public int PaladinsMatchId { get; set; }
         public int BanPosition { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace PaladinsAdmin.Models
+﻿namespace Paladins.Common.Requests.Admin
 {
     public class PageTitleViewModel
     {

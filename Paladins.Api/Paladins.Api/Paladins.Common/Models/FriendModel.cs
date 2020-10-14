@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Paladins.Common.Interfaces.Definitions;
+using System;
 
 namespace Paladins.Common.Models
 {
-    public class FriendModel
+    public class FriendModel : IModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

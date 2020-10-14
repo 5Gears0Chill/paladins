@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Paladins.Common.Interfaces.Definitions;
+using System;
 using System.Collections.Generic;
 
 namespace Paladins.Common.Models
 {
-    public class PlayerLoadoutModel
+    public class PlayerLoadoutModel : IModel
     {
         public int Id { get; set; }
         public int PaladinsChampionId { get; set; }

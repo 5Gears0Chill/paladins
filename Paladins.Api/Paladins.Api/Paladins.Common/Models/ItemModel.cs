@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Paladins.Common.Interfaces.Definitions;
+using System;
 
 namespace Paladins.Common.Models
 {
-    public class ItemModel
+    public class ItemModel : IModel
     {
         public int Id { get; set; }
         public int PaladinsItemId { get; set; }

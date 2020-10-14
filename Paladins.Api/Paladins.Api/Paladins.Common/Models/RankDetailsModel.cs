@@ -1,6 +1,8 @@
-﻿namespace Paladins.Common.Models
+﻿using Paladins.Common.Interfaces.Definitions;
+
+namespace Paladins.Common.Models
 {
-    public class RankDetailsModel
+    public class RankDetailsModel : IModel
     {
         public string RankedName { get; set; }
         public int Leaves { get; set; }
