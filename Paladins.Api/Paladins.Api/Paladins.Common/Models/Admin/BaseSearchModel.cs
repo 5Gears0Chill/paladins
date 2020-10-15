@@ -12,6 +12,7 @@ namespace Paladins.Common.Models.Admin
         {
             //set the default values
             Length = 10;
+            AvailablePageSizes = "10, 20, 50, 100";
         }
 
 

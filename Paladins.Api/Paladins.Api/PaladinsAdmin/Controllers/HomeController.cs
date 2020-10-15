@@ -40,7 +40,8 @@ namespace PaladinsAdmin.Controllers
         }
 
         public const string PlayerActionName = "Players";
-        [HttpGet]
+        
+        [HttpPost]
         public async Task<JsonResult> Players(PlayerAdminSearchModel searchModel)
         {
             var model = await _playerModelFactory.MakeListModel(searchModel);

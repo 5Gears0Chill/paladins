@@ -89,6 +89,7 @@ namespace Paladins.Repository.Repositories
                 .ConditionalWhere(() => request.PlayerName.IsNotNull(), x => x.Name == request.PlayerName)
                 .OrderByDescending(x => x.Id)
                 .Select(x => _playerToModelMapper.Map(x))
+                //.Skip((request.Page - 1) * request.PageSize).Take(request.PageSize)
                 .ToListAsync();  
         }
     }

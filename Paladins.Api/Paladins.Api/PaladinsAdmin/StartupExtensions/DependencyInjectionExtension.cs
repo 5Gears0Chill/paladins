@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paladins.Api.StartupExtensions.Dependencies;
 using PaladinsAdmin.StartupExtensions.Dependencies;
 
 namespace PaladinsAdmin.StartupExtensions
@@ -8,8 +9,20 @@ namespace PaladinsAdmin.StartupExtensions
         public static void RegisterAllDependencies(this IServiceCollection services)
         {
             services
-                .RegisterHandlers()
+                .RegisterAdminHandlers()
                 .RegisterFactories();
+
+            services
+                .RegisterCommon()
+                .RegisterClients()
+                .RegisterServices()
+                .RegisterAuditing()
+                .RegisterSessionManager()
+                .RegisterRepositoryPattern()
+                .RegisterMappers()
+                .RegisterStrategies()
+                .RegisterResolvers()
+                .RegisterHandlers();
         }
     }
 }

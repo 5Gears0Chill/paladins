@@ -15,5 +15,13 @@ namespace Paladins.Common.Extensions.UtilityExtensions
         {
             return string.IsNullOrWhiteSpace(s);
         }
+
+        public static string ToCamelCase(this string str)
+        {
+            if (String.IsNullOrEmpty(str) || Char.IsLower(str, 0))
+                return str;
+
+            return Char.ToLowerInvariant(str[0]) + str.Substring(1);
+        }
     }
 }

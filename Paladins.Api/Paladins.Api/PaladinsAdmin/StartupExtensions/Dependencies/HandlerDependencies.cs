@@ -6,7 +6,7 @@ namespace PaladinsAdmin.StartupExtensions.Dependencies
 {
     public static class HandlerDependencies
     {
-        public static IServiceCollection RegisterHandlers(this IServiceCollection services)
+        public static IServiceCollection RegisterAdminHandlers(this IServiceCollection services)
         {
             services.AddScoped<IPlayerAdminHandler, PlayerAdminHandler>();
             return services;

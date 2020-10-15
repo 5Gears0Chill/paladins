@@ -1,6 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="~/lib/jquery/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" src="~/lib/datatables/buttons.bootstrap.min.css">
+    <link rel="stylesheet" src="~/lib/datatables/buttons.dataTables.min.css">
+    <link rel="stylesheet" src="~/lib/datatables/datatables.min.css">
+    <link rel="stylesheet" src="~/lib/datatables/css/dataTables.bootstrap.css">
+    <script src="~/lib/datatables/buttons.bootstrap.min.js"></script>
+    <script src="~/lib/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/moment-with-locales-2.22.2.min.js"></script>
+    <script src="~/lib/datatables/datatables.js"></script>
+    <script src="~/lib/kendo/2014.1.318/kendo.web.min.js"></script>
+    <link rel="stylesheet" src="~/lib/kendo/2014.1.318/kendo.rtl.min.css">
+    <link rel="stylesheet" src="~/lib/kendo/2014.1.318/kendo.default.min.css">
+    <script src="~/lib/kendo/2014.1.318/kendo.common.min.css"></script>
+    <script src="/lib/jquery-migrate/jquery-migrate-1.2.1.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui-1.10.3/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate-v1.11.1/jquery.validate.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +42,8 @@
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <title>@ViewData["Title"] - PaladinsAdmin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -58,23 +76,10 @@
                 <b>Version</b> 1.0.0
             </div>
         </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <!-- jQuery -->
-        <script src="~/plugins/jquery/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-        <script>
-            $.widget.bridge('uibutton', $.ui.button)
-        </script>
         <!-- Bootstrap 4 -->
         <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- ChartJS -->
         <script src="~/plugins/chart.js/Chart.min.js"></script>
-        <!-- Sparkline -->
-        <script src="~/plugins/sparklines/sparkline.js"></script>
         <!-- JQVMap -->
         <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
         <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
@@ -91,10 +96,7 @@
         <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
         <script src="~/dist/js/adminlte.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="~/dist/js/pages/dashboard.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="~/dist/js/demo.js"></script>
+        
         @RenderSection("Scripts", required: false)
     </div>
 </body>
