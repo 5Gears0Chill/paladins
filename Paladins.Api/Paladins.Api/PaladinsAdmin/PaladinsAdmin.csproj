@@ -12,9 +12,5 @@
     <ProjectReference Include="..\Paladins.Api\Paladins.Api.csproj" />
     <ProjectReference Include="..\PaladinsAdmin.Framwork\PaladinsAdmin.Framework.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\adminLTE\" />
-  </ItemGroup>
 
 </Project>
