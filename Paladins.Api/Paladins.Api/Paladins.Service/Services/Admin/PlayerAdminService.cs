@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Paladins.Service.Services.Admin
 {
-    public class PlayerAdminService : IPlayerAdminService
+    public class PlayerAdminService : IPlayerAdminService 
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
 
