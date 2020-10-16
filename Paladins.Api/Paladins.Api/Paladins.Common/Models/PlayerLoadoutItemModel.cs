@@ -1,6 +1,8 @@
-﻿namespace Paladins.Common.Models
+﻿using Paladins.Common.Interfaces.Definitions;
+
+namespace Paladins.Common.Models
 {
-    public class PlayerLoadoutItemModel
+    public class PlayerLoadoutItemModel : IModel
     {
         public int Id { get; set; }
         public int PaladinsItemId { get; set; }

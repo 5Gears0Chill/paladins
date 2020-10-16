@@ -2,12 +2,15 @@
 using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Models;
 using Paladins.Common.DataAccess.Patterns;
+using Paladins.Common.Extensions.LinqExtensions;
 using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Models;
+using Paladins.Common.Requests.Admin;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -78,6 +81,15 @@ namespace Paladins.Repository.Repositories
                 model.PlayerId = response.Data.Id;
             }
             return new DataResult<PlayerModel>(response.RowsAffected, model);
+        }
+
+        public async Task<IEnumerable<PlayerModel>> GetPlayers(PlayerAdminSearchModel request)
+        {
+           return await Context.Player
+                .ConditionalWhere(() => request.PlayerName.IsNotNull(), x => x.Name == request.PlayerName)
+                .OrderByDescending(x => x.Id)
+                .Select(x => _playerToModelMapper.Map(x))
+                .ToListAsync();  
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Service.Services;
+using Paladins.Service.Services.Admin;
 using Paladins.Service.Services.Mobile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Paladins.Api.StartupExtensions.Dependencies
 {
@@ -19,6 +16,7 @@ namespace Paladins.Api.StartupExtensions.Dependencies
             services.AddScoped<IMatchService, MatchService>();
             services.AddScoped<ISeedService, SeedService>();
             services.AddScoped<IPlayerMobileService, PlayerMobileService>();
+            services.AddScoped<IPlayerAdminService, PlayerAdminService>();
             return services;
         }
     }

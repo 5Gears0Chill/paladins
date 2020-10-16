@@ -1,6 +1,8 @@
-﻿namespace Paladins.Common.Models
+﻿using Paladins.Common.Interfaces.Definitions;
+
+namespace Paladins.Common.Models
 {
-    public class MatchHistoryModel
+    public class MatchHistoryModel : IModel
     {    
         public int Id { get; set; }
         public int PaladinsChampionId { get; set; }

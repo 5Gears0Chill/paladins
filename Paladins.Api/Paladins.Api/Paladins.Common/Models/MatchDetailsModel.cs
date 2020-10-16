@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Paladins.Common.Interfaces.Definitions;
+using System.Collections.Generic;
 
 namespace Paladins.Common.Models
 {
-    public class MatchDetailsModel
+    public class MatchDetailsModel : IModel
     {
         public int Id { get; set; }
         public int PaladinsMatchId { get; set; }

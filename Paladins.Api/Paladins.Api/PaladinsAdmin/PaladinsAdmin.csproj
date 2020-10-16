@@ -9,6 +9,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Paladins.Api\Paladins.Api.csproj" />
     <ProjectReference Include="..\PaladinsAdmin.Framwork\PaladinsAdmin.Framework.csproj" />
   </ItemGroup>
 

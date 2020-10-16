@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaladinsAdmin.StartupExtensions;
 
 namespace PaladinsAdmin
 {
@@ -15,10 +16,10 @@ namespace PaladinsAdmin
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -27,9 +28,12 @@ namespace PaladinsAdmin
                 .AddRazorOptions(opt => {
                     opt.ViewLocationFormats.Add("/Views/{1}/Partials/{0}.cshtml");
                     opt.ViewLocationFormats.Add("/Views/Shared/Partials/{0}.cshtml");
-                    opt.ViewLocationFormats.Add("/Views/Shared/Components/{1}/{0}.cshtml");
+                    opt.ViewLocationFormats.Add("/Views/Shared/Components/Tables/{0}.cshtml");
                 });
             services.AddControllersWithViews();
+            services.RegisterAllDependencies();
+            services.ConfigureAppSettingsJson(_configuration);
+            services.RegisterAppSettings();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

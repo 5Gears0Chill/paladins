@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Paladins.Common.Interfaces.Definitions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Paladins.Common.Models
 {
-    public class ChampionModel
+    public class ChampionModel : IModel
     {
         public ChampionModel()
         {

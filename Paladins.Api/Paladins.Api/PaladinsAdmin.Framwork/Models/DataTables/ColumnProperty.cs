@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paladins.Common.Extensions.UtilityExtensions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace PaladinsAdmin.Framework.Models.DataTables
         /// <param name="data">The data source for the column from the rows data object</param>
         public ColumnProperty(string data)
         {
-            Data = data;
+            Data = data.ToCamelCase();
             //set default values
             Visible = true;
             Encode = true;
