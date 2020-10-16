@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PaladinsAdmin.Framework.Factories;
+using PaladinsAdmin.Framework.Handlers;
 using PaladinsAdmin.Framework.Interfaces.Handlers;
 
 namespace PaladinsAdmin.StartupExtensions.Dependencies

@@ -6,7 +6,7 @@ using PaladinsAdmin.Framework.Interfaces.Handlers;
 using PaladinsAdmin.Framework.Pagination;
 using System.Threading.Tasks;
 
-namespace PaladinsAdmin.Framework.Factories
+namespace PaladinsAdmin.Framework.Handlers
 {
     public class PlayerAdminHandler : BaseAdminTableHandler<PlayerModel, PlayerAdminSearchModel>, IPlayerAdminHandler
     {
