@@ -25,7 +25,7 @@ namespace PaladinsAdmin.Controllers
 
         public IActionResult Index()
         {
-            return View(new PlayerAdminSearchModel{ PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Dashboard" } });
+            return View(new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Dashboard" });
         }
 
         public IActionResult Privacy()
@@ -37,15 +37,6 @@ namespace PaladinsAdmin.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public const string PlayerActionName = "Players";
-        
-        [HttpPost]
-        public async Task<JsonResult> Players(PlayerAdminSearchModel searchModel)
-        {
-            var model = await _playerModelFactory.MakeListModel(searchModel);
-            return Json(model);
         }
     }
 }
