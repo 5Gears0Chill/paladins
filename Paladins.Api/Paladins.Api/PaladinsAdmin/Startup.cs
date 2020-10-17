@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PaladinsAdmin.StartupExtensions;
+using Paladins.Common.Extensions.DependencyExtensions;
+using PaladinsAdmin.Extensions.StartupExtensions;
 
 namespace PaladinsAdmin
 {
@@ -33,7 +29,6 @@ namespace PaladinsAdmin
             services.AddControllersWithViews();
             services.RegisterAllDependencies();
             services.ConfigureAppSettingsJson(_configuration);
-            services.RegisterAppSettings();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

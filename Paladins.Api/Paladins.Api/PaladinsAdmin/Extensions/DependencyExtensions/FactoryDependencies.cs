@@ -2,7 +2,7 @@
 using PaladinsAdmin.Factories;
 using PaladinsAdmin.Factories.Interfaces;
 
-namespace PaladinsAdmin.StartupExtensions.Dependencies
+namespace PaladinsAdmin.Extensions.DependencyExtensions
 {
     public static class FactoryDependencies
     {

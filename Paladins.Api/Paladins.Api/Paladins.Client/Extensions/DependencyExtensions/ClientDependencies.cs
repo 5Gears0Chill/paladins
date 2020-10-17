@@ -3,7 +3,7 @@ using Paladins.Client.Clients;
 using Paladins.Common.Interfaces.Clients;
 using Paladins.Common.Interfaces.Services;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Client.Extensions.DependencyExtensions
 {
     public static class ClientDependencies
     {

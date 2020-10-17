@@ -16,7 +16,7 @@ using Paladins.Repository.Mappers.Queues;
 using Paladins.Repository.Mappers.Skins;
 using Paladins.Repository.Mappers.Tiers;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Repository.Extensions.DependencyExtensions
 {
     public static class MapperDependencies
     {

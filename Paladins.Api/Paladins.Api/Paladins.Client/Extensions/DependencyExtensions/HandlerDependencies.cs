@@ -2,7 +2,7 @@
 using Paladins.Client.Handlers;
 using Paladins.Common.Interfaces.Handlers;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Client.Extensions.DependencyExtensions
 {
     public static class HandlerDependencies
     {

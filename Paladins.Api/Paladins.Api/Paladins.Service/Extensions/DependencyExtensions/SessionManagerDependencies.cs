@@ -1,9 +1,7 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Common.Interfaces.SessionManager;
-using Paladins.Service;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Service.Extensions.DependencyExtensions
 {
     public static class SessionManagerDependencies
     {

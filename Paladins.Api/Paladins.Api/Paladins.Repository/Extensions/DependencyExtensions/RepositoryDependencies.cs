@@ -7,7 +7,7 @@ using Paladins.Repository.DbContexts;
 using Paladins.Repository.Repositories;
 using Paladins.Repository.Repositories.Admin;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Repository.Extensions.DependencyExtensions
 {
     public static class RepositoryDependencies
     {

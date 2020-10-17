@@ -1,19 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Paladins.Client.Resolvers;
 using Paladins.Common.ErrorHandling.Resolvers;
 using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Resolvers;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Common.Extensions.DependencyExtensions
 {
     public static class ResolverDependencies
     {
         
-        public static IServiceCollection RegisterResolvers(this IServiceCollection services)
+        public static IServiceCollection RegisterCommonLevelResolvers(this IServiceCollection services)
         {
             services
                 .RegisterControllerResolver()
-                .RegisterMiscResolvers();
+                .RegisterCommonResolvers();
             return services;
         } 
         
@@ -22,11 +21,10 @@ namespace Paladins.Api.StartupExtensions.Dependencies
             services.AddScoped<IControllerRequestResolver, ControllerRequestResolver>();
             return services;
         }
-        private static IServiceCollection RegisterMiscResolvers(this IServiceCollection services)
+        private static IServiceCollection RegisterCommonResolvers(this IServiceCollection services)
         {
             services.AddScoped<IStrategyResolver, StrategyResolver>();
             services.AddScoped<IErrorCodeResolver, ErrorCodeResolver>();
-            services.AddScoped<IRetMessageResolver, RetMessageResolver>();
             return services;
         }
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paladins.Common.Auditing;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Common.Extensions.DependencyExtensions
 {
     public static class AuditingDependencies
     {
