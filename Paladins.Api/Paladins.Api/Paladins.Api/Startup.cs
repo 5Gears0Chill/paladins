@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Paladins.Api.StartupExtensions;
+using Paladins.Common.Extensions.DependencyExtensions;
 
 namespace Paladins.Api
 {
@@ -32,9 +32,7 @@ namespace Paladins.Api
             });
 
             services.RegisterAllDependencies();
-            services.ConfigureAppSettingsJson(_configuration);
-            services.RegisterAppSettings();
-           
+            services.ConfigureAppSettingsJson(_configuration); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

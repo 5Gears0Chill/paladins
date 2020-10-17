@@ -4,7 +4,7 @@ using Paladins.Service.Services;
 using Paladins.Service.Services.Admin;
 using Paladins.Service.Services.Mobile;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Service.Extensions.DependencyExtensions
 {
     public static class ServiceDependencies
     {

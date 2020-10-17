@@ -9,7 +9,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Paladins.Api\Paladins.Api.csproj" />
+    <ProjectReference Include="..\Paladins.Client\Paladins.Client.csproj" />
+    <ProjectReference Include="..\Paladins.Repository\Paladins.Repository.csproj" />
+    <ProjectReference Include="..\Paladins.Service\Paladins.Service.csproj" />
     <ProjectReference Include="..\PaladinsAdmin.Framwork\PaladinsAdmin.Framework.csproj" />
   </ItemGroup>
 

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Paladins.Common.Configuration;
 using Paladins.Common.Interfaces.Configuration;
 
-namespace PaladinsAdmin.StartupExtensions
+namespace Paladins.Common.Extensions.DependencyExtensions
 {
     public static class ConfigurationExtensions
     {
@@ -13,9 +13,10 @@ namespace PaladinsAdmin.StartupExtensions
             services.AddSingleton((_) => Configuration.GetObjectFromConfiguration<LogLevel>("Logging:LogLevel"));
         }
 
-        public static void RegisterAppSettings(this IServiceCollection services)
+        public static IServiceCollection RegisterAppSettings(this IServiceCollection services)
         {
             services.AddScoped<IAppSettings, AppSettings>();
+            return services;
         }
     }
 }

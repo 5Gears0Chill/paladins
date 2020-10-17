@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Paladins.Client.Strategies;
 using Paladins.Common.ClientModels.Match;
 using Paladins.Common.ClientModels.Player;
 using Paladins.Common.Interfaces.Strategies;
@@ -7,16 +6,14 @@ using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Service.Strategies;
 
-namespace Paladins.Api.StartupExtensions.Dependencies
+namespace Paladins.Service.Extensions.DependencyExtensions
 {
     public static class StrategyDependencies
     {
-        public static IServiceCollection RegisterStrategies(this IServiceCollection services)
+        public static IServiceCollection RegisterServiceLevelStrategies(this IServiceCollection services)
         {
             services
-                .RegisterPlayerServiceStrategies()
-                .RegisterRetMessageStrategies();
-
+                .RegisterPlayerServiceStrategies();
             return services;
         }
         private static IServiceCollection RegisterPlayerServiceStrategies(this IServiceCollection services)
@@ -30,18 +27,6 @@ namespace Paladins.Api.StartupExtensions.Dependencies
                 PlayerFriendStrategy>();
             services.AddScoped<IPlayerStrategy<PlayerBaseRequest, PlayerChampionRanksClientModel, PlayerChampionStatsModel>,
                 PlayerChampionStatsStrategy>();
-            return services;
-        }
-
-        private static IServiceCollection RegisterRetMessageStrategies(this IServiceCollection services)
-        {
-            services.AddScoped<IRetMessageStrategy, ApprovedRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, DefaultRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, ActiveSessionsRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, DailyLimitRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, NoMatchDetailsRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, TimeStampRetMessageStrategy>();
-            services.AddScoped<IRetMessageStrategy, UnAuthorizedRetMessageStrategy>();
             return services;
         }
     }
