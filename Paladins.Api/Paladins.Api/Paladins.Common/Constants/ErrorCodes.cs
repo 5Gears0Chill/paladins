@@ -2,6 +2,7 @@
 {
     public class ErrorCodes
     {
+        public const int Default = 9999;
         public const int Privacy = 1000;
         public const int LimitExceeded = 1001;
         public const int Timestamp = 1002;

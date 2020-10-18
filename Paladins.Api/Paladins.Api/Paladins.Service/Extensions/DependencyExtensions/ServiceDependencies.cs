@@ -17,6 +17,7 @@ namespace Paladins.Service.Extensions.DependencyExtensions
             services.AddScoped<ISeedService, SeedService>();
             services.AddScoped<IPlayerMobileService, PlayerMobileService>();
             services.AddScoped<IPlayerAdminService, PlayerAdminService>();
+            services.AddScoped<ILogAdminService, LogAdminService>();
             return services;
         }
     }

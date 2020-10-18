@@ -66,6 +66,37 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-header">LOGS</li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-lock"></i>
+                    <p>
+                        All Logs
+                        <i class="right fa fa-angle-left"></i>
+                        <span class="right badge badge-warning">Protected</span>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Log")" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Log")">
+                            <i class="fa fa-ravelry nav-icon"></i>
+                            <p>Overview</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ChangeLog", "Log")" class="nav-link @Html.IsSelected(actions: "ChangeLog", controllers: "Log")">
+                            <i class="fa fa-database nav-icon"></i>
+                            <p>Change Log</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ExceptionLog", "Log")" class="nav-link @Html.IsSelected(actions: "ExceptionLog", controllers: "Log")">
+                            <i class="fa fa-exclamation-triangle nav-icon"></i>
+                            <p>Exception Log</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-header">MAINTENANCE</li>
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -89,7 +120,6 @@
                             <p>Recurring Jobs</p>
                         </a>
                     </li>
-
                 </ul>
             </li>
             <li class="nav-header">MISCELLANEOUS</li>

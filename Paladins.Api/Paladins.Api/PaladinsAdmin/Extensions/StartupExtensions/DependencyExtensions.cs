@@ -4,6 +4,7 @@ using Paladins.Common.Extensions.DependencyExtensions.Base;
 using Paladins.Repository.Extensions.DependencyExtensions.Base;
 using Paladins.Service.Extensions.DependencyExtensions.Base;
 using PaladinsAdmin.Extensions.DependencyExtensions.Base;
+using PaladinsAdmin.Framework.Extensions.DependencyInjection.Base;
 
 namespace PaladinsAdmin.Extensions.StartupExtensions
 {
@@ -16,6 +17,7 @@ namespace PaladinsAdmin.Extensions.StartupExtensions
                 .RegisterPaladinsRepository()
                 .RegisterPaladinsClient()
                 .RegisterPaladinsService()
+                .RegisterPaladinsAdminFramework()
                 .RegisterPaladinsAdmin();
         }
     }

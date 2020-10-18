@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Paladins.Common.ClientModels.Player;
+using Paladins.Common.ErrorHandling.Exceptions;
 using Paladins.Common.Interfaces.Resolvers;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Models;
