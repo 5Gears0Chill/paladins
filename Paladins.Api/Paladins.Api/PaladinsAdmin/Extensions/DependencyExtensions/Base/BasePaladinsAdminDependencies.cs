@@ -7,7 +7,6 @@ namespace PaladinsAdmin.Extensions.DependencyExtensions.Base
         public static IServiceCollection RegisterPaladinsAdmin(this IServiceCollection services)
         {
             services
-               .RegisterAdminHandlers()
                .RegisterFactories();
             return services;
         }

@@ -9,6 +9,8 @@ namespace PaladinsAdmin.Extensions.DependencyExtensions
         public static IServiceCollection RegisterFactories(this IServiceCollection services)
         {
             services.AddScoped<IPlayerModelFactory, PlayerModelFactory>();
+            services.AddScoped<IExceptionLogFactory, ExceptionLogFactory>();
+            services.AddScoped<IChangeLogFactory, ChangeLogFactory>();
             return services;
         }
     }

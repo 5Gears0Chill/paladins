@@ -10,7 +10,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+                <h3 class="card-title">Current Players</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm" data-card-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
             <div class="card-body">
                 @{ var gridModel = new DataTablesModel
@@ -63,13 +68,6 @@
                         Width = "200",
 
                     });
-
-                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListItemModel.TotalLeaves))
-                    {
-                        Title = "Total Leaves",
-                        Width = "200",
-                    });
-
 
                     gridModel.ColumnCollection.Add(new ColumnProperty(nameof(PlayerListItemModel.TotalLeaves))
                     {

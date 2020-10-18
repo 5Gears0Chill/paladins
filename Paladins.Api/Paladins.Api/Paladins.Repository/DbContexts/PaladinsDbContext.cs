@@ -49,6 +49,8 @@ namespace Paladins.Repository.DbContexts
         public virtual DbSet<Tier> Tier { get; set; }        
         public virtual DbSet<ActionEndPoint> ActionEndPoint { get; set; }        
         public virtual DbSet<ApiUsageFrequency> ApiUsageFrequency { get; set; }        
+        public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }        
+        public virtual DbSet<ChangeLog> ChangeLog { get; set; }        
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -86,6 +88,8 @@ namespace Paladins.Repository.DbContexts
             modelBuilder.ApplyConfiguration(new TierConfiguration());
             modelBuilder.ApplyConfiguration(new ApiUsageFrequencyConfiguration());
             modelBuilder.ApplyConfiguration(new ActionEndPointConfiguration());
+            modelBuilder.ApplyConfiguration(new ExceptionLogConfiguration());
+            modelBuilder.ApplyConfiguration(new ChangeLogConfiguration());
         }  
     }
 }

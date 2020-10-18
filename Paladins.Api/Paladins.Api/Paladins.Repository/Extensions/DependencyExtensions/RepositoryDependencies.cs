@@ -35,6 +35,8 @@ namespace Paladins.Repository.Extensions.DependencyExtensions
             services.AddScoped<IMatchHistoryRepository, MatchHistoryRepository>();
             services.AddScoped<IMatchDetailsRepository, MatchDetailsRepository>();
             services.AddScoped<IApiUsageFrequencyRepository, ApiUsageFrequencyRepository>();
+            services.AddScoped<IExceptionLogRepository, ExceptionLogRepository>();
+            services.AddScoped<IChangeLogRepository, ChangeLogRepository>();
             return services;
         }
 

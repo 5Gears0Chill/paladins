@@ -1,0 +1,19 @@
+SET ANSI_NULLS ON
+GO
+ 
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+CREATE TABLE [Admin].[ExceptionLog](
+	[Id] [INT] IDENTITY(1,1) NOT NULL,
+	[ErrorType] [VARCHAR](256) NOT NULL,
+	[ErrorMessage] [VARCHAR](256) NOT NULL,
+	[TraceStack] [VARCHAR](MAX) NOT NULL,
+	[ErrorCode] [int] NOT NULL,
+	[EventDate] [DATETIME] NOT NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ 
+ALTER TABLE [Admin].[ExceptionLog] ADD CONSTRAINT [DF_ExceptionLog_EventDate]  
+			DEFAULT (GETDATE()) FOR [EventDate]
+GO
