@@ -15,5 +15,15 @@ namespace Paladins.Common.Extensions.UtilityExtensions
         {
             return !obj.IsNull();
         }
+
+        public static bool IsDefualtDate(this DateTime dateTime)
+        {
+            return dateTime == DateTime.MinValue;
+        }
+
+        public static bool IsNotDefualtDate(this DateTime dateTime)
+        {
+            return !dateTime.IsDefualtDate();
+        }
     }
 }

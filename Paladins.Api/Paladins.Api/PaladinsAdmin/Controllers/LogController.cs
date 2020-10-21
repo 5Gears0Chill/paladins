@@ -10,12 +10,14 @@ namespace PaladinsAdmin.Controllers
     {
         private readonly IChangeLogFactory _changeLogFactory;
         private readonly IExceptionLogFactory _exceptionLogFactory;
+        private readonly IApiUsageLogFactory _apiUsageLogFactory;
 
         public const string ControllerName = "Log";
-        public LogController(IChangeLogFactory changeLogFactory, IExceptionLogFactory exceptionLogFactory)
+        public LogController(IChangeLogFactory changeLogFactory, IExceptionLogFactory exceptionLogFactory, IApiUsageLogFactory apiUsageLogFactory)
         {
             _changeLogFactory = changeLogFactory;
             _exceptionLogFactory = exceptionLogFactory;
+            _apiUsageLogFactory = apiUsageLogFactory;
         }
 
         public IActionResult Index()
@@ -25,12 +27,17 @@ namespace PaladinsAdmin.Controllers
 
         public IActionResult ExceptionLog()
         {
-            return View(new ExceptionLogAdminSearchModel { PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Exception log" } });
+            return View(new ExceptionLogAdminSearchModel { PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Exception Log" } });
         }
 
         public IActionResult ChangeLog()
         {
-            return View(new ChangeLogAdminSearchModel { PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Change log" } });
+            return View(new ChangeLogAdminSearchModel { PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Change Log" } });
+        }
+
+        public IActionResult ApiUsageLog()
+        {
+            return View(new ApiUsageLogAdminSearchModel { PageTitleViewModel = new PageTitleViewModel { Heading = "Admin Dashboard", ActiveBreadCrumb = "Api Usage Log" } });
         }
 
         public const string ExeptionLogActionName = "SearchExceptionLogs";
@@ -46,6 +53,14 @@ namespace PaladinsAdmin.Controllers
         public async Task<JsonResult> SearchChangeLogs(ChangeLogAdminSearchModel searchModel)
         {
             var model = await _changeLogFactory.MakeListModel(searchModel);
+            return Json(model);
+        }
+
+        public const string ApiUsageLogActionName = "SearchApiUsageLogs";
+        [HttpPost]
+        public async Task<JsonResult> SearchApiUsageLogs(ApiUsageLogAdminSearchModel searchModel)
+        {
+            var model = await _apiUsageLogFactory.MakeListModel(searchModel);
             return Json(model);
         }
     }

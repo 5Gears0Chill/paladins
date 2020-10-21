@@ -1,0 +1,76 @@
+﻿@model ChangeLogAdminSearchModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@await Html.PartialAsync("_PageTitle", Model.PageTitleViewModel)
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Database ChangeLog</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm" data-card-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                @{ var gridModel = new DataTablesModel
+                    {
+                        Name = "change-log-grid",
+                        UrlRead = new DataUrl(
+                                       LogController.ChangeLogActionName,
+                                       LogController.ControllerName,
+                                       null),
+                        Length = Model.PageSize,
+                        LengthMenu = Model.AvailablePageSizes
+                    };
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.DatabaseName))
+                    {
+                        Title = "Database Name",
+                        Width = "150",
+                        ClassName = ColumnClassDefaults.CenterAll,
+                    });
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.EventDate))
+                    {
+                        Title = "Event Date",
+                        Width = "200",
+                        Render = new RenderDate()
+                    });
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.EventType))
+                    {
+                        Title = "Event Type",
+                        Width = "200"
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.LoginName))
+                    {
+                        Title = "Login Name",
+                        Width = "200"
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.ObjectName))
+                    {
+                        Title = "Object Name",
+                        Width = "200"
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.ObjectType))
+                    {
+                        Title = "Object Type",
+                        Width = "200",
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ChangeLogListItemModel.SqlCommand))
+                    {
+                        Title = "SQL Command",
+                        Width = "200",
+                    });
+                }
+                @await Html.PartialAsync("_Table", gridModel)
+            </div>
+        </div>
+    </div>
+</div>

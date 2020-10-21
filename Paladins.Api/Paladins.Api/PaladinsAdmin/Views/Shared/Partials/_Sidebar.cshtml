@@ -1,7 +1,7 @@
 ﻿
 <!-- Brand Logo -->
 <a href="index3.html" class="brand-link">
-    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
     <span class="brand-text font-weight-light">PaladinsAdmin</span>
 </a>
@@ -93,6 +93,12 @@
                         <a href="@Url.Action("ExceptionLog", "Log")" class="nav-link @Html.IsSelected(actions: "ExceptionLog", controllers: "Log")">
                             <i class="fa fa-exclamation-triangle nav-icon"></i>
                             <p>Exception Log</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ApiUsageLog", "Log")" class="nav-link @Html.IsSelected(actions: "ApiUsageLog", controllers: "Log")">
+                            <i class="fa fa-signal nav-icon"></i>
+                            <p>Api Usage Log</p>
                         </a>
                     </li>
                 </ul>

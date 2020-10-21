@@ -11,6 +11,7 @@ namespace PaladinsAdmin.Framework.Extensions.DependencyInjection
             services.AddScoped<IPlayerAdminHandler, PlayerAdminHandler>();
             services.AddScoped<IExceptionLogAdminHandler, ExceptionLogAdminHandler>();
             services.AddScoped<IChangeLogAdminHandler, ChangeLogAdminHandler>();
+            services.AddScoped<IApiUsageLogAdminHandler, ApiUsageLogAdminHandler>();
             return services;
         }
     }

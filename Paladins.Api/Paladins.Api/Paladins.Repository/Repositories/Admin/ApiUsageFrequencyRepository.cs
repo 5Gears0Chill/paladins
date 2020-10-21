@@ -1,10 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Paladins.Common.Auditing;
 using Paladins.Common.DataAccess.Patterns;
+using Paladins.Common.Extensions.LinqExtensions;
+using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Repositories.Admin;
 using Paladins.Common.Models.Admin;
+using Paladins.Common.Requests.Admin;
 using Paladins.Repository.DbContexts;
 using Paladins.Repository.Entities.Admin;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +37,26 @@ namespace Paladins.Repository.Repositories.Admin
                     ActionName = x.ActionName, 
                     Id = x.Id 
                 }).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ApiUsageModel>> GetApiUsageAsync(ApiUsageLogAdminSearchModel model)
+        {
+            return await Context.ApiUsageFrequency
+                .Include(x => x.ActionEndPoint)
+                .ConditionalBetween(
+                () => model.FromSearchDate.IsNotDefualtDate(),
+                () => model.ToSearchDate.IsNotDefualtDate(),
+                x => x.CreatedOn
+                        .IsBetween(model.FromSearchDate, model.ToSearchDate))
+                .Select(x => new ApiUsageModel
+                {
+                    Id = x.Id,
+                    ActionName = x.ActionEndPoint.ActionName,
+                    Category = x.ActionEndPoint.Category,
+                    EventDate = x.CreatedOn
+                })
+                .OrderByDescending(x => x.Id)
+                .ToListAsync();
         }
     }
 }

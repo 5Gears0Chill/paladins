@@ -11,6 +11,7 @@ namespace PaladinsAdmin.Extensions.DependencyExtensions
             services.AddScoped<IPlayerModelFactory, PlayerModelFactory>();
             services.AddScoped<IExceptionLogFactory, ExceptionLogFactory>();
             services.AddScoped<IChangeLogFactory, ChangeLogFactory>();
+            services.AddScoped<IApiUsageLogFactory, ApiUsageLogFactory>();
             return services;
         }
     }

@@ -27,5 +27,11 @@ namespace Paladins.Service.Services.Admin
             return await _unitOfWorkManager.ExecuteSingleAsync<IExceptionLogRepository, IEnumerable<ExceptionLogModel>>
                 (u => u.GetExceptionLogAsync(model));
         }
+
+        public async Task<IEnumerable<ApiUsageModel>> FetchApiUsageLogAsync(ApiUsageLogAdminSearchModel model)
+        {
+            return await _unitOfWorkManager.ExecuteSingleAsync<IApiUsageFrequencyRepository, IEnumerable<ApiUsageModel>>
+                (u => u.GetApiUsageAsync(model));
+        }
     }
 }

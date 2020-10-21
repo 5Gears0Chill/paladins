@@ -1,0 +1,66 @@
+﻿@model ExceptionLogAdminSearchModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@await Html.PartialAsync("_PageTitle", Model.PageTitleViewModel)
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Exception Log</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm" data-card-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                @{ var gridModel = new DataTablesModel
+                    {
+                        Name = "exception-log-grid",
+                        UrlRead = new DataUrl(
+                                         LogController.ExeptionLogActionName,
+                                         LogController.ControllerName,
+                                         null),
+                        Length = Model.PageSize,
+                        LengthMenu = Model.AvailablePageSizes
+                    };
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ExceptionLogListItemModel.ErrorCode))
+                    {
+                        Title = "Error Code",
+                        Width = "150",
+                        ClassName = ColumnClassDefaults.CenterAll,
+                    });
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ExceptionLogListItemModel.ErrorMessage))
+                    {
+                        Title = "Error Message",
+                        Width = "250",
+
+                    });
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ExceptionLogListItemModel.ErrorType))
+                    {
+                        Title = "Error Type",
+                        Width = "200"
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ExceptionLogListItemModel.EventDate))
+                    {
+                        Title = "Event Date",
+                        Width = "200",
+                        Render = new RenderDate()
+                    });
+
+                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(ExceptionLogListItemModel.StackTrace))
+                    {
+                        Title = "Stack Trace",
+                        Width = "200"
+                    });
+                }
+                @await Html.PartialAsync("_Table", gridModel)
+            </div>
+        </div>
+    </div>
+</div>

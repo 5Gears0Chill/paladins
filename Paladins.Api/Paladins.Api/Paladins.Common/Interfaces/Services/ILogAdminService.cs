@@ -10,5 +10,6 @@ namespace Paladins.Common.Interfaces.Services
     {
         Task<IEnumerable<ChangeLogModel>> FetchChangeLogAsync(ChangeLogAdminSearchModel model);
         Task<IEnumerable<ExceptionLogModel>> FetchExceptionLogAsync(ExceptionLogAdminSearchModel model);
+        Task<IEnumerable<ApiUsageModel>> FetchApiUsageLogAsync(ApiUsageLogAdminSearchModel model);
     }
 }
