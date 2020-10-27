@@ -156,5 +156,26 @@ namespace Paladins.Repository.Repositories
 
             return new PagedResponse<PlayerChampionStatsModel>(response, request);
         }
+
+        public async Task<List<ChampionModel>>GetChampionsByIdsAsync(List<int> ids)
+        {
+            return await Context
+                .Champion
+                .Where(x => ids.Contains(x.PchampionId))
+                .Select(y => new ChampionModel 
+                    {
+                        ChampionIconUrl = new Uri(y.Url),
+                        Id = y.Id,
+                        Health = y.Health,
+                        LatestChampion = y.IsLatestChampion,
+                        Lore = y.Lore,
+                        Name = y.Name,
+                        PaladinsChampionId = y.PchampionId,
+                        Role = y.Role,
+                        Speed = y.Speed,
+                        Title = y.Title
+                    })
+                .ToListAsync();
+        }
     }
 }

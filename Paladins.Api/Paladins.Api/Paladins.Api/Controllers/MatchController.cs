@@ -19,12 +19,16 @@ namespace Paladins.Api.Controllers
     public class MatchController : ControllerBase
     {
         private readonly IMatchService _matchService;
+        private readonly IMatchMobileService _matchMobileService;
         private readonly IControllerRequestResolver _resolver;
 
-        public MatchController(IMatchService matchService, IControllerRequestResolver resolver)
+        public MatchController(IMatchService matchService, 
+            IControllerRequestResolver resolver, 
+            IMatchMobileService matchMobileService)
         {
             _matchService = matchService;
             _resolver = resolver;
+            _matchMobileService = matchMobileService;
         }
 
         [HttpPost]
@@ -54,6 +58,16 @@ namespace Paladins.Api.Controllers
         public async Task<IActionResult> GetMatchIdsByQueue([FromBody] MatchIdsByQueueRequest request)
         {
             var response = await _matchService.GetMatchIdsByQueueAsync(request);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(GetNonLinkedMatchDetails))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(Response<List<MatchDetailsModel>>), 200)]
+        public async Task<IActionResult> GetNonLinkedMatchDetails(MatchNonLinkedRequest request)
+        {
+           var response =  await _matchMobileService.GetMatchDetailsAsync(_resolver.CreateBaseMatchRequest(request));
             return Ok(response);
         }
     }

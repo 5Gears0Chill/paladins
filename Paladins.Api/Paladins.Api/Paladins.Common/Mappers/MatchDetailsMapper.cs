@@ -1,5 +1,6 @@
 ﻿using Paladins.Common.ClientModels.Match;
 using Paladins.Common.Constants;
+using Paladins.Common.Extensions.UtilityExtensions;
 using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Models;
 using System;
@@ -58,6 +59,10 @@ namespace Paladins.Common.Mappers
 
         private IEnumerable<MatchBansModel> MapMatchBans(MatchDetailsClientModel m)
         {
+            if (m.IsNotRankedMatch())
+            {
+                return null;
+            }
             return new List<MatchBansModel>
             {
                 new MatchBansModel

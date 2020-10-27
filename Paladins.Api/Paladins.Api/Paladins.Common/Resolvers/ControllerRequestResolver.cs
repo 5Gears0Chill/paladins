@@ -16,6 +16,15 @@ namespace Paladins.Common.Resolvers
             };
         }
 
+        public MatchBaseRequest CreateBaseMatchRequest(MatchNonLinkedRequest request)
+        {
+            return new MatchBaseRequest
+            {
+                MatchId = request.MatchId,
+                PlayerMatchHistoryId = 0,
+            };
+        }
+
         public PlayerBaseRequest CreateBasePlayerRequest(PlayerControllerRequest request)
         {
             return new PlayerBaseRequest
