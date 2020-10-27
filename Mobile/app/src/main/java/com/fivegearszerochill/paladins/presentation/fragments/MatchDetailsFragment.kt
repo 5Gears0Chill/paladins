@@ -48,6 +48,10 @@ import kotlinx.android.synthetic.main.fragment_match_details.*
             setOverallInformation(it.data?.find { match -> playerName == match.playerName })
             it.data?.let { matchDetails ->
                 run {
+                    val match = matchDetails.find { matchDetailsModel -> matchDetailsModel.playerName == playerName }
+                    matchDetails as ArrayList
+                    matchDetails.remove(match)
+                    match?.let { current -> matchDetails.add(0, current) }
                     adapter.addAll(matchDetails)
                     adapter.notifyDataSetChanged()
                 }

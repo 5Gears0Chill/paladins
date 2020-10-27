@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/battle_pass_white"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_player"
+            android:icon="@drawable/player"
+            android:title="Your Profile" />
+        <item
+            android:id="@+id/nav_custom_match"
+            android:icon="@drawable/ranked"
+            android:title="Look Up A Match" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_items"
+                android:icon="@drawable/items"
+                android:title="Items" />
+            <item
+                android:id="@+id/nav_maps"
+                android:icon="@drawable/maps"
+                android:title="Maps" />
+            <item
+                android:id="@+id/nav_champions"
+                android:icon="@drawable/champions"
+                android:title="Champions" />
+        </menu>
+    </item>
+</menu>

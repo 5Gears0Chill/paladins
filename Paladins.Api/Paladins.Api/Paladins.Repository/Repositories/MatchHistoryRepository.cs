@@ -88,7 +88,9 @@ namespace Paladins.Repository.Repositories
                     Kills = x.Kills,
                     PaladinsChampionId = x.PchampionId,
                     PaladinsMatchId = x.PmatchId
-                }).ToListAsync();
+                })
+                .OrderByDescending(x=>x.Id)
+                .ToListAsync();
 
             return new PagedResponse<MatchHistoryModel>(matchhistories, request);
         }

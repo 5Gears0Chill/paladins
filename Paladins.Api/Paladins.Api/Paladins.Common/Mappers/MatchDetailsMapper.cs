@@ -22,7 +22,7 @@ namespace Paladins.Common.Mappers
                 HasReplay = m.HasReplay,
                 HealingDone = Convert.ToInt32(m.Healing),
                 KillingSpree = Convert.ToInt32(m.KillingSpree),
-                Kills = Convert.ToInt32(m.Kills),
+                Kills = Convert.ToInt32(m.KillsPlayer),
                 KillsDouble = Convert.ToInt32(m.KillsDouble),
                 KillsPenta = Convert.ToInt32(m.KillsPenta),
                 KillsQuadra = Convert.ToInt32(m.KillsQuadra),
