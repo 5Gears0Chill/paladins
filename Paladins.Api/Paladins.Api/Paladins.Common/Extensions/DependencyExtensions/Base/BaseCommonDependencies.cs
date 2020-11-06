@@ -10,7 +10,8 @@ namespace Paladins.Common.Extensions.DependencyExtensions.Base
                 .RegisterAppSettings()
                 .RegisterAuditing()
                 .RegisterBuilders()
-                .RegisterCommonLevelResolvers();
+                .RegisterCommonLevelResolvers()
+                .RegisterValidation();
             return services;
         }
     }

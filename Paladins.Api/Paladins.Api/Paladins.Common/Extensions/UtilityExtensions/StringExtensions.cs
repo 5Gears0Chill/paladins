@@ -18,10 +18,18 @@ namespace Paladins.Common.Extensions.UtilityExtensions
 
         public static string ToCamelCase(this string str)
         {
-            if (String.IsNullOrEmpty(str) || Char.IsLower(str, 0))
+            if (string.IsNullOrEmpty(str) || char.IsLower(str, 0))
                 return str;
 
-            return Char.ToLowerInvariant(str[0]) + str.Substring(1);
+            return char.ToLowerInvariant(str[0]) + str.Substring(1);
+        }
+
+        public static List<string> AsStringList(this string str)
+        {
+            return new List<string>()
+            {
+                str
+            };
         }
     }
 }

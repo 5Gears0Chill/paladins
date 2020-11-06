@@ -25,6 +25,7 @@ namespace Paladins.Common.Extensions.DependencyExtensions
         {
             services.AddScoped<IStrategyResolver, StrategyResolver>();
             services.AddScoped<IErrorCodeResolver, ErrorCodeResolver>();
+            services.AddScoped<IAttributeValidationResolver, AttributeValidationResolver>();
             return services;
         }
     }

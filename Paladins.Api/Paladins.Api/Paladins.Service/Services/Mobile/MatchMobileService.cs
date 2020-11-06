@@ -5,6 +5,7 @@ using Paladins.Common.Interfaces.Mappers;
 using Paladins.Common.Interfaces.Repositories;
 using Paladins.Common.Interfaces.Services;
 using Paladins.Common.Interfaces.SessionManager;
+using Paladins.Common.Interfaces.Validation;
 using Paladins.Common.Models;
 using Paladins.Common.Requests;
 using Paladins.Common.Responses;
@@ -20,24 +21,32 @@ namespace Paladins.Service.Services.Mobile
         private readonly IMapper<MatchDetailsClientModel, MatchDetailsModel> _matchDetailsMapper;
         private readonly ISessionManager _sessionManager;
         private IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IResponseValidator _responseValidator;
 
         public MatchMobileService(IMapper<MatchDetailsClientModel, MatchDetailsModel> matchDetailsMapper,
             IMatchClient matchClient,
             ISessionManager sessionManager,
-            IUnitOfWorkManager unitOfWorkManager)
+            IUnitOfWorkManager unitOfWorkManager, IResponseValidator responseValidator)
         {
             _matchClient = matchClient;
             _matchDetailsMapper = matchDetailsMapper;
             _sessionManager = sessionManager;
             _unitOfWorkManager = unitOfWorkManager;
+            _responseValidator = responseValidator;
         }
 
         public async Task<Response<IEnumerable<MatchDetailsModel>>> GetMatchDetailsAsync(MatchBaseRequest request)
         {
+            var validationResponse = _responseValidator.Validate(request);
             var response = new Response<IEnumerable<MatchDetailsModel>>
             {
-                Data = await GetMatchStored(request)
+                ValidationResults = _responseValidator.Map(validationResponse)
             };
+            if (!response.ValidationResults.IsValid)
+            {
+                return response;
+            }
+            response.Data = await GetMatchStored(request);
             if (response.Data.IsNotNull())
             {
                 return response;
