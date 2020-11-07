@@ -109,4 +109,7 @@ dependencies {
     def vision_version = "20.1.2"
     implementation "com.google.android.gms:play-services-vision:$vision_version"
 
+    // -- Image cropper
+    //noinspection GradleDynamicVersion
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 }

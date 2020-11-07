@@ -111,20 +111,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
             )
         }
-        menu.findItem(R.id.action_search_image).setOnMenuItemClickListener {
-            val value: Any = if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CAMERA
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                initCameraModal()
-                true
-            } else {
-                askCameraPermission()
-            }
-
-            false
-        }
+//        menu.findItem(R.id.action_search_image).setOnMenuItemClickListener {
+//            val value: Any = if (ActivityCompat.checkSelfPermission(
+//                    this,
+//                    Manifest.permission.CAMERA
+//                ) == PackageManager.PERMISSION_GRANTED
+//            ) {
+//                initCameraModal()
+//                true
+//            } else {
+//                askCameraPermission()
+//            }
+//
+//            false
+//        }
         return true
     }
 
